@@ -1,1 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Nova IA</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at 50% 35%, #5c0000 0%, #210000 25%, #080000 60%, #000 100%);
+    color:white;
+    overflow:hidden;
+}
+
+/* Fondo */
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.light{
+    position:absolute;
+    width:350px;
+    height:350px;
+    border-radius:50%;
+    background:rgba(255,0,0,0.12);
+    filter:blur(80px);
+    animation:float 6s infinite alternate ease-in-out;
+}
+
+.light:nth-child(1){
+    top:-100px;
+    left:-100px;
+}
+
+.light:nth-child(2){
+    bottom:-120px;
+    right:-100px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    from{
+        transform:translate(0,0) scale(1);
+    }
+
+    to{
+        transform:translate(40px,30px) scale(1.2);
+    }
+}
+
+/* Contenido */
+
+.container{
+    position:relative;
+    z-index:2;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+}
+
+.card{
+    width:100%;
+    max-width:650px;
+    text-align:center;
+    padding:45px 30px;
+}
+
+/* Logo */
+
+.logo{
+    width:125px;
+    height:125px;
+    margin:0 auto 25px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        radial-gradient(circle,#ff3b3b 0%,#b40000 45%,#350000 100%);
+
+    border:3px solid rgba(255,70,70,0.7);
+
+    box-shadow:
+        0 0 25px rgba(255,0,0,0.8),
+        0 0 70px rgba(255,0,0,0.35);
+
+    animation:pulse 2.5s infinite ease-in-out;
+}
+
+.logo span{
+    font-size:60px;
+    filter:drop-shadow(0 0 12px red);
+}
+
+@keyframes pulse{
+
+    0%,100%{
+        transform:scale(1);
+        box-shadow:
+            0 0 25px rgba(255,0,0,0.8),
+            0 0 70px rgba(255,0,0,0.35);
+    }
+
+    50%{
+        transform:scale(1.06);
+        box-shadow:
+            0 0 40px rgba(255,0,0,1),
+            0 0 100px rgba(255,0,0,0.5);
+    }
+
+}
+
+/* Título */
+
+h1{
+    font-size:clamp(38px,8vw,65px);
+    margin-bottom:12px;
+
+    background:linear-gradient(
+        90deg,
+        #ffffff,
+        #ff4d4d,
+        #ffffff
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    background-size:200% auto;
+
+    animation:textMove 4s linear infinite;
+}
+
+@keyframes textMove{
+    to{
+        background-position:200% center;
+    }
+}
+
+.subtitle{
+    font-size:20px;
+    color:#ff4d4d;
+    margin-bottom:22px;
+    font-weight:bold;
+}
+
+.description{
+    color:#cfcfcf;
+    line-height:1.7;
+    font-size:16px;
+    max-width:570px;
+    margin:auto;
+}
+
+/* Tags */
+
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    margin:28px 0;
+}
+
+.tag{
+    padding:8px 15px;
+    border-radius:20px;
+
+    background:rgba(255,0,0,0.08);
+    border:1px solid rgba(255,50,50,0.35);
+
+    color:#ff7777;
+    font-size:13px;
+
+    box-shadow:0 0 12px rgba(255,0,0,0.1);
+}
+
+/* Botón */
+
+.start-button{
+    border:none;
+    outline:none;
+
+    padding:17px 32px;
+
+    border-radius:14px;
+
+    color:white;
+
+    font-size:17px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff1a1a,
+            #9d0000
+        );
+
+    box-shadow:
+        0 0 20px rgba(255,0,0,0.45);
+
+    transition:
+        transform .2s,
+        box-shadow .2s;
+}
+
+.start-button:hover{
+    transform:translateY(-3px) scale(1.03);
+
+    box-shadow:
+        0 0 35px rgba(255,0,0,0.75);
+}
+
+.start-button:active{
+    transform:scale(.97);
+}
+
+/* Footer */
+
+.creator{
+    margin-top:35px;
+    color:#777;
+    font-size:13px;
+}
+
+.creator span{
+    color:#ff3b3b;
+}
+
+/* Móvil */
+
+@media(max-width:500px){
+
+    .card{
+        padding:25px 10px;
+    }
+
+    .logo{
+        width:105px;
+        height:105px;
+    }
+
+    .logo span{
+        font-size:50px;
+    }
+
+    .subtitle{
+        font-size:17px;
+    }
+
+    .description{
+        font-size:14px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background">
+    <div class="light"></div>
+    <div class="light"></div>
+</div>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="logo">
+            <span>🤖</span>
+        </div>
+
+        <h1>Bienvenido a Nova IA</h1>
+
+        <div class="subtitle">
+            Tu asistente especializado en Delta
+        </div>
+
+        <p class="description">
+            Nova IA es una inteligencia artificial diseñada
+            para ayudarte con scripts Lua, Roblox y Delta
+            Executor. Describe lo que quieres crear y Nova
+            te ayudará a desarrollar tu idea, entender tu
+            código y encontrar errores.
+        </p>
+
+        <div class="tags">
+
+            <div class="tag">Lua</div>
+            <div class="tag">Roblox</div>
+            <div class="tag">Delta</div>
+            <div class="tag">Scripts</div>
+            <div class="tag">Debug</div>
+
+        </div>
+
+        <button
+            class="start-button"
+            onclick="startProgramming()"
+        >
+            🚀 Comenzar con Nova
+        </button>
+
+        <div class="creator">
+            Creada por: <span>Yander</span>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function startProgramming(){
+
+    window.location.href = "ia.html";
+
+}
+
+</script>
+
+</body>
+  </html>
