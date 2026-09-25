@@ -1,1 +1,1445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Nova IA</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 50% 0%,#450000,#090000 45%,#000);
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+    overflow:hidden;
+}
+
+/* =========================
+   APP
+========================= */
+
+.app{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    height:65px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:0 15px;
+
+    background:rgba(10,0,0,.88);
+    border-bottom:1px solid rgba(255,0,0,.25);
+    box-shadow:0 0 25px rgba(255,0,0,.12);
+
+    z-index:5;
+}
+
+.menu-btn,
+.delete-btn{
+    width:42px;
+    height:42px;
+
+    border:1px solid rgba(255,50,50,.35);
+    border-radius:12px;
+
+    background:#170000;
+    color:white;
+
+    font-size:20px;
+    cursor:pointer;
+}
+
+.menu-btn:hover,
+.delete-btn:hover{
+    background:#3a0000;
+}
+
+.header-logo{
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:linear-gradient(145deg,#ff2929,#680000);
+
+    box-shadow:0 0 18px rgba(255,0,0,.5);
+
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.06);
+    }
+
+}
+
+.header-title{
+    flex:1;
+}
+
+.header-title h1{
+    font-size:18px;
+}
+
+.header-title p{
+    font-size:11px;
+    color:#ff5555;
+    margin-top:3px;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat{
+    flex:1;
+    overflow-y:auto;
+    padding:25px 15px 110px;
+
+    scroll-behavior:smooth;
+}
+
+.messages{
+    max-width:850px;
+    margin:auto;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+    display:flex;
+    margin-bottom:20px;
+    gap:10px;
+}
+
+.message.user{
+    justify-content:flex-end;
+}
+
+.avatar{
+    flex:none;
+
+    width:35px;
+    height:35px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:linear-gradient(145deg,#ff2424,#650000);
+
+    box-shadow:0 0 12px rgba(255,0,0,.4);
+}
+
+.bubble{
+    max-width:min(80%,700px);
+
+    padding:13px 16px;
+
+    border-radius:16px;
+
+    line-height:1.55;
+
+    font-size:15px;
+
+    white-space:pre-wrap;
+
+    word-wrap:break-word;
+}
+
+.message.ai .bubble{
+
+    background:
+        rgba(30,0,0,.85);
+
+    border:
+        1px solid rgba(255,0,0,.2);
+
+    border-top-left-radius:4px;
+}
+
+.message.user .bubble{
+
+    background:
+        linear-gradient(135deg,#e60000,#850000);
+
+    border-top-right-radius:4px;
+
+    box-shadow:
+        0 5px 20px rgba(255,0,0,.15);
+}
+
+/* =========================
+   CODE
+========================= */
+
+.code-box{
+
+    margin-top:10px;
+
+    background:#050505;
+
+    border:
+        1px solid rgba(255,50,50,.25);
+
+    border-radius:10px;
+
+    overflow:hidden;
+}
+
+.code-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:8px 10px;
+
+    background:#120000;
+
+    color:#ff5555;
+
+    font-size:12px;
+}
+
+.copy-btn{
+
+    border:0;
+
+    background:#300000;
+
+    color:#ff7777;
+
+    padding:6px 9px;
+
+    border-radius:7px;
+
+    cursor:pointer;
+}
+
+.copy-btn:hover{
+    background:#500000;
+}
+
+pre{
+
+    padding:13px;
+
+    overflow-x:auto;
+
+    color:#f1f1f1;
+
+    font-family:
+        Consolas,
+        monospace;
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+/* =========================
+   THINKING
+========================= */
+
+.thinking{
+
+    display:flex;
+    gap:5px;
+
+    padding:13px 16px;
+
+    width:max-content;
+
+    background:#170000;
+
+    border:
+        1px solid rgba(255,0,0,.2);
+
+    border-radius:16px;
+}
+
+.dot{
+
+    width:7px;
+    height:7px;
+
+    background:#ff3333;
+
+    border-radius:50%;
+
+    animation:dot 1.2s infinite;
+}
+
+.dot:nth-child(2){
+    animation-delay:.2s;
+}
+
+.dot:nth-child(3){
+    animation-delay:.4s;
+}
+
+@keyframes dot{
+
+    0%,60%,100%{
+        transform:translateY(0);
+        opacity:.35;
+    }
+
+    30%{
+        transform:translateY(-5px);
+        opacity:1;
+    }
+
+}
+
+/* =========================
+   INPUT
+========================= */
+
+.input-area{
+
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+
+    padding:12px 15px 15px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,.98) 30%
+        );
+
+    z-index:4;
+}
+
+.input-box{
+
+    max-width:850px;
+    margin:auto;
+
+    display:flex;
+    align-items:flex-end;
+    gap:9px;
+
+    padding:8px;
+
+    background:#120000;
+
+    border:
+        1px solid rgba(255,0,0,.3);
+
+    border-radius:17px;
+
+    box-shadow:
+        0 0 25px rgba(255,0,0,.12);
+}
+
+textarea{
+
+    flex:1;
+
+    min-height:44px;
+    max-height:130px;
+
+    resize:none;
+
+    border:0;
+    outline:0;
+
+    background:transparent;
+
+    color:white;
+
+    padding:11px;
+
+    font-family:Arial,sans-serif;
+
+    font-size:15px;
+}
+
+textarea::placeholder{
+    color:#777;
+}
+
+.send-btn{
+
+    width:44px;
+    height:44px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ff2424,
+            #870000
+        );
+
+    color:white;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 0 15px rgba(255,0,0,.35);
+}
+
+.send-btn:hover{
+    transform:scale(1.05);
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+
+    position:fixed;
+
+    top:0;
+    bottom:0;
+    left:0;
+
+    width:285px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #170000,
+            #050000
+        );
+
+    border-right:
+        1px solid rgba(255,0,0,.3);
+
+    z-index:20;
+
+    transform:translateX(-100%);
+
+    transition:.25s;
+}
+
+.sidebar.open{
+    transform:translateX(0);
+}
+
+.sidebar-header{
+
+    height:65px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 14px;
+
+    border-bottom:
+        1px solid rgba(255,0,0,.2);
+}
+
+.sidebar-title{
+    flex:1;
+    font-weight:bold;
+}
+
+.close-sidebar{
+
+    border:0;
+    background:transparent;
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+}
+
+.new-chat{
+
+    margin:15px;
+
+    width:calc(100% - 30px);
+
+    padding:12px;
+
+    border:1px solid rgba(255,0,0,.35);
+
+    border-radius:10px;
+
+    background:#300000;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.new-chat:hover{
+    background:#500000;
+}
+
+.chat-list{
+
+    padding:0 12px;
+
+    max-height:calc(100vh - 170px);
+
+    overflow-y:auto;
+}
+
+.chat-item{
+
+    padding:12px;
+
+    border-radius:9px;
+
+    margin-bottom:6px;
+
+    color:#ccc;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.chat-item:hover{
+    background:#260000;
+}
+
+.sidebar-footer{
+
+    position:absolute;
+
+    bottom:15px;
+    left:15px;
+    right:15px;
+
+    text-align:center;
+
+    color:#666;
+
+    font-size:12px;
+}
+
+/* =========================
+   OVERLAY
+========================= */
+
+.overlay{
+
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.55);
+
+    z-index:19;
+
+    display:none;
+}
+
+.overlay.show{
+    display:block;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+    width:7px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#420000;
+    border-radius:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <button
+            class="menu-btn"
+            onclick="openSidebar()"
+        >
+            ☰
+        </button>
+
+        <div class="header-logo">
+            🤖
+        </div>
+
+        <div class="header-title">
+
+            <h1>Nova IA</h1>
+
+            <p>Especializada en Delta Executor</p>
+
+        </div>
+
+        <button
+            class="delete-btn"
+            onclick="clearCurrentChat()"
+        >
+            🗑️
+        </button>
+
+    </header>
+
+
+    <!-- CHAT -->
+
+    <main class="chat" id="chat">
+
+        <div
+            class="messages"
+            id="messages"
+        ></div>
+
+    </main>
+
+
+    <!-- INPUT -->
+
+    <div class="input-area">
+
+        <div class="input-box">
+
+            <textarea
+                id="messageInput"
+                placeholder="Escribe tu mensaje..."
+                rows="1"
+            ></textarea>
+
+            <button
+                class="send-btn"
+                onclick="sendMessage()"
+            >
+                ➤
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- SIDEBAR -->
+
+<div
+    class="overlay"
+    id="overlay"
+    onclick="closeSidebar()"
+></div>
+
+<aside
+    class="sidebar"
+    id="sidebar"
+>
+
+    <div class="sidebar-header">
+
+        <div class="sidebar-title">
+            💬 Mis chats
+        </div>
+
+        <button
+            class="close-sidebar"
+            onclick="closeSidebar()"
+        >
+            ×
+        </button>
+
+    </div>
+
+    <button
+        class="new-chat"
+        onclick="newChat()"
+    >
+        ＋ Nuevo chat
+    </button>
+
+    <div
+        class="chat-list"
+        id="chatList"
+    ></div>
+
+    <div class="sidebar-footer">
+        Creado por Yander
+    </div>
+
+</aside>
+
+
+<script>
+
+/* =========================
+   MEMORIA LOCAL
+========================= */
+
+const STORAGE_KEY = "novaConversations";
+
+const CURRENT_KEY = "novaCurrentChat";
+
+let conversations =
+    JSON.parse(
+        localStorage.getItem(STORAGE_KEY) || "[]"
+    );
+
+let currentChat =
+    localStorage.getItem(CURRENT_KEY);
+
+
+/* =========================
+   CREAR CHAT
+========================= */
+
+function createChat(){
+
+    const chat = {
+
+        id:
+            Date.now().toString(),
+
+        title:
+            "Nuevo chat",
+
+        messages:[
+            {
+                role:"ai",
+                content:
+                    "Hola 👋 Soy Nova IA. Estoy especializada en Delta Executor, Roblox y scripts Lua/Luau. ¿Qué quieres crear?"
+            }
+        ]
+
+    };
+
+    conversations.unshift(chat);
+
+    currentChat = chat.id;
+
+    save();
+
+}
+
+
+/* =========================
+   GUARDAR
+========================= */
+
+function save(){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(conversations)
+    );
+
+    localStorage.setItem(
+        CURRENT_KEY,
+        currentChat
+    );
+
+}
+
+
+/* =========================
+   CHAT ACTUAL
+========================= */
+
+function getCurrentChat(){
+
+    return conversations.find(
+        chat => chat.id === currentChat
+    );
+
+}
+
+
+/* =========================
+   INICIO
+========================= */
+
+function init(){
+
+    if(
+        !conversations.length
+    ){
+
+        createChat();
+
+    }
+
+    if(
+        !getCurrentChat()
+    ){
+
+        currentChat =
+            conversations[0].id;
+
+        save();
+
+    }
+
+    renderChat();
+
+    renderChatList();
+
+}
+
+
+/* =========================
+   RENDER CHAT
+========================= */
+
+function renderChat(){
+
+    const box =
+        document.getElementById(
+            "messages"
+        );
+
+    box.innerHTML = "";
+
+    const chat =
+        getCurrentChat();
+
+    if(!chat) return;
+
+    chat.messages.forEach(
+        message => {
+
+            addMessageToScreen(
+                message.role,
+                message.content
+            );
+
+        }
+    );
+
+    scrollBottom();
+
+}
+
+
+/* =========================
+   MOSTRAR MENSAJE
+========================= */
+
+function addMessageToScreen(
+    role,
+    content
+){
+
+    const box =
+        document.getElementById(
+            "messages"
+        );
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+    row.className =
+        "message " +
+        (role === "user"
+            ? "user"
+            : "ai");
+
+    if(role === "ai"){
+
+        const avatar =
+            document.createElement(
+                "div"
+            );
+
+        avatar.className =
+            "avatar";
+
+        avatar.textContent =
+            "🤖";
+
+        row.appendChild(
+            avatar
+        );
+
+    }
+
+    const bubble =
+        document.createElement(
+            "div"
+        );
+
+    bubble.className =
+        "bubble";
+
+    bubble.innerHTML =
+        formatMessage(content);
+
+    row.appendChild(
+        bubble
+    );
+
+    box.appendChild(
+        row
+    );
+
+}
+
+
+/* =========================
+   FORMATEAR MENSAJE
+========================= */
+
+function escapeHTML(text){
+
+    return text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
+}
+
+
+function formatMessage(text){
+
+    const parts =
+        text.split(/```/);
+
+    let result = "";
+
+    parts.forEach(
+        (part,index) => {
+
+            if(index % 2 === 1){
+
+                let code =
+                    part;
+
+                code =
+                    code.replace(
+                        /^[a-zA-Z0-9_-]+\n/,
+                        ""
+                    );
+
+                const id =
+                    "code_" +
+                    Math.random()
+                    .toString(36)
+                    .substring(2);
+
+                result += `
+
+                    <div class="code-box">
+
+                        <div class="code-header">
+
+                            <span>💻 Código</span>
+
+                            <button
+                                class="copy-btn"
+                                onclick="copyCode('${id}')"
+                            >
+                                📋 Copiar
+                            </button>
+
+                        </div>
+
+                        <pre id="${id}">${escapeHTML(code)}</pre>
+
+                    </div>
+
+                `;
+
+            }else{
+
+                result +=
+                    escapeHTML(part);
+
+            }
+
+        }
+    );
+
+    return result;
+}
+
+
+/* =========================
+   COPIAR CÓDIGO
+========================= */
+
+function copyCode(id){
+
+    const code =
+        document.getElementById(
+            id
+        ).innerText;
+
+    navigator.clipboard.writeText(
+        code
+    );
+
+}
+
+
+/* =========================
+   ENVIAR
+========================= */
+
+async function sendMessage(){
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+    const message =
+        input.value.trim();
+
+    if(!message) return;
+
+    const chat =
+        getCurrentChat();
+
+    if(!chat) return;
+
+    chat.messages.push({
+
+        role:"user",
+
+        content:message
+
+    });
+
+    if(
+        chat.title === "Nuevo chat"
+    ){
+
+        chat.title =
+            message.substring(
+                0,
+                30
+            );
+
+    }
+
+    input.value = "";
+
+    save();
+
+    renderChat();
+
+    showThinking();
+
+
+    try{
+
+        const response =
+            await askServer(
+                message
+            );
+
+        removeThinking();
+
+
+        const reply =
+            response.reply ||
+            response.error ||
+            "Nova no pudo responder.";
+
+        chat.messages.push({
+
+            role:"ai",
+
+            content:reply
+
+        });
+
+        save();
+
+        renderChat();
+
+        renderChatList();
+
+    }catch(error){
+
+        removeThinking();
+
+        chat.messages.push({
+
+            role:"ai",
+
+            content:
+                "❌ No pude conectarme con el servidor de Nova IA."
+
+        });
+
+        save();
+
+        renderChat();
+
+    }
+
+}
+
+
+/* =========================
+   SERVIDOR
+========================= */
+
+async function askServer(message){
+
+    const response =
+        await fetch(
+            "/chat",
+            {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:
+                    JSON.stringify({
+                        message:message
+                    })
+
+            }
+        );
+
+    if(!response.ok){
+
+        throw new Error(
+            "HTTP " +
+            response.status
+        );
+
+    }
+
+    return await response.json();
+
+}
+
+
+/* =========================
+   THINKING
+========================= */
+
+function showThinking(){
+
+    const box =
+        document.getElementById(
+            "messages"
+        );
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+    row.className =
+        "message ai";
+
+    row.id =
+        "thinkingMessage";
+
+    const avatar =
+        document.createElement(
+            "div"
+        );
+
+    avatar.className =
+        "avatar";
+
+    avatar.textContent =
+        "🤖";
+
+    const thinking =
+        document.createElement(
+            "div"
+        );
+
+    thinking.className =
+        "thinking";
+
+    thinking.innerHTML =
+        `
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        `;
+
+    row.appendChild(
+        avatar
+    );
+
+    row.appendChild(
+        thinking
+    );
+
+    box.appendChild(
+        row
+    );
+
+    scrollBottom();
+
+}
+
+
+function removeThinking(){
+
+    const element =
+        document.getElementById(
+            "thinkingMessage"
+        );
+
+    if(element){
+
+        element.remove();
+
+    }
+
+}
+
+
+/* =========================
+   SCROLL
+========================= */
+
+function scrollBottom(){
+
+    const chat =
+        document.getElementById(
+            "chat"
+        );
+
+    setTimeout(
+        () => {
+
+            chat.scrollTop =
+                chat.scrollHeight;
+
+        },
+        50
+    );
+
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+function openSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList
+        .add("open");
+
+    document
+        .getElementById("overlay")
+        .classList
+        .add("show");
+
+}
+
+
+function closeSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList
+        .remove("open");
+
+    document
+        .getElementById("overlay")
+        .classList
+        .remove("show");
+
+}
+
+
+/* =========================
+   LISTA DE CHATS
+========================= */
+
+function renderChatList(){
+
+    const list =
+        document.getElementById(
+            "chatList"
+        );
+
+    list.innerHTML = "";
+
+    conversations.forEach(
+        chat => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+            item.className =
+                "chat-item";
+
+            item.textContent =
+                chat.title;
+
+            item.onclick =
+                () => {
+
+                    currentChat =
+                        chat.id;
+
+                    save();
+
+                    renderChat();
+
+                    closeSidebar();
+
+                };
+
+            list.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================
+   NUEVO CHAT
+========================= */
+
+function newChat(){
+
+    createChat();
+
+    renderChat();
+
+    renderChatList();
+
+    closeSidebar();
+
+}
+
+
+/* =========================
+   BORRAR CHAT ACTUAL
+========================= */
+
+function clearCurrentChat(){
+
+    const chat =
+        getCurrentChat();
+
+    if(!chat) return;
+
+    chat.messages = [
+
+        {
+            role:"ai",
+
+            content:
+                "Chat limpiado 🗑️. ¿Qué quieres crear ahora?"
+        }
+
+    ];
+
+    save();
+
+    renderChat();
+
+}
+
+
+/* =========================
+   ENTER
+========================= */
+
+document
+    .getElementById(
+        "messageInput"
+    )
+    .addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key === "Enter" &&
+                !event.shiftKey
+            ){
+
+                event.preventDefault();
+
+                sendMessage();
+
+            }
+
+        }
+    );
+
+
+/* =========================
+   INICIAR
+========================= */
+
+init();
+
+</script>
+
+</body>
+  </html>
