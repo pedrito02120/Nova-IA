@@ -1,24 +1,24 @@
 {
-"name": "nova-ia",
-"version": "1.0.0",
-"description": "NOVA IA - Asistente de programación especializado en Roblox y Lua",
-"main": "server.js",
-"scripts": {
-"start": "node server.js"
-},
-"keywords": [
-"ai",
-"roblox",
-"lua",
-"groq"
-],
-"author": "Yander",
-"license": "ISC",
-"type": "commonjs",
-"dependencies": {
-"cors": "^2.8.6",
-"dotenv": "^18.0.3",
-"express": "^5.2.1",
-"groq-sdk": "^0.37.0"
-}
+  "name": "nova-ia",
+  "version": "1.0.0",
+  "description": "NOVA IA - Asistente de programación especializado en Roblox y Lua",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "ai",
+    "roblox",
+    "lua",
+    "openai"
+  ],
+  "author": "Yander",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.3",
+    "express": "^5.2.1",
+    "openai": "^6.0.0"
+  }
 }
