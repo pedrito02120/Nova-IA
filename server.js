@@ -9,7 +9,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const fs = require("fs");
 const path = require("path");
-const Groq = require("groq-sdk");
+const OpenAI = require("openai");
 
 dotenv.config();
 
@@ -29,18 +29,18 @@ app.use(
 );
 
 // ============================================================
-// GROQ
+// OPENAI
 // ============================================================
 
-if (!process.env.GROQ_API_KEY) {
-    console.warn("⚠️ GROQ_API_KEY no está configurada.");
+if (!process.env.OPENAI_API_KEY) {
+    console.warn("⚠️ OPENAI_API_KEY no está configurada.");
 }
 
-const groq = new Groq({
-    apiKey: process.env.GROQ_API_KEY || ""
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY || ""
 });
 
-const MODEL = "openai/gpt-oss-120b";
+const MODEL = "gpt-5.6";
 
 // ============================================================
 // RUTAS
@@ -1000,10 +1000,10 @@ function buildMessages(
 }
 
 // ============================================================
-// GROQ
+// OPENAI
 // ============================================================
 
-async function askGroq(messages) {
+async function askOpenAI(messages) {
     let lastError = null;
 
     for (
@@ -1013,43 +1013,57 @@ async function askGroq(messages) {
     ) {
         try {
             console.log(
-                `Enviando solicitud a Groq... intento ${attempt}/3`
+                `Enviando solicitud a OpenAI... intento ${attempt}/3`
             );
 
-            const completion =
-                await groq.chat.completions.create({
-                    model: MODEL,
-                    messages,
-                    temperature: 0.15,
-                    max_tokens: 16000,
-                    top_p: 0.9
-                });
+            const systemMessage =
+                messages.find(
+                    message =>
+                        message.role === "system"
+                );
+
+            const inputMessages =
+                messages.filter(
+                    message =>
+                        message.role !== "system"
+                );
 
             const response =
-                completion
-                    ?.choices?.[0]
-                    ?.message?.content;
+                await openai.responses.create({
+                    model: MODEL,
+
+                    instructions:
+                        systemMessage?.content || "",
+
+                    input:
+                        inputMessages,
+
+                    max_output_tokens: 16000
+                });
+
+            const answer =
+                response?.output_text;
 
             if (
-                typeof response !== "string" ||
-                !response.trim()
+                typeof answer !== "string" ||
+                !answer.trim()
             ) {
                 throw new Error(
-                    "Groq respondió sin contenido."
+                    "OpenAI respondió sin contenido."
                 );
             }
 
             console.log(
-                "Respuesta de Groq recibida correctamente."
+                "Respuesta de OpenAI recibida correctamente."
             );
 
-            return response;
+            return answer;
 
         } catch (error) {
             lastError = error;
 
             console.error(
-                `ERROR GROQ - INTENTO ${attempt}/3`
+                `ERROR OPENAI - INTENTO ${attempt}/3`
             );
 
             console.error(
@@ -1095,7 +1109,7 @@ async function askGroq(messages) {
 
     throw (
         lastError ||
-        new Error("Error desconocido de Groq.")
+        new Error("Error desconocido de OpenAI.")
     );
 }
 
@@ -1172,11 +1186,11 @@ async function processChat(req, res) {
             });
         }
 
-        if (!process.env.GROQ_API_KEY) {
+        if (!process.env.OPENAI_API_KEY) {
             return res.status(500).json({
                 success: false,
                 error:
-                    "GROQ_API_KEY no está configurada en Render."
+                    "OPENAI_API_KEY no está configurada en Render."
             });
         }
 
@@ -1223,7 +1237,7 @@ async function processChat(req, res) {
             );
 
         const answer =
-            await askGroq(messages);
+            await askOpenAI(messages);
 
         conversationMemory.push({
             timestamp:
@@ -1394,11 +1408,11 @@ app.get(
                 "Yander",
 
             provider:
-                "Groq",
+                "OpenAI",
 
-            groqConfigured:
+            openaiConfigured:
                 Boolean(
-                    process.env.GROQ_API_KEY
+                    process.env.OPENAI_API_KEY
                 ),
 
             memory:
@@ -1519,7 +1533,7 @@ app.listen(
         );
 
         console.log(
-            "Proveedor: Groq"
+            "Proveedor: OpenAI"
         );
 
         console.log(
