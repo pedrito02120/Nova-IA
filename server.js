@@ -23,11 +23,22 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json({ limit: "5mb" }));
 
+// ============================================================
+// GROQ
+// ============================================================
+
+if (!process.env.GROQ_API_KEY) {
+    console.warn(
+        "⚠️ GROQ_API_KEY no está configurada."
+    );
+}
+
 const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY
 });
 
-const MODEL = "llama-3.3-70b-versatile";
+// Modelo actual recomendado por Groq
+const MODEL = "openai/gpt-oss-120b";
 
 const publicPath = path.join(__dirname, "public");
 const memoryPath = path.join(__dirname, "conversaciones.json");
@@ -37,6 +48,7 @@ const memoryPath = path.join(__dirname, "conversaciones.json");
 // ============================================================
 
 function loadMemory() {
+
     try {
 
         if (!fs.existsSync(memoryPath)) {
@@ -50,18 +62,16 @@ function loadMemory() {
             return [];
         }
 
-        const data =
-            fs.readFileSync(
-                memoryPath,
-                "utf8"
-            );
+        const data = fs.readFileSync(
+            memoryPath,
+            "utf8"
+        );
 
         if (!data.trim()) {
             return [];
         }
 
-        const parsed =
-            JSON.parse(data);
+        const parsed = JSON.parse(data);
 
         return Array.isArray(parsed)
             ? parsed
@@ -101,8 +111,7 @@ function saveMemory(memory) {
     }
 }
 
-let conversationMemory =
-    loadMemory();
+let conversationMemory = loadMemory();
 
 // ============================================================
 // DETECCIÓN DE DISPOSITIVO
@@ -134,57 +143,42 @@ function detectDevice(req) {
         type = "MOBILE";
     }
 
-    let operatingSystem =
-        "UNKNOWN";
+    let operatingSystem = "UNKNOWN";
 
     if (/android/i.test(userAgent)) {
 
-        operatingSystem =
-            "ANDROID";
+        operatingSystem = "ANDROID";
 
-    } else if (
-        /iphone|ipad|ipod/i.test(userAgent)
-    ) {
+    } else if (/iphone|ipad|ipod/i.test(userAgent)) {
 
-        operatingSystem =
-            "IOS";
+        operatingSystem = "IOS";
 
     } else if (/windows/i.test(userAgent)) {
 
-        operatingSystem =
-            "WINDOWS";
+        operatingSystem = "WINDOWS";
 
-    } else if (
-        /macintosh|mac os/i.test(userAgent)
-    ) {
+    } else if (/macintosh|mac os/i.test(userAgent)) {
 
-        operatingSystem =
-            "MACOS";
+        operatingSystem = "MACOS";
 
     } else if (/linux/i.test(userAgent)) {
 
-        operatingSystem =
-            "LINUX";
+        operatingSystem = "LINUX";
     }
 
-    let inputMethod =
-        "MOUSE_KEYBOARD";
+    let inputMethod = "MOUSE_KEYBOARD";
 
     if (
         type === "MOBILE" ||
         type === "TABLET"
     ) {
 
-        inputMethod =
-            "TOUCH";
+        inputMethod = "TOUCH";
     }
 
     return {
-
         type,
-
         operatingSystem,
-
         inputMethod
     };
 }
@@ -209,6 +203,7 @@ Tu especialidad principal es:
 - Depuración
 - Optimización
 - Diseño de interfaces profesionales
+- Scripts compatibles con entornos de ejecución de Roblox cuando sean solicitados
 
 ============================================================
 REGLA PRINCIPAL
@@ -245,10 +240,7 @@ NO agregues funciones irrelevantes.
 DISPOSITIVO DEL USUARIO
 ============================================================
 
-El backend proporciona información sobre el dispositivo desde el que
-el usuario está utilizando NOVA IA.
-
-La información puede ser:
+El backend proporciona:
 
 DEVICE_TYPE:
 - MOBILE
@@ -267,68 +259,42 @@ INPUT_METHOD:
 - TOUCH
 - MOUSE_KEYBOARD
 
-USA ESTA INFORMACIÓN para adaptar el código que generes.
+Usa esta información para adaptar la interfaz y los controles.
 
-IMPORTANTE:
-
-El dispositivo detectado corresponde al dispositivo desde el que
-el usuario está hablando con NOVA IA.
+No cambies innecesariamente la función solicitada.
 
 ============================================================
-SI EL USUARIO ESTÁ EN MÓVIL
+MÓVIL
 ============================================================
 
 Si DEVICE_TYPE = MOBILE:
 
-Genera interfaces y controles pensados para pantalla táctil.
-
 Prioriza:
 
 - Botones grandes.
-- Controles fáciles de tocar.
+- Controles táctiles.
 - Espaciado suficiente.
-- Menos dependencia del teclado.
-- Menos dependencia del mouse.
-- Botones táctiles.
-- Ventanas que entren correctamente en la pantalla.
-- Interfaz desplazable cuando sea necesario.
-- Controles numéricos fáciles de editar.
-- Elementos que no se superpongan.
-
-Si una función normalmente depende de una tecla:
-
-cuando sea posible, crea también un botón táctil equivalente.
-
-Ejemplo:
-
-En lugar de depender solamente de:
-
-RightShift
-
-puede existir un botón táctil:
-
-OPEN / CLOSE
+- Interfaces que entren correctamente en pantalla.
+- Scroll cuando sea necesario.
+- Campos numéricos fáciles de editar.
+- Botones para funciones que normalmente dependen de teclas.
 
 No asumas que el usuario tiene teclado.
 
 ============================================================
-SI EL USUARIO ESTÁ EN TABLET
+TABLET
 ============================================================
 
 Si DEVICE_TYPE = TABLET:
 
-Utiliza una interfaz híbrida.
-
-Debe funcionar bien mediante:
+Crea una interfaz híbrida compatible con:
 
 - Touch
-- Mouse si existe
-- Teclado si existe
-
-Los controles deben tener un tamaño intermedio.
+- Mouse
+- Teclado cuando exista
 
 ============================================================
-SI EL USUARIO ESTÁ EN PC
+PC
 ============================================================
 
 Si DEVICE_TYPE = PC:
@@ -338,45 +304,10 @@ Puedes aprovechar:
 - Mouse.
 - Teclado.
 - Hotkeys.
+- Keybinds.
 - Ventanas más amplias.
-- Controles precisos.
-- Atajos configurables.
 
-Cuando tenga sentido puedes incluir:
-
-- Keybinds.
-- Mouse interactions.
-- Teclas para activar/desactivar funciones.
-
-Pero no agregues controles de teclado innecesarios.
-
-============================================================
-IMPORTANTE SOBRE EL DISPOSITIVO
-============================================================
-
-NO debes cambiar la función solicitada.
-
-Solo adapta:
-
-- Interfaz.
-- Controles.
-- Entrada.
-- Tamaño.
-- Distribución.
-- Keybinds.
-- Interacciones.
-
-Ejemplo:
-
-Si el usuario pide un Aimbot desde móvil:
-
-No elimines el Aimbot.
-
-Adapta la activación y controles para touch.
-
-Si el usuario pide un Aimbot desde PC:
-
-Puedes utilizar mouse/teclado.
+No agregues controles innecesarios.
 
 ============================================================
 CÓDIGO COMPLETO
@@ -388,15 +319,7 @@ SIEMPRE devuelve el código COMPLETO.
 
 No entregues solamente fragmentos.
 
-No digas:
-
-"cambia esta línea".
-
-No digas:
-
-"añade esto debajo".
-
-Si el usuario proporciona código y pide corregirlo:
+Si proporciona código y pide corregirlo:
 
 1. Analiza.
 2. Encuentra errores.
@@ -432,7 +355,7 @@ Antes de entregar código revisa:
 - Selectores.
 - Valores que nunca se utilizan.
 
-La prioridad es:
+Prioridad:
 
 FUNCIONALIDAD
 >
@@ -448,13 +371,11 @@ INTERFACES
 
 Cuando el proyecto necesite controles, crea una GUI profesional.
 
-NO uses siempre la misma plantilla.
-
 La GUI debe adaptarse a la función.
 
 Puede utilizar:
 
-- Ventana.
+- Window.
 - Barra superior.
 - Secciones.
 - Toggles.
@@ -466,7 +387,7 @@ Puede utilizar:
 - Restaurar.
 - Indicadores.
 - Animaciones.
-- RGB si el usuario lo solicita.
+- RGB cuando sea solicitado.
 
 Cada control debe hacer algo REAL.
 
@@ -476,21 +397,15 @@ TOGGLES
 
 Un toggle no puede ser solamente visual.
 
-Ejemplo incorrecto:
+Si existe:
 
-Wall Check:
-OFF -> ON
+Config.WallCheck
 
-pero el código nunca utiliza Config.WallCheck.
+el código debe utilizar realmente:
 
-Eso está MAL.
+Config.WallCheck
 
-Ejemplo correcto:
-
-El toggle modifica Config.WallCheck
-y la lógica utiliza Config.WallCheck.
-
-Esto aplica a TODAS las opciones.
+Esto aplica a todas las opciones.
 
 ============================================================
 VALORES CONFIGURABLES
@@ -515,24 +430,16 @@ Distance:
 -> número o slider.
 
 ============================================================
-ROBLOX: CÁMARA
+ROBLOX
 ============================================================
 
-No dependas permanentemente de:
-
-local Camera = workspace.CurrentCamera
-
-La cámara puede cambiar.
-
-Actualiza o recupera:
+No asumas permanentemente que:
 
 workspace.CurrentCamera
 
-cuando sea necesario.
+es inmutable.
 
-============================================================
-ROBLOX: JUGADORES
-============================================================
+Actualiza la cámara cuando sea necesario.
 
 Maneja correctamente:
 
@@ -556,8 +463,7 @@ comprueba que existan.
 DRAWING API
 ============================================================
 
-No hagas que Drawing API sea obligatoria si existe una alternativa
-con objetos normales de Roblox.
+No hagas Drawing API obligatoria si existe una alternativa normal.
 
 Puedes utilizar:
 
@@ -569,11 +475,7 @@ UIStroke
 BillboardGui
 Highlight
 
-Si utilizas Drawing:
-
-considera que puede no existir.
-
-Si no existe:
+Si Drawing no existe:
 
 usa una alternativa cuando sea posible.
 
@@ -598,17 +500,13 @@ Debe manejar:
 - Colores.
 - Limpieza.
 
-No crees objetos nuevos para el mismo jugador en cada frame.
-
 Evita duplicados.
 
 ============================================================
 AIMBOT
 ============================================================
 
-Si se solicita Aimbot:
-
-si se incluyen:
+Si se solicita Aimbot y se incluyen:
 
 - FOV
 - Smoothness
@@ -629,16 +527,19 @@ TeamCheck debe excluir correctamente.
 
 AliveCheck debe comprobar Humanoid y Health.
 
-WallCheck, si se incluye, debe realizar una comprobación real
-de visibilidad mediante Raycast.
+WallCheck debe realizar una comprobación real mediante Raycast
+cuando sea apropiado.
 
 ============================================================
 SCROLLINGFRAME
 ============================================================
 
-No utilices CanvasSize fijo si la cantidad de controles puede variar.
+No utilices CanvasSize fijo cuando la cantidad de controles pueda variar.
 
-Utiliza UIListLayout/UIGridLayout.
+Utiliza:
+
+UIListLayout
+UIGridLayout
 
 Actualiza CanvasSize mediante AbsoluteContentSize.
 
@@ -651,8 +552,6 @@ Si el usuario pide RGB:
 utiliza RGB real mediante un sistema suave.
 
 Color3.fromHSV puede utilizarse.
-
-No hagas cambios bruscos.
 
 Si el usuario no pide RGB:
 
@@ -668,7 +567,7 @@ La GUI debe cambiar dependiendo de:
 2. Qué funciones necesita.
 3. Qué dispositivo está utilizando.
 
-Por ejemplo:
+Ejemplos:
 
 AIMBOT + MOBILE
 =
@@ -684,7 +583,7 @@ botones grandes + scroll.
 
 ESP + PC
 =
-ventana más amplia + controles de mouse/teclado.
+ventana más amplia + controles.
 
 SPEED + MOBILE
 =
@@ -698,9 +597,9 @@ campo numérico + slider + keybind opcional.
 NO FUERCES LA GUI
 ============================================================
 
-Si el usuario pide algo que NO necesita interfaz:
+Si el usuario pide algo que no necesita interfaz:
 
-no agregues una GUI enorme solamente porque Nova puede hacerlo.
+no agregues una GUI enorme solamente porque puedes hacerlo.
 
 La interfaz debe aportar utilidad.
 
@@ -724,6 +623,8 @@ No generes:
 - Malware.
 - Captura de contraseñas.
 - Sistemas para obtener información privada.
+
+No reveles variables de entorno ni secretos del servidor.
 
 ============================================================
 OBJETIVO
@@ -805,11 +706,9 @@ function buildMessages(
 
                 messages.push({
 
-                    role:
-                        item.role,
+                    role: item.role,
 
-                    content:
-                        item.content
+                    content: item.content
                 });
             }
         }
@@ -819,8 +718,7 @@ function buildMessages(
 
         role: "user",
 
-        content:
-            userMessage
+        content: userMessage
     });
 
     return messages;
@@ -842,12 +740,16 @@ async function askGroq(messages) {
 
         try {
 
+            console.log(
+                `Enviando solicitud a Groq... intento ${attempt}/3`
+            );
+
             const completion =
                 await groq.chat.completions.create({
 
                     model: MODEL,
 
-                    messages,
+                    messages: messages,
 
                     temperature: 0.25,
 
@@ -859,15 +761,18 @@ async function askGroq(messages) {
             const response =
                 completion
                     ?.choices?.[0]
-                    ?.message
-                    ?.content;
+                    ?.message?.content;
 
             if (!response) {
 
                 throw new Error(
-                    "Groq no devolvió contenido."
+                    "Groq respondió pero no devolvió contenido."
                 );
             }
+
+            console.log(
+                "Respuesta de Groq recibida correctamente."
+            );
 
             return response;
 
@@ -876,17 +781,47 @@ async function askGroq(messages) {
             lastError = error;
 
             console.error(
-                `Error Groq (${attempt}/3):`,
-                error?.message || error
+                "================================================"
             );
 
-            const status =
-                error?.status;
+            console.error(
+                `ERROR GROQ (${attempt}/3)`
+            );
+
+            console.error(
+                "Mensaje:",
+                error?.message
+            );
+
+            console.error(
+                "Status:",
+                error?.status
+            );
+
+            console.error(
+                "Code:",
+                error?.code
+            );
+
+            console.error(
+                "Type:",
+                error?.type
+            );
+
+            console.error(
+                "================================================"
+            );
+
+            const status = error?.status;
 
             if (
                 status !== 429 &&
-                status !== 503
+                status !== 500 &&
+                status !== 502 &&
+                status !== 503 &&
+                status !== 504
             ) {
+
                 break;
             }
 
@@ -907,210 +842,185 @@ async function askGroq(messages) {
 }
 
 // ============================================================
+// FORMATEAR ERROR PARA EL CLIENTE
+// ============================================================
+
+function getSafeErrorMessage(error) {
+
+    const status =
+        error?.status
+        ? `HTTP ${error.status}`
+        : "";
+
+    const code =
+        error?.code
+        ? `Código: ${error.code}`
+        : "";
+
+    let message =
+        error?.message ||
+        "Error desconocido.";
+
+    if (status && code) {
+
+        return `${status} | ${code} | ${message}`;
+    }
+
+    if (status) {
+
+        return `${status} | ${message}`;
+    }
+
+    if (code) {
+
+        return `${code} | ${message}`;
+    }
+
+    return message;
+}
+
+// ============================================================
+// PROCESAR CHAT
+// ============================================================
+
+async function processChat(req, res) {
+
+    try {
+
+        const {
+            message,
+            history
+        } = req.body || {};
+
+        if (
+            typeof message !== "string" ||
+            !message.trim()
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                error:
+                    "El mensaje está vacío."
+            });
+        }
+
+        if (!process.env.GROQ_API_KEY) {
+
+            return res.status(500).json({
+
+                success: false,
+
+                error:
+                    "GROQ_API_KEY no está configurada en Render."
+            });
+        }
+
+        const device =
+            detectDevice(req);
+
+        console.log(
+            `Dispositivo: ${device.type} | ` +
+            `${device.operatingSystem} | ` +
+            `${device.inputMethod}`
+        );
+
+        const cleanMessage =
+            message.trim();
+
+        const messages =
+            buildMessages(
+                cleanMessage,
+                history,
+                device
+            );
+
+        const answer =
+            await askGroq(messages);
+
+        conversationMemory.push({
+
+            timestamp:
+                new Date().toISOString(),
+
+            device:
+                device.type,
+
+            operatingSystem:
+                device.operatingSystem,
+
+            user:
+                cleanMessage,
+
+            assistant:
+                answer
+        });
+
+        if (
+            conversationMemory.length > 100
+        ) {
+
+            conversationMemory =
+                conversationMemory.slice(-100);
+        }
+
+        saveMemory(
+            conversationMemory
+        );
+
+        return res.json({
+
+            success: true,
+
+            response:
+                answer,
+
+            device:
+                device
+        });
+
+    } catch (error) {
+
+        const safeError =
+            getSafeErrorMessage(error);
+
+        console.error(
+            "ERROR PROCESANDO CHAT:",
+            safeError
+        );
+
+        return res.status(
+            error?.status >= 400 &&
+            error?.status < 600
+                ? error.status
+                : 500
+        ).json({
+
+            success: false,
+
+            error:
+                `Error procesando el mensaje: ${safeError}`
+        });
+    }
+}
+
+// ============================================================
 // API CHAT
 // ============================================================
 
 app.post(
     "/api/chat",
-    async (req, res) => {
-
-        try {
-
-            const {
-                message,
-                history
-            } = req.body;
-
-            if (
-                typeof message !== "string" ||
-                !message.trim()
-            ) {
-
-                return res.status(400).json({
-
-                    success: false,
-
-                    error:
-                        "El mensaje está vacío."
-                });
-            }
-
-            if (
-                !process.env.GROQ_API_KEY
-            ) {
-
-                return res.status(500).json({
-
-                    success: false,
-
-                    error:
-                        "GROQ_API_KEY no está configurada."
-                });
-            }
-
-            const device =
-                detectDevice(req);
-
-            console.log(
-                `Dispositivo detectado: ${device.type} | ` +
-                `${device.operatingSystem} | ` +
-                `${device.inputMethod}`
-            );
-
-            const cleanMessage =
-                message.trim();
-
-            const messages =
-                buildMessages(
-                    cleanMessage,
-                    history,
-                    device
-                );
-
-            const answer =
-                await askGroq(messages);
-
-            conversationMemory.push({
-
-                timestamp:
-                    new Date().toISOString(),
-
-                device:
-                    device.type,
-
-                operatingSystem:
-                    device.operatingSystem,
-
-                user:
-                    cleanMessage,
-
-                assistant:
-                    answer
-            });
-
-            if (
-                conversationMemory.length > 100
-            ) {
-
-                conversationMemory =
-                    conversationMemory.slice(-100);
-            }
-
-            saveMemory(
-                conversationMemory
-            );
-
-            return res.json({
-
-                success: true,
-
-                response:
-                    answer,
-
-                device:
-                    device
-            });
-
-        } catch (error) {
-
-            console.error(
-                "Error /api/chat:",
-                error?.message || error
-            );
-
-            return res.status(500).json({
-
-                success: false,
-
-                error:
-                    "Ocurrió un error procesando la solicitud."
-            });
-        }
-    }
+    processChat
 );
 
 // ============================================================
-// RUTA /CHAT
+// CHAT
 // ============================================================
 
 app.post(
     "/chat",
-    async (req, res) => {
-
-        try {
-
-            const {
-                message,
-                history
-            } = req.body;
-
-            if (
-                typeof message !== "string" ||
-                !message.trim()
-            ) {
-
-                return res.status(400).json({
-
-                    success: false,
-
-                    error:
-                        "El mensaje está vacío."
-                });
-            }
-
-            if (
-                !process.env.GROQ_API_KEY
-            ) {
-
-                return res.status(500).json({
-
-                    success: false,
-
-                    error:
-                        "GROQ_API_KEY no está configurada."
-                });
-            }
-
-            const device =
-                detectDevice(req);
-
-            const messages =
-                buildMessages(
-                    message.trim(),
-                    history,
-                    device
-                );
-
-            const answer =
-                await askGroq(messages);
-
-            return res.json({
-
-                success: true,
-
-                response:
-                    answer,
-
-                device:
-                    device
-            });
-
-        } catch (error) {
-
-            console.error(
-                "Error /chat:",
-                error?.message || error
-            );
-
-            return res.status(500).json({
-
-                success: false,
-
-                error:
-                    "Error procesando el mensaje."
-            });
-        }
-    }
+    processChat
 );
 
 // ============================================================
@@ -1157,6 +1067,11 @@ app.delete(
 
         } catch (error) {
 
+            console.error(
+                "Error eliminando memoria:",
+                error
+            );
+
             return res.status(500).json({
 
                 success: false,
@@ -1169,7 +1084,7 @@ app.delete(
 );
 
 // ============================================================
-// DETECTAR DISPOSITIVO
+// DISPOSITIVO
 // ============================================================
 
 app.get(
@@ -1189,6 +1104,44 @@ app.get(
 );
 
 // ============================================================
+// ESTADO
+// ============================================================
+
+app.get(
+    "/status",
+    (req, res) => {
+
+        const device =
+            detectDevice(req);
+
+        return res.json({
+
+            success: true,
+
+            status:
+                "NOVA IA ONLINE",
+
+            model:
+                MODEL,
+
+            creator:
+                "Yander",
+
+            groqConfigured:
+                Boolean(
+                    process.env.GROQ_API_KEY
+                ),
+
+            memory:
+                conversationMemory.length,
+
+            device:
+                device
+        });
+    }
+);
+
+// ============================================================
 // ARCHIVOS WEB
 // ============================================================
 
@@ -1202,15 +1155,14 @@ if (
         )
     );
 
-    // Express 5:
-    // usar /*splat en lugar de "*"
     app.get(
         "/*splat",
         (req, res, next) => {
 
             if (
                 req.path.startsWith("/api/") ||
-                req.path === "/chat"
+                req.path === "/chat" ||
+                req.path === "/status"
             ) {
 
                 return next();
@@ -1240,42 +1192,9 @@ if (
 } else {
 
     console.warn(
-        "La carpeta public no existe."
+        "⚠️ La carpeta public no existe."
     );
 }
-
-// ============================================================
-// ESTADO
-// ============================================================
-
-app.get(
-    "/status",
-    (req, res) => {
-
-        const device =
-            detectDevice(req);
-
-        return res.json({
-
-            success: true,
-
-            status:
-                "NOVA IA ONLINE",
-
-            model:
-                MODEL,
-
-            creator:
-                "Yander",
-
-            memory:
-                conversationMemory.length,
-
-            device:
-                device
-        });
-    }
-);
 
 // ============================================================
 // ERRORES
@@ -1330,7 +1249,7 @@ app.listen(
         );
 
         console.log(
-            "Estado: NEXUS IA ONLINE"
+            "Estado: NOVA IA ONLINE"
         );
 
         console.log(
