@@ -1,11 +1,6 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Nova IA</title><style>
-
-/* ===============================
-   BASE
-================================ */
+<!DOCTYPE html><html lang="es">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Nova IA</title><style>
 
 *{
     margin:0;
@@ -30,30 +25,20 @@ body{
         );
 
     color:white;
-
     font-family:Arial,sans-serif;
-
     overflow:hidden;
-
 }
 
 
-/* ===============================
-   FONDO ANIMADO
-================================ */
+/* FONDO */
 
 .background-lights{
 
     position:fixed;
-
     inset:0;
-
     overflow:hidden;
-
     pointer-events:none;
-
     z-index:0;
-
 }
 
 .light{
@@ -69,7 +54,6 @@ body{
 
     animation:
         moveLight 6s linear infinite;
-
 }
 
 .light:nth-child(2){
@@ -78,27 +62,21 @@ body{
     height:520px;
 
     animation-delay:-3s;
-
     opacity:.45;
-
 }
 
 @keyframes moveLight{
 
     0%{
-
         transform:
             rotate(0deg)
             translateX(100px);
 
         opacity:.12;
-
     }
 
     50%{
-
         opacity:.5;
-
     }
 
     100%{
@@ -108,45 +86,33 @@ body{
             translateX(100px);
 
         opacity:.12;
-
     }
-
 }
 
 
-/* ===============================
-   APP
-================================ */
+/* APP */
 
 .app{
 
     position:relative;
-
     z-index:2;
 
     height:100vh;
 
     display:flex;
-
     flex-direction:column;
-
 }
 
 
-/* ===============================
-   HEADER
-================================ */
+/* HEADER */
 
 .header{
 
     height:64px;
-
     flex-shrink:0;
 
     display:flex;
-
     align-items:center;
-
     gap:12px;
 
     padding:0 15px;
@@ -155,10 +121,10 @@ body{
 
     backdrop-filter:blur(14px);
 
-    border-bottom:1px solid rgba(255,0,0,.20);
+    border-bottom:
+        1px solid rgba(255,0,0,.20);
 
     z-index:10;
-
 }
 
 .menu-btn,
@@ -168,7 +134,6 @@ body{
     height:40px;
 
     border:none;
-
     border-radius:10px;
 
     background:rgba(25,0,0,.75);
@@ -180,36 +145,27 @@ body{
     cursor:pointer;
 
     transition:.2s;
-
 }
 
 .menu-btn:hover,
 .delete-btn:hover{
 
     color:white;
-
     background:#280000;
-
 }
 
 .menu-btn{
 
     font-size:24px;
-
     line-height:1;
-
 }
 
 .delete-btn{
-
     font-size:18px;
-
 }
 
 
-/* ===============================
-   LOGO PEQUEÑO
-================================ */
+/* LOGO */
 
 .logo-small{
 
@@ -217,7 +173,6 @@ body{
     height:38px;
 
     border-radius:50%;
-
     overflow:hidden;
 
     border:1px solid #ff2525;
@@ -226,7 +181,6 @@ body{
         0 0 14px rgba(255,0,0,.35);
 
     flex-shrink:0;
-
 }
 
 .logo-small img{
@@ -235,42 +189,30 @@ body{
     height:100%;
 
     object-fit:cover;
-
 }
 
 
-/* ===============================
-   TITULO
-================================ */
+/* TITULO */
 
 .title{
-
     flex:1;
-
 }
 
 .title h1{
 
     font-size:17px;
-
     font-weight:600;
-
 }
 
 .title p{
 
     color:#777;
-
     font-size:11px;
-
     margin-top:3px;
-
 }
 
 
-/* ===============================
-   CHAT
-================================ */
+/* CHAT */
 
 .chat{
 
@@ -282,61 +224,45 @@ body{
         35px 15px 110px;
 
     scroll-behavior:smooth;
-
 }
 
 .chat::-webkit-scrollbar{
-
     width:6px;
-
 }
 
 .chat::-webkit-scrollbar-track{
-
     background:transparent;
-
 }
 
 .chat::-webkit-scrollbar-thumb{
 
     background:#3d0000;
-
     border-radius:10px;
-
 }
 
 .chat::-webkit-scrollbar-thumb:hover{
-
     background:#650000;
-
 }
 
 .messages{
 
     max-width:850px;
-
     margin:auto;
-
 }
 
 
-/* ===============================
-   BIENVENIDA
-================================ */
+/* BIENVENIDA */
 
 .welcome-message{
 
     display:flex;
-
     flex-direction:column;
 
     align-items:center;
-
     text-align:center;
 
     padding:
         25px 10px 45px;
-
 }
 
 
@@ -350,13 +276,10 @@ body{
     height:145px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
     margin-bottom:25px;
-
 }
 
 .big-logo{
@@ -365,18 +288,16 @@ body{
     height:105px;
 
     border-radius:50%;
-
     overflow:hidden;
 
-    border:2px solid rgba(255,50,50,.75);
+    border:
+        2px solid rgba(255,50,50,.75);
 
     box-shadow:
         0 0 25px rgba(255,0,0,.4);
 
     position:relative;
-
     z-index:2;
-
 }
 
 .big-logo img{
@@ -385,7 +306,6 @@ body{
     height:100%;
 
     object-fit:cover;
-
 }
 
 .logo-ring{
@@ -400,7 +320,6 @@ body{
     border:2px solid transparent;
 
     border-top-color:#ff2020;
-
     border-right-color:#ff5555;
 
     animation:
@@ -412,7 +331,6 @@ body{
         );
 
     z-index:1;
-
 }
 
 .logo-glow{
@@ -433,7 +351,6 @@ body{
 
     animation:
         glowPulse 2.5s ease-in-out infinite;
-
 }
 
 @keyframes ringSpin{
@@ -445,7 +362,6 @@ body{
     to{
         transform:rotate(360deg);
     }
-
 }
 
 @keyframes glowPulse{
@@ -453,34 +369,24 @@ body{
     0%,100%{
 
         transform:scale(.82);
-
         opacity:.25;
-
     }
 
     50%{
 
         transform:scale(1.08);
-
         opacity:.65;
-
     }
-
 }
 
 
-/* ===============================
-   BIENVENIDA TEXTO
-================================ */
+/* TEXTO */
 
 .welcome-message h2{
 
     font-size:29px;
-
     margin-bottom:12px;
-
     font-weight:600;
-
 }
 
 .welcome-message h2 span{
@@ -489,7 +395,6 @@ body{
 
     text-shadow:
         0 0 18px rgba(255,0,0,.45);
-
 }
 
 .welcome-description{
@@ -499,28 +404,21 @@ body{
     color:#999;
 
     font-size:14px;
-
     line-height:1.7;
 
     margin-bottom:22px;
-
 }
 
 
-/* ===============================
-   SUGERENCIAS
-================================ */
+/* SUGERENCIAS */
 
 .suggestions{
 
     display:flex;
-
     justify-content:center;
 
     flex-wrap:wrap;
-
     gap:7px;
-
 }
 
 .suggestion{
@@ -541,21 +439,16 @@ body{
     font-size:11px;
 
     transition:.2s;
-
 }
 
 .suggestion:hover{
 
     color:#ff6666;
-
     border-color:#700000;
-
 }
 
 
-/* ===============================
-   MENSAJES
-================================ */
+/* MENSAJES */
 
 .message{
 
@@ -567,7 +460,6 @@ body{
 
     animation:
         messageAppear .25s ease;
-
 }
 
 @keyframes messageAppear{
@@ -578,7 +470,6 @@ body{
 
         transform:
             translateY(8px);
-
     }
 
     to{
@@ -587,21 +478,15 @@ body{
 
         transform:
             translateY(0);
-
     }
-
 }
 
 .message.user{
-
     justify-content:flex-end;
-
 }
 
 
-/* ===============================
-   AVATAR
-================================ */
+/* AVATAR */
 
 .avatar{
 
@@ -611,7 +496,6 @@ body{
     flex-shrink:0;
 
     border-radius:50%;
-
     overflow:hidden;
 
     border:
@@ -619,7 +503,6 @@ body{
 
     box-shadow:
         0 0 9px rgba(255,0,0,.2);
-
 }
 
 .avatar img{
@@ -628,13 +511,10 @@ body{
     height:100%;
 
     object-fit:cover;
-
 }
 
 
-/* ===============================
-   BURBUJAS
-================================ */
+/* BURBUJAS */
 
 .bubble{
 
@@ -652,7 +532,6 @@ body{
     word-wrap:break-word;
 
     font-size:14px;
-
 }
 
 .message.ai .bubble{
@@ -666,7 +545,6 @@ body{
     border-top-left-radius:4px;
 
     backdrop-filter:blur(8px);
-
 }
 
 .message.user .bubble{
@@ -682,13 +560,10 @@ body{
         1px solid #a31515;
 
     border-top-right-radius:4px;
-
 }
 
 
-/* ===============================
-   CODIGO
-================================ */
+/* CODIGO */
 
 .code-wrapper{
 
@@ -709,7 +584,6 @@ body{
 
     box-shadow:
         0 0 15px rgba(255,0,0,.06);
-
 }
 
 .code-header{
@@ -717,9 +591,7 @@ body{
     height:38px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
     padding:0 10px;
@@ -732,7 +604,6 @@ body{
     color:#888;
 
     font-size:11px;
-
 }
 
 .copy-code{
@@ -754,7 +625,6 @@ body{
     font-size:11px;
 
     transition:.2s;
-
 }
 
 .copy-code:hover{
@@ -764,7 +634,6 @@ body{
     border-color:#750000;
 
     background:#280000;
-
 }
 
 .code-content{
@@ -784,46 +653,31 @@ body{
         monospace;
 
     font-size:13px;
-
     line-height:1.5;
 
     white-space:pre;
 
     tab-size:4;
-
 }
 
 .code-content::-webkit-scrollbar{
 
     width:6px;
     height:6px;
-
 }
 
 .code-content::-webkit-scrollbar-track{
-
     background:#070000;
-
 }
 
 .code-content::-webkit-scrollbar-thumb{
 
     background:#4d0000;
-
     border-radius:10px;
-
-}
-
-.code-content::-webkit-scrollbar-thumb:hover{
-
-    background:#720000;
-
 }
 
 
-/* ===============================
-   PENSANDO
-================================ */
+/* PENSANDO */
 
 .thinking{
 
@@ -841,7 +695,6 @@ body{
         1px solid #300808;
 
     border-radius:15px;
-
 }
 
 .dot{
@@ -855,19 +708,14 @@ body{
 
     animation:
         dot 1.2s infinite;
-
 }
 
 .dot:nth-child(2){
-
     animation-delay:.2s;
-
 }
 
 .dot:nth-child(3){
-
     animation-delay:.4s;
-
 }
 
 @keyframes dot{
@@ -878,7 +726,6 @@ body{
             translateY(0);
 
         opacity:.3;
-
     }
 
     30%{
@@ -887,22 +734,17 @@ body{
             translateY(-4px);
 
         opacity:1;
-
     }
-
 }
 
 
-/* ===============================
-   INPUT
-================================ */
+/* INPUT */
 
 .input-area{
 
     position:fixed;
 
     bottom:0;
-
     left:0;
     right:0;
 
@@ -916,7 +758,6 @@ body{
         );
 
     z-index:5;
-
 }
 
 .input-box{
@@ -942,7 +783,6 @@ body{
     backdrop-filter:blur(12px);
 
     transition:.2s;
-
 }
 
 .input-box:focus-within{
@@ -951,7 +791,6 @@ body{
 
     box-shadow:
         0 0 18px rgba(255,0,0,.08);
-
 }
 
 textarea{
@@ -959,13 +798,11 @@ textarea{
     flex:1;
 
     min-height:44px;
-
     max-height:130px;
 
     resize:none;
 
     border:none;
-
     outline:none;
 
     background:transparent;
@@ -977,13 +814,10 @@ textarea{
     font-size:14px;
 
     font-family:Arial,sans-serif;
-
 }
 
 textarea::placeholder{
-
     color:#666;
-
 }
 
 .send-btn{
@@ -996,8 +830,7 @@ textarea::placeholder{
 
     border-radius:10px;
 
-    background:
-        #790000;
+    background:#790000;
 
     color:white;
 
@@ -1006,7 +839,6 @@ textarea::placeholder{
     cursor:pointer;
 
     transition:.2s;
-
 }
 
 .send-btn:hover{
@@ -1015,19 +847,14 @@ textarea::placeholder{
 
     box-shadow:
         0 0 15px rgba(255,0,0,.25);
-
 }
 
 .send-btn:active{
-
     transform:scale(.94);
-
 }
 
 
-/* ===============================
-   SIDEBAR
-================================ */
+/* SIDEBAR */
 
 .sidebar{
 
@@ -1055,14 +882,12 @@ textarea::placeholder{
     transition:.25s;
 
     overflow:hidden;
-
 }
 
 .sidebar.open{
 
     transform:
         translateX(0);
-
 }
 
 .sidebar-header{
@@ -1070,7 +895,6 @@ textarea::placeholder{
     height:64px;
 
     display:flex;
-
     align-items:center;
 
     padding:
@@ -1078,7 +902,6 @@ textarea::placeholder{
 
     border-bottom:
         1px solid #280606;
-
 }
 
 .sidebar-title{
@@ -1086,15 +909,12 @@ textarea::placeholder{
     flex:1;
 
     font-weight:600;
-
     font-size:14px;
-
 }
 
 .close-sidebar{
 
     background:none;
-
     border:none;
 
     color:#777;
@@ -1102,19 +922,14 @@ textarea::placeholder{
     font-size:25px;
 
     cursor:pointer;
-
 }
 
 .close-sidebar:hover{
-
     color:white;
-
 }
 
 
-/* ===============================
-   LOGO SIDEBAR
-================================ */
+/* LOGO SIDEBAR */
 
 .sidebar-logo-area{
 
@@ -1123,12 +938,10 @@ textarea::placeholder{
     flex-direction:column;
 
     align-items:center;
-
     justify-content:center;
 
     padding:
         18px 10px 8px;
-
 }
 
 .menu-logo-container{
@@ -1141,9 +954,7 @@ textarea::placeholder{
     display:flex;
 
     align-items:center;
-
     justify-content:center;
-
 }
 
 .menu-logo{
@@ -1162,7 +973,6 @@ textarea::placeholder{
         0 0 20px rgba(255,0,0,.35);
 
     z-index:2;
-
 }
 
 .menu-logo img{
@@ -1171,7 +981,6 @@ textarea::placeholder{
     height:100%;
 
     object-fit:cover;
-
 }
 
 .menu-ring{
@@ -1187,12 +996,10 @@ textarea::placeholder{
         2px solid transparent;
 
     border-top-color:#ff2020;
-
     border-right-color:#ff5555;
 
     animation:
         ringSpin 2s linear infinite;
-
 }
 
 .menu-glow{
@@ -1213,7 +1020,6 @@ textarea::placeholder{
 
     animation:
         glowPulse 2.5s infinite;
-
 }
 
 .menu-logo-name{
@@ -1221,17 +1027,13 @@ textarea::placeholder{
     margin-top:2px;
 
     font-size:19px;
-
     font-weight:600;
 
     color:#e52b2b;
-
 }
 
 
-/* ===============================
-   BOTONES SIDEBAR
-================================ */
+/* BOTONES SIDEBAR */
 
 .new-chat{
 
@@ -1248,15 +1050,13 @@ textarea::placeholder{
 
     border-radius:9px;
 
-    background:
-        #190000;
+    background:#190000;
 
     color:#aaa;
 
     cursor:pointer;
 
     transition:.2s;
-
 }
 
 .new-chat:hover{
@@ -1266,13 +1066,10 @@ textarea::placeholder{
     border-color:#700000;
 
     background:#250000;
-
 }
 
 
-/* ===============================
-   LISTA DE CHATS
-================================ */
+/* LISTA */
 
 .chat-list{
 
@@ -1283,21 +1080,16 @@ textarea::placeholder{
 
     height:
         calc(100vh - 270px);
-
 }
 
 .chat-list::-webkit-scrollbar{
-
     width:5px;
-
 }
 
 .chat-list::-webkit-scrollbar-thumb{
 
     background:#450000;
-
     border-radius:10px;
-
 }
 
 .chat-item{
@@ -1322,15 +1114,12 @@ textarea::placeholder{
         1px solid transparent;
 
     font-size:13px;
-
 }
 
 .chat-item:hover{
 
     background:#190000;
-
     color:#ddd;
-
 }
 
 .chat-item.selected{
@@ -1340,32 +1129,24 @@ textarea::placeholder{
     border-color:#650000;
 
     color:white;
-
 }
 
 .delete-mode{
-
     color:#ff5555;
-
 }
 
 .delete-chat{
 
     float:right;
-
     color:#ff5555;
-
 }
 
 
-/* ===============================
-   OVERLAY
-================================ */
+/* OVERLAY */
 
 .overlay{
 
     position:fixed;
-
     inset:0;
 
     background:
@@ -1377,24 +1158,18 @@ textarea::placeholder{
     z-index:19;
 
     display:none;
-
 }
 
 .overlay.show{
-
     display:block;
-
 }
 
 
-/* ===============================
-   CONFIRMACION
-================================ */
+/* CONFIRMACION */
 
 .nova-confirm-overlay{
 
     position:fixed;
-
     inset:0;
 
     background:
@@ -1406,7 +1181,6 @@ textarea::placeholder{
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
     z-index:9999;
@@ -1416,7 +1190,6 @@ textarea::placeholder{
     pointer-events:none;
 
     transition:.25s;
-
 }
 
 .nova-confirm-overlay.show{
@@ -1424,7 +1197,6 @@ textarea::placeholder{
     opacity:1;
 
     pointer-events:auto;
-
 }
 
 .nova-confirm{
@@ -1441,8 +1213,7 @@ textarea::placeholder{
 
     border-radius:16px;
 
-    background:
-        #100000;
+    background:#100000;
 
     border:
         1px solid #500000;
@@ -1455,7 +1226,6 @@ textarea::placeholder{
         translateY(12px);
 
     transition:.3s;
-
 }
 
 .nova-confirm-overlay.show
@@ -1464,7 +1234,6 @@ textarea::placeholder{
     transform:
         scale(1)
         translateY(0);
-
 }
 
 .nova-confirm-logo{
@@ -1484,7 +1253,6 @@ textarea::placeholder{
 
     box-shadow:
         0 0 18px rgba(255,0,0,.3);
-
 }
 
 .nova-confirm-logo img{
@@ -1493,7 +1261,6 @@ textarea::placeholder{
     height:100%;
 
     object-fit:cover;
-
 }
 
 .nova-confirm h3{
@@ -1507,13 +1274,10 @@ textarea::placeholder{
     margin-bottom:8px;
 
     font-weight:600;
-
 }
 
 .nova-confirm h3 span{
-
     color:#ff2929;
-
 }
 
 .nova-confirm p{
@@ -1527,7 +1291,6 @@ textarea::placeholder{
     line-height:1.6;
 
     margin-bottom:20px;
-
 }
 
 .nova-confirm-buttons{
@@ -1535,7 +1298,6 @@ textarea::placeholder{
     display:flex;
 
     gap:9px;
-
 }
 
 .nova-confirm-buttons button{
@@ -1553,7 +1315,6 @@ textarea::placeholder{
     font-weight:600;
 
     transition:.2s;
-
 }
 
 .nova-cancel{
@@ -1562,13 +1323,10 @@ textarea::placeholder{
 
     border:
         1px solid #3d1010;
-
 }
 
 .nova-cancel:hover{
-
     background:#250000;
-
 }
 
 .nova-delete{
@@ -1577,109 +1335,80 @@ textarea::placeholder{
         1px solid #790000;
 
     background:#720000;
-
 }
 
 .nova-delete:hover{
-
     background:#980000;
-
 }
 
 
-/* ===============================
-   MOVIL
-================================ */
+/* MOVIL */
 
 @media(max-width:500px){
 
     .header{
-
-        padding:
-            0 10px;
-
+        padding:0 10px;
     }
 
     .title h1{
-
         font-size:16px;
-
     }
 
     .title p{
-
         font-size:10px;
-
     }
 
     .welcome-message h2{
-
         font-size:24px;
-
     }
 
     .welcome-description{
-
         font-size:13px;
-
     }
 
     .logo-container{
 
         width:125px;
         height:125px;
-
     }
 
     .big-logo{
 
         width:92px;
         height:92px;
-
     }
 
     .logo-ring{
 
         width:115px;
         height:115px;
-
     }
 
     .logo-glow{
 
         width:145px;
         height:145px;
-
     }
 
     .bubble{
 
         max-width:86%;
-
         font-size:13px;
-
     }
 
     .code-content{
 
         max-height:230px;
-
         font-size:12px;
-
     }
 
     .sidebar{
-
         width:280px;
-
     }
-
 }
 
 
-/* ===============================
-   REDUCIR ANIMACIONES
-================================ */
+/* REDUCIR ANIMACIONES */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -1692,143 +1421,225 @@ textarea::placeholder{
         animation-iteration-count:1 !important;
 
         scroll-behavior:auto !important;
-
     }
-
 }
 
-</style></head><body><!-- FONDO ANIMADO --><div class="background-lights"><div class="light"></div>
+</style></head><body><div class="background-lights"><div class="light"></div>
 
 <div class="light"></div>
 
-</div><div class="app"><!-- HEADER --><header class="header"><button
-class="menu-btn"
-onclick="openSidebar()"
-aria-label="Abrir menú">
+</div><div class="app"><header class="header"><button
+    class="menu-btn"
+    onclick="openSidebar()"
+    aria-label="Abrir menú">
+    ☰
+</button>
 
-☰
+<div class="logo-small">
 
-</button><div class="logo-small"><img
-src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-alt="Nova IA">
+    <img
+        src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+        alt="Nova IA">
 
-</div><div class="title"><h1>Nova IA</h1><p>
-Especializada en Delta Executor
-</p></div><button
-class="delete-btn"
-onclick="clearChat()"
-aria-label="Limpiar chat">
+</div>
 
-×
+<div class="title">
 
-</button></header><!-- CHAT --><main
-class="chat"
-id="chat"><div
-class="messages"
-id="messages"><div class="welcome-message"><div class="logo-container"><div class="logo-glow"></div><div class="logo-ring"></div><div class="big-logo"><img
-src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-alt="Nova IA">
+    <h1>Nova IA</h1>
 
-</div></div><h2>Hola, soy
-<span>Nova IA</span>
+    <p>
+        Especializada en Delta Executor
+    </p>
 
-</h2><p class="welcome-description">¿Qué quieres crear hoy?
+</div>
 
-<br>Puedo ayudarte con
-<b>Delta Executor</b>,
-Roblox y scripts
-<b>Lua/Luau.</b>
+<button
+    class="delete-btn"
+    onclick="clearChat()"
+    aria-label="Limpiar chat">
+    ×
+</button>
 
-</p><div class="suggestions"><div class="suggestion">
-Lua
-</div><div class="suggestion">
-Roblox
-</div><div class="suggestion">
-Delta
-</div><div class="suggestion">
-Scripts
-</div><div class="suggestion">
-Debug
-</div></div></div></div></main><!-- INPUT --><div class="input-area"><div class="input-box"><textarea
-id="messageInput"
-placeholder="¿Qué quieres crear hoy?"
-rows="1"></textarea><button
-class="send-btn"
-onclick="sendMessage()"
-aria-label="Enviar">
+</header><main
+    class="chat"
+    id="chat"><div
+    class="messages"
+    id="messages">
 
-↑
+    <div class="welcome-message">
 
-</button></div></div></div><!-- OVERLAY --><div
-class="overlay"
-id="overlay"
-onclick="closeSidebar()">
-</div><!-- SIDEBAR --><aside
-class="sidebar"
-id="sidebar"><div class="sidebar-header"><div class="sidebar-title">Mis chats
+        <div class="logo-container">
 
-</div><button
-class="close-sidebar"
-onclick="closeSidebar()">
+            <div class="logo-glow"></div>
 
-×
+            <div class="logo-ring"></div>
 
-</button></div><div class="sidebar-logo-area"><div class="menu-logo-container"><div class="menu-glow"></div><div class="menu-ring"></div><div class="menu-logo"><img
-src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-alt="Nova">
+            <div class="big-logo">
 
-</div></div><div class="menu-logo-name">Nova IA
+                <img
+                    src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+                    alt="Nova IA">
 
-</div></div><button
-class="new-chat"
-onclick="newChat()">
+            </div>
 
-Nuevo chat
+        </div>
 
-</button><button
-class="new-chat"
-onclick="toggleDeleteMode()"
-id="editButton">
+        <h2>
+            Hola, soy
+            <span>Nova IA</span>
+        </h2>
 
-Editar chats
+        <p class="welcome-description">
 
-</button><div
-class="chat-list"
-id="chatList">
-</div></aside><script>
+            ¿Qué quieres crear hoy?
 
-/* ===============================
+            <br>
+
+            Puedo ayudarte con
+            <b>Delta Executor</b>,
+            Roblox y scripts
+            <b>Lua/Luau.</b>
+
+        </p>
+
+        <div class="suggestions">
+
+            <div class="suggestion">Lua</div>
+            <div class="suggestion">Roblox</div>
+            <div class="suggestion">Delta</div>
+            <div class="suggestion">Scripts</div>
+            <div class="suggestion">Debug</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</main><div class="input-area"><div class="input-box">
+
+    <textarea
+        id="messageInput"
+        placeholder="¿Qué quieres crear hoy?"
+        rows="1"></textarea>
+
+    <button
+        class="send-btn"
+        onclick="sendMessage()"
+        aria-label="Enviar">
+
+        ↑
+
+    </button>
+
+</div>
+
+</div></div><div
+    class="overlay"
+    id="overlay"
+    onclick="closeSidebar()">
+</div><aside
+    class="sidebar"
+    id="sidebar"><div class="sidebar-header">
+
+    <div class="sidebar-title">
+        Mis chats
+    </div>
+
+    <button
+        class="close-sidebar"
+        onclick="closeSidebar()">
+        ×
+    </button>
+
+</div>
+
+
+<div class="sidebar-logo-area">
+
+    <div class="menu-logo-container">
+
+        <div class="menu-glow"></div>
+
+        <div class="menu-ring"></div>
+
+        <div class="menu-logo">
+
+            <img
+                src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+                alt="Nova">
+
+        </div>
+
+    </div>
+
+    <div class="menu-logo-name">
+        Nova IA
+    </div>
+
+</div>
+
+
+<button
+    class="new-chat"
+    onclick="newChat()">
+    Nuevo chat
+</button>
+
+
+<button
+    class="new-chat"
+    onclick="toggleDeleteMode()"
+    id="editButton">
+    Editar chats
+</button>
+
+
+<div
+    class="chat-list"
+    id="chatList">
+</div>
+
+</aside><script>
+
+/* =========================================================
    CONFIGURACIÓN
-================================ */
+========================================================= */
 
 const RENDER_URL =
-"https://nova-ia-2oup.onrender.com";
+    "https://nova-ia-2oup.onrender.com";
 
 const CHAT_URL =
-RENDER_URL + "/chat";
+    RENDER_URL + "/chat";
+
+const STATUS_URL =
+    RENDER_URL + "/status";
 
 const STORAGE_KEY =
-"nova_chats";
+    "nova_chats";
 
 const CURRENT_KEY =
-"nova_current";
+    "nova_current";
 
 
 let chats =
-JSON.parse(
-localStorage.getItem(STORAGE_KEY) || "[]"
-);
+    JSON.parse(
+        localStorage.getItem(
+            STORAGE_KEY
+        ) || "[]"
+    );
 
 let currentId =
-localStorage.getItem(CURRENT_KEY);
+    localStorage.getItem(
+        CURRENT_KEY
+    );
 
-let deleteMode =
-false;
+let deleteMode = false;
 
 
-/* ===============================
+/* =========================================================
    GUARDAR
-================================ */
+========================================================= */
 
 function save(){
 
@@ -1845,13 +1656,12 @@ function save(){
         );
 
     }
-
 }
 
 
-/* ===============================
+/* =========================================================
    CREAR CHAT
-================================ */
+========================================================= */
 
 function createChat(){
 
@@ -1873,27 +1683,25 @@ function createChat(){
         chat.id;
 
     save();
-
 }
 
 
-/* ===============================
+/* =========================================================
    CHAT ACTUAL
-================================ */
+========================================================= */
 
 function currentChat(){
 
     return chats.find(
         chat =>
-        chat.id === currentId
+            chat.id === currentId
     );
-
 }
 
 
-/* ===============================
+/* =========================================================
    RENDER
-================================ */
+========================================================= */
 
 function render(){
 
@@ -1911,7 +1719,9 @@ function render(){
 
     if(welcome){
 
-        box.appendChild(welcome);
+        box.appendChild(
+            welcome
+        );
 
     }
 
@@ -1938,13 +1748,12 @@ function render(){
     renderChatList();
 
     scrollBottom();
-
 }
 
 
-/* ===============================
+/* =========================================================
    MENSAJES
-================================ */
+========================================================= */
 
 function addMessage(
     role,
@@ -1965,10 +1774,10 @@ function addMessage(
         "message " +
         (
             role === "user"
-            ?
-            "user"
-            :
-            "ai"
+                ?
+                "user"
+                :
+                "ai"
         );
 
 
@@ -1985,12 +1794,14 @@ function addMessage(
         avatar.innerHTML = `
 
             <img
-            src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-            alt="Nova">
+                src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+                alt="Nova">
 
         `;
 
-        row.appendChild(avatar);
+        row.appendChild(
+            avatar
+        );
 
     }
 
@@ -2009,9 +1820,7 @@ function addMessage(
 
 
     let lastIndex = 0;
-
     let match;
-
     let hasCode = false;
 
 
@@ -2047,7 +1856,9 @@ function addMessage(
             text.style.marginBottom =
                 "8px";
 
-            bubble.appendChild(text);
+            bubble.appendChild(
+                text
+            );
 
         }
 
@@ -2093,8 +1904,8 @@ function addMessage(
 
         const codeText =
             match[1]
-            .replace(/^\n/,"")
-            .replace(/\n$/,"");
+                .replace(/^\n/,"")
+                .replace(/\n$/,"");
 
 
         copy.onclick =
@@ -2242,13 +2053,12 @@ function addMessage(
     box.appendChild(
         row
     );
-
 }
 
 
-/* ===============================
+/* =========================================================
    PENSANDO
-================================ */
+========================================================= */
 
 function showThinking(){
 
@@ -2280,8 +2090,8 @@ function showThinking(){
     avatar.innerHTML = `
 
         <img
-        src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-        alt="Nova">
+            src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+            alt="Nova">
 
     `;
 
@@ -2297,9 +2107,7 @@ function showThinking(){
     loading.innerHTML = `
 
         <span class="dot"></span>
-
         <span class="dot"></span>
-
         <span class="dot"></span>
 
     `;
@@ -2318,7 +2126,6 @@ function showThinking(){
     );
 
     scrollBottom();
-
 }
 
 
@@ -2334,19 +2141,70 @@ function removeThinking(){
         element.remove();
 
     }
-
 }
 
 
-/* ===============================
-   ENVIAR
-================================ */
+/* =========================================================
+   COMPROBAR SERVIDOR
+========================================================= */
+
+async function checkServer(){
+
+    try{
+
+        const response =
+            await fetch(
+                STATUS_URL,
+                {
+                    method:"GET",
+                    cache:"no-store"
+                }
+            );
+
+        if(!response.ok){
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+        return (
+            data &&
+            data.success === true
+        );
+
+    }catch(error){
+
+        console.error(
+            "Error comprobando servidor:",
+            error
+        );
+
+        return false;
+
+    }
+}
+
+
+/* =========================================================
+   ENVIAR MENSAJE
+========================================================= */
 
 async function sendMessage(){
 
     const input =
         document.getElementById(
             "messageInput"
+        );
+
+    const sendButton =
+        document.querySelector(
+            ".send-btn"
         );
 
     const message =
@@ -2365,12 +2223,23 @@ async function sendMessage(){
 
     if(!chat){
 
+        createChat();
+
+    }
+
+
+    const activeChat =
+        currentChat();
+
+
+    if(!activeChat){
+
         return;
 
     }
 
 
-    chat.messages.push({
+    activeChat.messages.push({
 
         role:
             "user",
@@ -2381,9 +2250,12 @@ async function sendMessage(){
     });
 
 
-    if(chat.title === "Nuevo chat"){
+    if(
+        activeChat.title ===
+        "Nuevo chat"
+    ){
 
-        chat.title =
+        activeChat.title =
             generateTitle(
                 message
             );
@@ -2400,7 +2272,30 @@ async function sendMessage(){
     showThinking();
 
 
+    if(sendButton){
+
+        sendButton.disabled =
+            true;
+
+        sendButton.style.opacity =
+            ".6";
+
+    }
+
+
     try{
+
+        /*
+         * IMPORTANTE:
+         * El servidor devuelve:
+         *
+         * {
+         *   success: true,
+         *   response: "..."
+         * }
+         *
+         * No "reply".
+         */
 
         const response =
             await fetch(
@@ -2417,48 +2312,91 @@ async function sendMessage(){
 
                     body:
                         JSON.stringify({
+
                             message:
-                                message
+                                message,
+
+                            /*
+                             * Enviamos el historial
+                             * actual para que Groq
+                             * tenga contexto.
+                             */
+
+                            history:
+                                activeChat.messages
+                                    .slice(-20)
                         })
 
                 }
             );
 
 
-        if(!response.ok){
+        let data = null;
+
+        try{
+
+            data =
+                await response.json();
+
+        }catch(jsonError){
 
             throw new Error(
-                "HTTP " +
-                response.status
+                "El servidor no devolvió JSON."
             );
 
         }
 
 
-        const data =
-            await response.json();
+        if(!response.ok){
+
+            throw new Error(
+
+                data?.error ||
+                (
+                    "Error HTTP " +
+                    response.status
+                )
+
+            );
+
+        }
+
+
+        /*
+         * AQUÍ ESTABA EL ERROR PRINCIPAL.
+         *
+         * Antes:
+         *
+         * const reply = data.reply;
+         *
+         * Ahora:
+         *
+         * const reply = data.response;
+         */
+
+        const reply =
+            data?.response;
+
+
+        if(
+            !data ||
+            data.success !== true ||
+            typeof reply !== "string" ||
+            !reply.trim()
+        ){
+
+            throw new Error(
+                data?.error ||
+                "El servidor respondió pero no devolvió una respuesta válida."
+            );
+
+        }
 
 
         removeThinking();
 
 
-        const reply =
-            data.reply;
-
-
-        if(
-            !reply ||
-            typeof reply !== "string"
-        ){
-
-            throw new Error(
-                "Respuesta inválida"
-            );
-
-        }
-
-
-        chat.messages.push({
+        activeChat.messages.push({
 
             role:
                 "ai",
@@ -2484,13 +2422,43 @@ async function sendMessage(){
         removeThinking();
 
 
-        chat.messages.push({
+        let errorMessage =
+            "No pude obtener una respuesta de Nova IA.";
+
+
+        if(
+            error &&
+            error.message
+        ){
+
+            if(
+                error.message.includes(
+                    "Failed to fetch"
+                )
+            ){
+
+                errorMessage =
+                    "No se pudo conectar con el servidor de Nova IA.\n\n" +
+                    "Comprueba que Render esté activo e inténtalo nuevamente.";
+
+            }else{
+
+                errorMessage +=
+                    "\n\nDetalle: " +
+                    error.message;
+
+            }
+
+        }
+
+
+        activeChat.messages.push({
 
             role:
                 "ai",
 
             content:
-                "No pude obtener una respuesta de Nova IA.\n\nComprueba que el servidor esté activo e inténtalo nuevamente."
+                errorMessage
 
         });
 
@@ -2499,32 +2467,44 @@ async function sendMessage(){
 
         render();
 
+    }finally{
+
+        if(sendButton){
+
+            sendButton.disabled =
+                false;
+
+            sendButton.style.opacity =
+                "1";
+
+        }
+
     }
 
 }
 
 
-/* ===============================
-   TÍTULO AUTOMÁTICO
-================================ */
+/* =========================================================
+   TÍTULO
+========================================================= */
 
 function generateTitle(text){
 
     let title =
         text
-        .replace(/\s+/g," ")
-        .trim();
+            .replace(/\s+/g," ")
+            .trim();
 
 
     if(title.length > 45){
 
         title =
             title
-            .substring(
-                0,
-                45
-            )
-            .trim();
+                .substring(
+                    0,
+                    45
+                )
+                .trim();
 
     }
 
@@ -2533,7 +2513,7 @@ function generateTitle(text){
 
         title =
             title.charAt(0)
-            .toUpperCase()
+                .toUpperCase()
             +
             title.substring(1);
 
@@ -2542,13 +2522,12 @@ function generateTitle(text){
 
     return title ||
         "Nuevo proyecto";
-
 }
 
 
-/* ===============================
+/* =========================================================
    LISTA DE CHATS
-================================ */
+========================================================= */
 
 function renderChatList(){
 
@@ -2599,7 +2578,7 @@ function renderChatList(){
                     </span>
 
                     <span
-                    class="delete-chat">
+                        class="delete-chat">
                         ×
                     </span>
 
@@ -2646,13 +2625,12 @@ function renderChatList(){
 
         }
     );
-
 }
 
 
-/* ===============================
+/* =========================================================
    ESCAPAR HTML
-================================ */
+========================================================= */
 
 function escapeHTML(text){
 
@@ -2686,9 +2664,9 @@ function escapeHTML(text){
 }
 
 
-/* ===============================
+/* =========================================================
    MODO ELIMINAR
-================================ */
+========================================================= */
 
 function toggleDeleteMode(){
 
@@ -2704,20 +2682,19 @@ function toggleDeleteMode(){
 
     button.textContent =
         deleteMode
-        ?
-        "Terminar edición"
-        :
-        "Editar chats";
+            ?
+            "Terminar edición"
+            :
+            "Editar chats";
 
 
     renderChatList();
-
 }
 
 
-/* ===============================
-   CONFIRMACIÓN
-================================ */
+/* =========================================================
+   ELIMINAR CHAT
+========================================================= */
 
 function deleteChat(id){
 
@@ -2764,11 +2741,11 @@ function deleteChat(id){
         <div class="nova-confirm">
 
             <div
-            class="nova-confirm-logo">
+                class="nova-confirm-logo">
 
                 <img
-                src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-                alt="Nova">
+                    src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+                    alt="Nova">
 
             </div>
 
@@ -2797,11 +2774,11 @@ function deleteChat(id){
 
 
             <div
-            class="nova-confirm-buttons">
+                class="nova-confirm-buttons">
 
                 <button
-                class="nova-cancel"
-                onclick="closeNovaConfirm()">
+                    class="nova-cancel"
+                    onclick="closeNovaConfirm()">
 
                     Cancelar
 
@@ -2809,8 +2786,8 @@ function deleteChat(id){
 
 
                 <button
-                class="nova-delete"
-                onclick="confirmNovaDelete('${chat.id}')">
+                    class="nova-delete"
+                    onclick="confirmNovaDelete('${chat.id}')">
 
                     Eliminar
 
@@ -2837,13 +2814,12 @@ function deleteChat(id){
 
         }
     );
-
 }
 
 
-/* ===============================
+/* =========================================================
    CERRAR CONFIRMACIÓN
-================================ */
+========================================================= */
 
 function closeNovaConfirm(){
 
@@ -2873,13 +2849,12 @@ function closeNovaConfirm(){
         },
         250
     );
-
 }
 
 
-/* ===============================
+/* =========================================================
    CONFIRMAR BORRADO
-================================ */
+========================================================= */
 
 function confirmNovaDelete(id){
 
@@ -2911,13 +2886,12 @@ function confirmNovaDelete(id){
     closeNovaConfirm();
 
     render();
-
 }
 
 
-/* ===============================
+/* =========================================================
    NUEVO CHAT
-================================ */
+========================================================= */
 
 function newChat(){
 
@@ -2936,13 +2910,12 @@ function newChat(){
     render();
 
     closeSidebar();
-
 }
 
 
-/* ===============================
+/* =========================================================
    LIMPIAR CHAT
-================================ */
+========================================================= */
 
 function clearChat(){
 
@@ -2962,13 +2935,12 @@ function clearChat(){
     save();
 
     render();
-
 }
 
 
-/* ===============================
+/* =========================================================
    SIDEBAR
-================================ */
+========================================================= */
 
 function openSidebar(){
 
@@ -2988,7 +2960,6 @@ function openSidebar(){
         .classList.add(
             "show"
         );
-
 }
 
 
@@ -3010,13 +2981,12 @@ function closeSidebar(){
         .classList.remove(
             "show"
         );
-
 }
 
 
-/* ===============================
+/* =========================================================
    SCROLL
-================================ */
+========================================================= */
 
 function scrollBottom(){
 
@@ -3034,13 +3004,12 @@ function scrollBottom(){
         },
         50
     );
-
 }
 
 
-/* ===============================
+/* =========================================================
    ENTER
-================================ */
+========================================================= */
 
 document
     .getElementById(
@@ -3065,9 +3034,9 @@ document
     );
 
 
-/* ===============================
+/* =========================================================
    INICIO
-================================ */
+========================================================= */
 
 if(!chats.length){
 
@@ -3086,4 +3055,31 @@ else if(!currentChat()){
 
 render();
 
-</script></body></html>
+
+/* =========================================================
+   COMPROBACIÓN INICIAL DEL SERVIDOR
+========================================================= */
+
+checkServer()
+    .then(
+        online => {
+
+            if(online){
+
+                console.log(
+                    "Nova IA: servidor ONLINE"
+                );
+
+            }else{
+
+                console.warn(
+                    "Nova IA: el servidor no respondió al endpoint /status."
+                );
+
+            }
+
+        }
+    );
+
+</script></body>
+</html>
