@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Nova IA</title>
+<title>Nova IA</title><style>
 
-<style>
+/* ===============================
+   BASE
+================================ */
 
 *{
     margin:0;
@@ -41,8 +36,29 @@ body{
         );
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
+}
+
+
+/* ===============================
+   FONDO ANIMADO
+================================ */
+
+.background-lights{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+    z-index:0;
 
 }
 
@@ -59,8 +75,6 @@ body{
 
     animation:
         moveLight 6s linear infinite;
-
-    pointer-events:none;
 
 }
 
@@ -105,6 +119,11 @@ body{
 
 }
 
+
+/* ===============================
+   CONTENEDOR
+================================ */
+
 .container{
 
     position:relative;
@@ -148,7 +167,10 @@ body{
 
 }
 
-/* FOTO DE NOVA */
+
+/* ===============================
+   LOGO
+================================ */
 
 .logo{
 
@@ -196,7 +218,7 @@ body{
 
     position:absolute;
 
-    inset:-5px;
+    inset:-4px;
 
     border-radius:50%;
 
@@ -210,7 +232,7 @@ body{
         );
 
     animation:
-        spin 1.5s linear infinite;
+        spin 2s linear infinite;
 
     z-index:-1;
 
@@ -222,19 +244,19 @@ body{
 
     position:absolute;
 
-    inset:-25px;
+    inset:-22px;
 
     border-radius:50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(255,0,0,.28),
+            rgba(255,0,0,.22),
             transparent 70%
         );
 
     animation:
-        pulse 2s infinite;
+        pulse 2.5s infinite;
 
     z-index:-2;
 
@@ -257,21 +279,26 @@ body{
     0%,
     100%{
 
-        transform:scale(.8);
+        transform:scale(.82);
 
-        opacity:.2;
+        opacity:.25;
 
     }
 
     50%{
 
-        transform:scale(1.1);
+        transform:scale(1.08);
 
-        opacity:.7;
+        opacity:.65;
 
     }
 
 }
+
+
+/* ===============================
+   TITULO
+================================ */
 
 h1{
 
@@ -282,7 +309,7 @@ h1{
             76px
         );
 
-    font-weight:700;
+    font-weight:600;
 
     letter-spacing:-2px;
 
@@ -295,40 +322,57 @@ h1 span{
     color:#ff2424;
 
     text-shadow:
-        0 0 20px rgba(255,0,0,.55);
+        0 0 20px rgba(255,0,0,.45);
 
 }
 
+
+/* ===============================
+   SUBTITULO
+================================ */
+
 .subtitle{
 
-    color:#ff5555;
+    color:#999;
 
-    font-size:18px;
+    font-size:17px;
 
     margin-bottom:22px;
 
 }
 
+
+/* ===============================
+   DESCRIPCION
+================================ */
+
 .description{
 
-    color:#c7c7c7;
+    color:#999;
 
     line-height:1.7;
 
-    font-size:15px;
+    font-size:14px;
 
     max-width:620px;
 
     margin:
-        0 auto 28px;
+        0 auto 26px;
 
 }
 
 .description b{
 
-    color:white;
+    color:#e5e5e5;
+
+    font-weight:600;
 
 }
+
+
+/* ===============================
+   ETIQUETAS
+================================ */
 
 .tags{
 
@@ -338,7 +382,7 @@ h1 span{
 
     flex-wrap:wrap;
 
-    gap:8px;
+    gap:7px;
 
     margin-bottom:28px;
 
@@ -347,19 +391,19 @@ h1 span{
 .tag{
 
     padding:
-        7px 13px;
+        7px 12px;
 
-    border-radius:20px;
+    border-radius:16px;
 
     background:
-        rgba(80,0,0,.35);
+        rgba(50,0,0,.3);
 
     border:
-        1px solid #571010;
+        1px solid #351010;
 
-    color:#ff7777;
+    color:#999;
 
-    font-size:12px;
+    font-size:11px;
 
     transition:.2s;
 
@@ -367,46 +411,51 @@ h1 span{
 
 .tag:hover{
 
-    border-color:#ff3030;
+    color:#ff6666;
+
+    border-color:#700000;
 
     box-shadow:
-        0 0 15px rgba(255,0,0,.2);
+        0 0 15px rgba(255,0,0,.12);
 
 }
+
+
+/* ===============================
+   BOTON
+================================ */
 
 .start-button{
 
     position:relative;
 
-    border:none;
+    border:
+        1px solid #720000;
 
     color:white;
 
     background:
-        linear-gradient(
-            135deg,
-            #c00000,
-            #4d0000
-        );
+        #790000;
 
     padding:
-        16px 32px;
+        14px 30px;
 
-    border-radius:14px;
+    border-radius:12px;
 
-    font-size:17px;
+    font-size:15px;
 
-    font-weight:bold;
+    font-weight:600;
 
     cursor:pointer;
 
     overflow:hidden;
 
     box-shadow:
-        0 0 25px rgba(255,0,0,.3);
+        0 0 20px rgba(255,0,0,.22);
 
     transition:
         transform .2s,
+        background .2s,
         box-shadow .2s;
 
 }
@@ -429,7 +478,7 @@ h1 span{
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,255,255,.25),
+            rgba(255,255,255,.18),
             transparent
         );
 
@@ -445,40 +494,54 @@ h1 span{
 
 .start-button:hover{
 
+    background:#980000;
+
     transform:
-        translateY(-3px);
+        translateY(-2px);
 
     box-shadow:
-        0 0 35px rgba(255,0,0,.55);
+        0 0 28px rgba(255,0,0,.4);
 
 }
 
 .start-button:active{
 
     transform:
-        scale(.94);
+        scale(.96);
 
 }
 
+
+/* ===============================
+   CREADOR
+================================ */
+
 .by{
 
-    margin-top:25px;
+    margin-top:24px;
 
     color:#555;
 
-    font-size:12px;
+    font-size:11px;
 
 }
 
 .by span{
 
-    color:#ff3030;
+    color:#d72a2a;
 
 }
 
-@media (max-width:500px){
+
+/* ===============================
+   MOVIL
+================================ */
+
+@media(max-width:500px){
 
     .container{
+
+        width:94%;
 
         padding:15px;
 
@@ -497,11 +560,15 @@ h1 span{
 
         font-size:43px;
 
+        letter-spacing:-1.5px;
+
     }
 
     .subtitle{
 
         font-size:15px;
+
+        margin-bottom:18px;
 
     }
 
@@ -509,9 +576,15 @@ h1 span{
 
         font-size:13px;
 
-        line-height:1.55;
+        line-height:1.6;
 
         margin-bottom:22px;
+
+    }
+
+    .tags{
+
+        margin-bottom:24px;
 
     }
 
@@ -521,98 +594,146 @@ h1 span{
 
         max-width:320px;
 
+        padding:14px 20px;
+
     }
 
 }
 
-</style>
 
-</head>
+/* ===============================
+   REDUCIR ANIMACIONES
+================================ */
 
-<body>
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        animation-duration:.01ms !important;
+
+        animation-iteration-count:1 !important;
+
+        scroll-behavior:auto !important;
+
+    }
+
+}
+
+</style></head><body><!-- ===============================
+     FONDO ANIMADO
+================================ --><div class="background-lights"><div class="light"></div>
 
 <div class="light"></div>
 
-<div class="light"></div>
+</div><!-- ===============================
+     CONTENIDO
+================================ --><div class="container"><!-- LOGO -->
 
-<div class="container">
+<div class="logo">
 
-    <div class="logo">
+    <img
+        src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+        alt="Nova IA">
 
-        <img
-            src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-            alt="Nova IA">
+</div>
 
+
+<!-- TITULO -->
+
+<h1>
+
+    Bienvenido a
+    <span>Nova IA</span>
+
+</h1>
+
+
+<!-- SUBTITULO -->
+
+<div class="subtitle">
+
+    Tu asistente especializado en Delta
+
+</div>
+
+
+<!-- DESCRIPCION -->
+
+<p class="description">
+
+    <b>Nova IA</b> es una inteligencia artificial
+    diseñada para ayudarte con
+    <b>scripts Lua, Roblox y Delta Executor.</b>
+
+    <br><br>
+
+    Describe lo que quieres crear y Nova
+    te ayudará a desarrollar tu idea,
+    entender tu código y encontrar errores.
+
+</p>
+
+
+<!-- ETIQUETAS -->
+
+<div class="tags">
+
+    <div class="tag">
+        Lua
     </div>
 
-    <h1>
-
-        Bienvenido a
-        <span>Nova IA</span>
-
-    </h1>
-
-    <div class="subtitle">
-
-        Tu asistente especializado en Delta
-
+    <div class="tag">
+        Roblox
     </div>
 
-    <p class="description">
-
-        <b>Nova IA</b> es una inteligencia artificial
-        diseñada para ayudarte con
-        <b>scripts Lua, Roblox y Delta Executor.</b>
-
-        <br><br>
-
-        Describe lo que quieres crear y Nova
-        te ayudará a desarrollar tu idea,
-        entender tu código y encontrar errores.
-
-    </p>
-
-    <div class="tags">
-
-        <div class="tag">Lua</div>
-
-        <div class="tag">Roblox</div>
-
-        <div class="tag">Delta</div>
-
-        <div class="tag">Scripts</div>
-
-        <div class="tag">Debug</div>
-
+    <div class="tag">
+        Delta
     </div>
 
-    <button
-        class="start-button"
-        onclick="startProgramming()">
+    <div class="tag">
+        Scripts
+    </div>
 
-        🚀 Comenzar con Nova
-
-    </button>
-
-    <div class="by">
-
-        Creada por:
-        <span>Yander</span>
-
+    <div class="tag">
+        Debug
     </div>
 
 </div>
 
-<script>
+
+<!-- BOTON -->
+
+<button
+    class="start-button"
+    onclick="startProgramming()">
+
+    Comenzar con Nova
+
+</button>
+
+
+<!-- CREADOR -->
+
+<div class="by">
+
+    Creada por:
+    <span>Yander</span>
+
+</div>
+
+</div><script>
+
+/* ===============================
+   ABRIR NOVA
+================================ */
 
 function startProgramming(){
 
-    window.location.href = "ia.html";
+    window.location.href =
+        "ia.html";
 
 }
 
-</script>
-
-</body>
-
-</html>
+</script></body></html>
