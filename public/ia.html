@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>NOVA IA</title>
 
 <style>
@@ -13,141 +13,226 @@
 }
 
 :root{
-    --red:#ff2020;
-    --red2:#ff0000;
-    --cyan:#59dcff;
+    --yellow:#fff000;
+    --yellow2:#ffe600;
+    --cyan:#58dcff;
+    --cyan2:#22c8ff;
     --black:#030303;
-    --panel:#080808;
-    --text:#f4f4f4;
-    --muted:#888;
+    --panel:rgba(8,8,8,.72);
+    --border:rgba(255,240,0,.20);
 }
 
 html,body{
     width:100%;
     height:100%;
-}
-
-body{
-    background:#030303;
-    color:var(--text);
-    font-family:Arial,Helvetica,sans-serif;
     overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#030303;
+    color:white;
 }
 
-/* =========================
+/* =========================================================
    FONDO ANIMADO
-========================= */
+========================================================= */
 
-.background{
+#background{
     position:fixed;
     inset:0;
     overflow:hidden;
     pointer-events:none;
     z-index:0;
-
     background:
-        radial-gradient(circle at 20% 15%,rgba(255,0,0,.055),transparent 25%),
-        radial-gradient(circle at 85% 80%,rgba(0,170,255,.035),transparent 25%),
+        radial-gradient(circle at 15% 25%,rgba(255,240,0,.13),transparent 25%),
+        radial-gradient(circle at 85% 70%,rgba(40,210,255,.11),transparent 27%),
         #030303;
 }
 
+/* GRID */
+
 .grid{
     position:absolute;
-    width:180%;
-    height:180%;
-    left:-40%;
-    top:-20%;
-    opacity:.08;
-
+    width:160%;
+    height:100%;
+    left:-30%;
+    bottom:-38%;
+    opacity:.24;
     background-image:
-        linear-gradient(rgba(255,0,0,.18) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,0,0,.12) 1px,transparent 1px);
-
-    background-size:60px 60px;
-
-    transform:perspective(600px) rotateX(65deg);
-
-    animation:gridMove 20s linear infinite;
+        linear-gradient(rgba(255,240,0,.16) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,240,0,.16) 1px,transparent 1px);
+    background-size:70px 70px;
+    transform:perspective(500px) rotateX(62deg);
+    animation:gridMove 8s linear infinite;
 }
 
 @keyframes gridMove{
     from{
-        transform:perspective(600px) rotateX(65deg) translateY(0);
+        transform:perspective(500px) rotateX(62deg) translateY(0);
     }
-
     to{
-        transform:perspective(600px) rotateX(65deg) translateY(60px);
+        transform:perspective(500px) rotateX(62deg) translateY(70px);
     }
 }
 
-.glow{
+/* LÍNEAS SUAVES */
+
+.line{
+    position:absolute;
+    width:130%;
+    height:1px;
+    left:-15%;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,240,0,.65),
+        rgba(89,217,255,.45),
+        transparent
+    );
+    filter:blur(.5px);
+    opacity:.35;
+    transform:rotate(-16deg);
+    animation:lineMove linear infinite;
+}
+
+.line:nth-child(2){
+    top:12%;
+    animation-duration:11s;
+}
+
+.line:nth-child(3){
+    top:30%;
+    animation-duration:15s;
+    animation-delay:-5s;
+}
+
+.line:nth-child(4){
+    top:52%;
+    animation-duration:13s;
+    animation-delay:-8s;
+}
+
+.line:nth-child(5){
+    top:76%;
+    animation-duration:17s;
+    animation-delay:-3s;
+}
+
+@keyframes lineMove{
+    0%{
+        transform:translateX(-25%) rotate(-16deg);
+    }
+    50%{
+        transform:translateX(10%) rotate(-16deg);
+    }
+    100%{
+        transform:translateX(25%) rotate(-16deg);
+    }
+}
+
+/* ORBES */
+
+.orb{
     position:absolute;
     border-radius:50%;
-    filter:blur(60px);
-    opacity:.09;
+    filter:blur(65px);
+    opacity:.25;
+    animation:orbFloat 9s ease-in-out infinite;
 }
 
-.glow.red{
-    width:300px;
-    height:300px;
-    background:#ff0000;
-    left:-130px;
-    top:25%;
-    animation:redMove 14s ease-in-out infinite;
+.orb.yellow{
+    width:220px;
+    height:220px;
+    background:var(--yellow);
+    left:-80px;
+    top:15%;
 }
 
-.glow.cyan{
-    width:260px;
-    height:260px;
-    background:#00bfff;
-    right:-120px;
-    bottom:15%;
-    animation:cyanMove 17s ease-in-out infinite;
+.orb.cyan{
+    width:240px;
+    height:240px;
+    background:var(--cyan);
+    right:-90px;
+    bottom:10%;
+    animation-delay:-4s;
 }
 
-@keyframes redMove{
-    0%,100%{transform:translate(0,0);}
-    50%{transform:translate(150px,-70px);}
+@keyframes orbFloat{
+    0%,100%{
+        transform:translate(0,0) scale(1);
+    }
+    50%{
+        transform:translate(35px,-25px) scale(1.15);
+    }
 }
 
-@keyframes cyanMove{
-    0%,100%{transform:translate(0,0);}
-    50%{transform:translate(-140px,80px);}
+/* PARTÍCULAS */
+
+.particles{
+    position:absolute;
+    inset:0;
 }
 
-/* =========================
+.particle{
+    position:absolute;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:var(--yellow);
+    box-shadow:0 0 10px var(--yellow);
+    opacity:.45;
+    animation:particleFloat linear infinite;
+}
+
+.particle:nth-child(1){left:8%;top:20%;animation-duration:7s}
+.particle:nth-child(2){left:18%;top:70%;animation-duration:11s}
+.particle:nth-child(3){left:32%;top:35%;animation-duration:8s}
+.particle:nth-child(4){left:45%;top:80%;animation-duration:13s}
+.particle:nth-child(5){left:57%;top:18%;animation-duration:10s}
+.particle:nth-child(6){left:69%;top:63%;animation-duration:9s}
+.particle:nth-child(7){left:78%;top:30%;animation-duration:12s}
+.particle:nth-child(8){left:91%;top:78%;animation-duration:8s}
+.particle:nth-child(9){left:84%;top:48%;animation-duration:14s}
+.particle:nth-child(10){left:24%;top:12%;animation-duration:10s}
+
+@keyframes particleFloat{
+    0%{
+        transform:translateY(20px);
+        opacity:.1;
+    }
+    50%{
+        opacity:.7;
+    }
+    100%{
+        transform:translateY(-70px);
+        opacity:0;
+    }
+}
+
+/* =========================================================
    APP
-========================= */
+========================================================= */
 
 .app{
     position:relative;
     z-index:2;
+    display:flex;
     width:100%;
     height:100%;
-    display:flex;
 }
 
-/* =========================
+/* =========================================================
    SIDEBAR
-========================= */
+========================================================= */
 
 .sidebar{
-    width:270px;
+    width:280px;
     height:100%;
-
-    background:rgba(5,5,5,.91);
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
-
-    border-right:1px solid rgba(255,0,0,.13);
-
+    background:rgba(3,3,3,.72);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-right:1px solid rgba(255,240,0,.16);
     display:flex;
     flex-direction:column;
-
-    padding:16px;
-
-    transition:transform .3s ease;
-
+    transition:.3s ease;
     z-index:20;
 }
 
@@ -155,272 +240,165 @@ body{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    margin-bottom:16px;
+    padding:18px;
+    border-bottom:1px solid rgba(255,255,255,.06);
 }
 
 .brand{
     display:flex;
     align-items:center;
     gap:10px;
-    font-weight:800;
 }
 
 .brand img{
-    width:34px;
-    height:34px;
-    border-radius:50%;
-    border:1px solid var(--red);
-    animation:brandPulse 3s ease-in-out infinite;
+    width:36px;
+    height:36px;
+    border-radius:11px;
+    object-fit:cover;
+    border:1px solid rgba(255,240,0,.45);
+    box-shadow:0 0 18px rgba(255,240,0,.22);
 }
 
-@keyframes brandPulse{
-    0%,100%{
-        box-shadow:0 0 10px rgba(255,0,0,.12);
-    }
-    50%{
-        box-shadow:0 0 20px rgba(255,0,0,.35);
-    }
+.brandText{
+    font-size:16px;
+    font-weight:800;
+    letter-spacing:.4px;
 }
 
-.brand span span{
-    color:var(--red);
+.brandText span{
+    color:var(--yellow);
 }
 
 .newChat{
-    width:100%;
-    height:43px;
-
-    border:1px solid rgba(255,0,0,.2);
+    margin:16px;
+    padding:11px 14px;
+    border:1px solid rgba(255,240,0,.3);
+    background:rgba(255,240,0,.07);
+    color:white;
     border-radius:12px;
-
-    background:rgba(255,0,0,.045);
-    color:#ddd;
-
     cursor:pointer;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:9px;
-
+    font-size:13px;
     transition:.2s;
-
-    margin-bottom:15px;
 }
 
 .newChat:hover{
-    border-color:var(--red);
-    color:#ff3030;
-    background:rgba(255,0,0,.08);
-    transform:translateY(-1px);
-}
-
-.newChat svg{
-    width:17px;
-    height:17px;
-}
-
-.chatTitle{
-    color:#555;
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    margin:8px 5px;
+    background:rgba(255,240,0,.14);
+    border-color:rgba(255,240,0,.65);
 }
 
 .chatList{
     flex:1;
     overflow-y:auto;
+    padding:0 10px 15px;
 }
 
 .chatItem{
-    position:relative;
-
-    padding:11px 12px;
-    border-radius:11px;
-
+    padding:12px;
+    border-radius:10px;
     margin-bottom:5px;
-
-    color:#999;
-    font-size:13px;
-
+    color:#bbb;
     cursor:pointer;
-
+    font-size:13px;
     transition:.2s;
-
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
-
-    border:1px solid transparent;
 }
 
 .chatItem:hover{
+    background:rgba(255,240,0,.07);
     color:white;
-    background:rgba(255,255,255,.035);
 }
 
 .chatItem.active{
-    color:white;
-    background:rgba(255,0,0,.055);
-    border-color:rgba(255,0,0,.12);
+    background:rgba(255,240,0,.11);
+    color:var(--yellow);
+    border:1px solid rgba(255,240,0,.14);
 }
 
-.chatItem.active::before{
-    content:"";
-
-    position:absolute;
-    left:0;
-    top:10px;
-    bottom:10px;
-
-    width:2px;
-
-    background:var(--red);
-    box-shadow:0 0 10px var(--red);
-}
-
-.sidebarBottom{
-    padding-top:12px;
-    border-top:1px solid rgba(255,255,255,.06);
-}
-
-.creator{
-    color:#666;
-    font-size:11px;
-    text-align:center;
-}
-
-.creator span{
-    color:#aaa;
-}
-
-/* =========================
+/* =========================================================
    MAIN
-========================= */
+========================================================= */
 
 .main{
     flex:1;
-    height:100%;
     min-width:0;
-
+    height:100%;
     display:flex;
     flex-direction:column;
+    position:relative;
 }
+
+/* HEADER */
 
 .header{
     height:65px;
-    flex-shrink:0;
+    min-height:65px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    border-bottom:1px solid rgba(255,255,255,.07);
+    background:rgba(3,3,3,.48);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+}
 
+.headerLeft{
     display:flex;
     align-items:center;
     gap:12px;
-
-    padding:0 20px;
-
-    border-bottom:1px solid rgba(255,255,255,.055);
-
-    background:rgba(3,3,3,.55);
-
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
 }
 
 .menuBtn{
     display:none;
 }
 
-.iconBtn{
-    width:38px;
-    height:38px;
-
-    border:0;
-    border-radius:10px;
-
-    background:transparent;
-
-    color:#888;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    cursor:pointer;
-
-    transition:.2s;
-}
-
-.iconBtn:hover{
-    color:var(--red);
-    background:rgba(255,0,0,.05);
-}
-
-.iconBtn svg{
-    width:19px;
-    height:19px;
-}
-
 .headerLogo{
-    width:32px;
-    height:32px;
-
-    border-radius:50%;
-    border:1px solid var(--red);
-
-    animation:headerFloat 4s ease-in-out infinite;
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    object-fit:cover;
+    box-shadow:0 0 16px rgba(255,240,0,.22);
 }
 
-@keyframes headerFloat{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-2px);}
-}
-
-.headerName{
+.headerTitle{
+    font-size:15px;
     font-weight:700;
-    font-size:14px;
 }
 
-.headerName span{
-    color:var(--red);
+.headerTitle span{
+    color:var(--yellow);
 }
 
 .status{
-    margin-left:auto;
-
     display:flex;
     align-items:center;
     gap:7px;
-
-    color:#666;
     font-size:11px;
+    color:#999;
 }
 
 .statusDot{
     width:7px;
     height:7px;
     border-radius:50%;
-    background:#555;
+    background:#666;
 }
 
-.status.online .statusDot{
-    background:#65e6a1;
-    box-shadow:0 0 9px rgba(101,230,161,.65);
+.statusDot.online{
+    background:#7dff77;
+    box-shadow:0 0 9px #7dff77;
 }
 
-.status.offline .statusDot{
-    background:#ff6868;
-}
-
-/* =========================
-   MENSAJES
-========================= */
+/* =========================================================
+   CHAT
+========================================================= */
 
 .messages{
     flex:1;
     overflow-y:auto;
-
-    padding:35px 20px 130px;
-
+    padding:30px 7%;
     scroll-behavior:smooth;
 }
 
@@ -431,336 +409,191 @@ body{
 
 .messages::-webkit-scrollbar-thumb,
 .chatList::-webkit-scrollbar-thumb{
-    background:#222;
+    background:rgba(255,240,0,.18);
     border-radius:10px;
 }
 
 .welcome{
-    max-width:760px;
-
-    margin:7vh auto 0;
-
+    max-width:700px;
+    margin:8vh auto 0;
     text-align:center;
-
-    animation:welcomeIn .8s cubic-bezier(.16,1,.3,1);
-}
-
-@keyframes welcomeIn{
-    from{
-        opacity:0;
-        transform:translateY(25px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
 }
 
 .welcomeLogo{
-    position:relative;
-
-    width:82px;
-    height:82px;
-
-    margin:0 auto 20px;
+    width:72px;
+    height:72px;
+    object-fit:cover;
+    border-radius:22px;
+    border:1px solid rgba(255,240,0,.4);
+    box-shadow:
+        0 0 25px rgba(255,240,0,.18),
+        0 0 70px rgba(255,240,0,.08);
+    animation:logoFloat 4s ease-in-out infinite;
 }
 
-.welcomeLogo::before{
-    content:"";
-
-    position:absolute;
-    inset:-13px;
-
-    border-radius:50%;
-
-    border:1px solid rgba(255,0,0,.35);
-
-    animation:ringSpin 8s linear infinite;
-}
-
-@keyframes ringSpin{
-    to{
-        transform:rotate(360deg);
+@keyframes logoFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
     }
 }
 
-.welcomeLogo img{
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    border-radius:50%;
-
-    border:2px solid var(--red);
-
-    box-shadow:0 0 35px rgba(255,0,0,.16);
-}
-
 .welcome h1{
-    font-size:32px;
+    margin-top:22px;
+    font-size:34px;
+    font-weight:800;
     letter-spacing:-1px;
 }
 
 .welcome h1 span{
-    color:var(--red);
+    color:var(--yellow);
+    text-shadow:0 0 22px rgba(255,240,0,.3);
 }
 
 .welcome p{
-    color:#777;
+    margin-top:10px;
+    color:#999;
     font-size:14px;
-    margin-top:9px;
 }
 
 .suggestions{
     display:flex;
-    justify-content:center;
     flex-wrap:wrap;
-    gap:8px;
-    margin-top:28px;
+    justify-content:center;
+    gap:9px;
+    margin-top:26px;
 }
 
 .suggestion{
-    border:1px solid rgba(255,255,255,.08);
-
-    background:rgba(255,255,255,.025);
-
-    color:#999;
-
-    border-radius:12px;
-
-    padding:10px 13px;
-
-    cursor:pointer;
-
+    padding:9px 13px;
+    border:1px solid rgba(255,240,0,.16);
+    background:rgba(255,240,0,.035);
+    color:#ccc;
+    border-radius:10px;
     font-size:12px;
-
+    cursor:pointer;
     transition:.2s;
 }
 
 .suggestion:hover{
-    color:#ff3030;
-    border-color:rgba(255,0,0,.2);
-    transform:translateY(-2px);
+    color:white;
+    border-color:rgba(255,240,0,.5);
+    background:rgba(255,240,0,.08);
 }
 
-/* =========================
-   MENSAJE GENERAL
-========================= */
+/* MENSAJES */
 
 .message{
-    width:min(850px,100%);
-    margin:0 auto 22px;
-
+    width:100%;
     display:flex;
-
-    gap:12px;
-
-    animation:messageIn .35s ease both;
+    margin:18px 0;
+    gap:10px;
+    align-items:flex-start;
 }
 
-@keyframes messageIn{
-    from{
-        opacity:0;
-        transform:translateY(10px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-/* =========================
-   NOVA IA = IZQUIERDA
-========================= */
-
+/* IA A LA IZQUIERDA */
 .message.ai{
     justify-content:flex-start;
-    flex-direction:row;
 }
 
-/* =========================
-   USUARIO = DERECHA
-========================= */
-
+/* USUARIO A LA DERECHA */
 .message.user{
     justify-content:flex-end;
-
-    /*
-      IMPORTANTE:
-      ponemos el avatar al extremo derecho
-    */
-    flex-direction:row-reverse;
 }
-
-/* =========================
-   AVATAR
-========================= */
 
 .avatar{
-    flex-shrink:0;
-
-    width:30px;
-    height:30px;
-
-    border-radius:50%;
-
-    overflow:hidden;
-
-    border:1px solid rgba(255,0,0,.35);
-}
-
-.avatar img{
-    width:100%;
-    height:100%;
+    width:31px;
+    height:31px;
+    min-width:31px;
+    border-radius:10px;
     object-fit:cover;
 }
 
-.message.user .avatar{
-    border-color:rgba(90,210,255,.4);
+.message.ai .avatar{
+    order:0;
+    border:1px solid rgba(255,240,0,.35);
+    box-shadow:0 0 13px rgba(255,240,0,.14);
 }
 
-/* =========================
-   BURBUJAS
-========================= */
+.message.user .avatar{
+    order:2;
+    background:linear-gradient(135deg,var(--yellow),var(--cyan));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#050505;
+    font-weight:900;
+    font-size:12px;
+    border:0;
+}
+
+/* BURBUJAS */
 
 .bubble{
-    max-width:calc(100% - 45px);
-
-    line-height:1.6;
-
+    max-width:min(760px,78%);
+    padding:12px 15px;
+    border-radius:16px;
+    line-height:1.55;
     font-size:14px;
-
-    color:#ddd;
-
-    min-width:0;
+    white-space:pre-wrap;
+    word-break:break-word;
 }
 
-.message.user .bubble{
-    padding:11px 14px;
-
-    border-radius:15px;
-
-    border-top-right-radius:5px;
-
-    background:rgba(255,255,255,.045);
-
-    border:1px solid rgba(255,255,255,.07);
-
-    color:#eee;
-}
-
+/* IA */
 .message.ai .bubble{
-    padding-top:3px;
-
+    order:1;
+    background:rgba(10,10,10,.72);
+    border:1px solid rgba(255,240,0,.14);
     border-top-left-radius:5px;
+    box-shadow:0 8px 30px rgba(0,0,0,.15);
 }
 
-/* =========================
-   CÓDIGO
-========================= */
-
-.bubble pre{
-    margin:12px 0;
-
-    padding:15px;
-
-    overflow-x:auto;
-
-    border-radius:12px;
-
-    background:#050505;
-
-    border:1px solid rgba(255,0,0,.14);
+/* USUARIO */
+.message.user .bubble{
+    order:1;
+    background:linear-gradient(
+        135deg,
+        rgba(255,240,0,.96),
+        rgba(255,220,0,.9)
+    );
+    color:#050505;
+    border:1px solid rgba(255,240,0,.8);
+    border-top-right-radius:5px;
+    box-shadow:
+        0 5px 25px rgba(255,240,0,.13);
 }
 
-.bubble code{
-    font-family:Consolas,monospace;
-    font-size:12px;
-    color:#ddd;
+.message.user .bubble strong{
+    color:#000;
 }
 
-.codeHeader{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    margin-bottom:8px;
-
-    color:#666;
-
-    font-size:10px;
-}
-
-.copyCode{
-    border:0;
-    background:transparent;
-
-    color:#777;
-
-    cursor:pointer;
-    font-size:10px;
-}
-
-.copyCode:hover{
-    color:#ff3030;
-}
-
-/* =========================
-   CURSOR
-========================= */
-
-.typing-cursor{
-    display:inline-block;
-
-    width:6px;
-    height:16px;
-
-    margin-left:3px;
-
-    vertical-align:-3px;
-
-    background:var(--red);
-
-    box-shadow:0 0 8px rgba(255,0,0,.7);
-
-    animation:cursorBlink .7s infinite;
-}
-
-@keyframes cursorBlink{
-    0%,45%{opacity:1;}
-    46%,100%{opacity:0;}
-}
-
-/* =========================
+/* =========================================================
    THINKING
-========================= */
+========================================================= */
 
 .thinking{
     display:flex;
-    gap:4px;
-    padding:5px 0;
+    align-items:center;
+    gap:5px;
+    padding:4px 2px;
 }
 
 .thinking span{
-    width:5px;
-    height:5px;
-
+    width:6px;
+    height:6px;
     border-radius:50%;
-
-    background:var(--red);
-
-    animation:thinking .8s infinite;
+    background:var(--yellow);
+    animation:thinking 1.2s infinite;
 }
 
 .thinking span:nth-child(2){
-    animation-delay:.12s;
+    animation-delay:.15s;
 }
 
 .thinking span:nth-child(3){
-    animation-delay:.24s;
+    animation-delay:.3s;
 }
 
 @keyframes thinking{
@@ -768,331 +601,388 @@ body{
         opacity:.25;
         transform:translateY(0);
     }
-
     30%{
         opacity:1;
         transform:translateY(-4px);
     }
 }
 
-/* =========================
+/* CURSOR DE ESCRITURA */
+
+.typing-cursor{
+    display:inline-block;
+    width:7px;
+    height:16px;
+    margin-left:2px;
+    vertical-align:-3px;
+    background:var(--yellow);
+    box-shadow:0 0 9px rgba(255,240,0,.7);
+    animation:cursorBlink .7s infinite;
+}
+
+@keyframes cursorBlink{
+    50%{
+        opacity:0;
+    }
+}
+
+/* =========================================================
+   CODE
+========================================================= */
+
+.codeBox{
+    margin-top:10px;
+    border:1px solid rgba(255,240,0,.18);
+    border-radius:11px;
+    overflow:hidden;
+    background:#050505;
+}
+
+.codeHead{
+    height:34px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 10px;
+    background:rgba(255,240,0,.05);
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.codeLang{
+    font-size:10px;
+    color:var(--yellow);
+    text-transform:uppercase;
+    letter-spacing:.6px;
+}
+
+.copyBtn{
+    border:0;
+    background:transparent;
+    color:#999;
+    cursor:pointer;
+    font-size:10px;
+}
+
+.copyBtn:hover{
+    color:var(--yellow);
+}
+
+.codeBox pre{
+    padding:13px;
+    overflow-x:auto;
+    color:#ddd;
+    font-family:Consolas,monospace;
+    font-size:12px;
+    line-height:1.55;
+}
+
+/* =========================================================
    INPUT
-========================= */
+========================================================= */
 
 .inputArea{
-    position:absolute;
-
-    bottom:0;
-
-    left:270px;
-    right:0;
-
-    padding:20px;
-
+    padding:12px 7% 18px;
     background:linear-gradient(
         to top,
-        rgba(3,3,3,1) 55%,
-        rgba(3,3,3,0)
+        rgba(3,3,3,.92),
+        rgba(3,3,3,.45),
+        transparent
     );
 }
 
-.inputWrap{
-    width:min(850px,100%);
-
+.inputBox{
+    max-width:900px;
     margin:auto;
-
     display:flex;
     align-items:flex-end;
-    gap:7px;
-
+    gap:8px;
     padding:7px;
-
-    border:1px solid rgba(255,255,255,.09);
-
+    border:1px solid rgba(255,240,0,.18);
     border-radius:17px;
-
-    background:rgba(8,8,8,.9);
-
+    background:rgba(8,8,8,.76);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
     box-shadow:
-        0 10px 40px rgba(0,0,0,.45),
-        0 0 25px rgba(255,0,0,.025);
-
-    backdrop-filter:blur(16px);
-
-    transition:.25s;
+        0 10px 45px rgba(0,0,0,.25),
+        0 0 30px rgba(255,240,0,.035);
+    transition:.2s;
 }
 
-.inputWrap:focus-within{
-    border-color:rgba(255,0,0,.3);
-
+.inputBox:focus-within{
+    border-color:rgba(255,240,0,.42);
     box-shadow:
-        0 10px 40px rgba(0,0,0,.45),
-        0 0 25px rgba(255,0,0,.06);
+        0 10px 45px rgba(0,0,0,.25),
+        0 0 25px rgba(255,240,0,.07);
 }
 
 textarea{
     flex:1;
-
     resize:none;
-
-    min-height:40px;
     max-height:150px;
-
-    padding:10px 9px;
-
+    min-height:42px;
+    padding:12px 10px;
     border:0;
     outline:0;
-
     background:transparent;
-
     color:white;
-
-    font-family:Arial,Helvetica,sans-serif;
-
+    font-family:inherit;
     font-size:14px;
-
-    line-height:20px;
+    line-height:1.4;
 }
 
 textarea::placeholder{
-    color:#555;
-}
-
-.sendBtn,
-.aiBtn{
-    width:40px;
-    height:40px;
-
-    flex-shrink:0;
-
-    border-radius:11px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    cursor:pointer;
-
-    transition:.2s;
-}
-
-.aiBtn{
-    border:1px solid rgba(91,220,255,.18);
-
-    background:rgba(91,220,255,.04);
-
     color:#777;
 }
 
-.aiBtn:hover{
-    color:#59dcff;
+/* BOTONES */
 
-    border-color:rgba(91,220,255,.45);
-
-    background:rgba(91,220,255,.08);
+.iconBtn{
+    width:40px;
+    height:40px;
+    min-width:40px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.035);
+    color:#aaa;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.sendBtn{
-    border:1px solid rgba(255,0,0,.35);
-
-    background:rgba(255,0,0,.07);
-
-    color:#ff3030;
+.iconBtn:hover{
+    color:var(--yellow);
+    border-color:rgba(255,240,0,.3);
+    background:rgba(255,240,0,.07);
 }
 
-.sendBtn:hover{
-    background:var(--red);
-
-    color:white;
-
-    box-shadow:0 0 20px rgba(255,0,0,.18);
-
-    transform:translateY(-1px);
-}
-
-.sendBtn:disabled{
-    opacity:.3;
-    cursor:not-allowed;
-    transform:none;
-}
-
-.sendBtn svg,
-.aiBtn svg{
+.iconBtn svg{
     width:18px;
     height:18px;
 }
 
-/* =========================
-   CONFIRM
-========================= */
+.sendBtn{
+    width:42px;
+    height:42px;
+    min-width:42px;
+    border:0;
+    border-radius:12px;
+    background:var(--yellow);
+    color:#050505;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:.2s;
+    box-shadow:0 0 17px rgba(255,240,0,.16);
+}
+
+.sendBtn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 0 25px rgba(255,240,0,.28);
+}
+
+.sendBtn:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.sendBtn svg{
+    width:19px;
+    height:19px;
+}
+
+/* =========================================================
+   OVERLAY MOBILE
+========================================================= */
 
 .overlay{
     display:none;
-
     position:fixed;
     inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:15;
+}
 
-    background:rgba(0,0,0,.68);
+/* =========================================================
+   MODAL DELETE
+========================================================= */
 
-    backdrop-filter:blur(7px);
-
-    z-index:50;
-
+.modal{
+    position:fixed;
+    inset:0;
+    display:none;
     align-items:center;
     justify-content:center;
+    background:rgba(0,0,0,.65);
+    backdrop-filter:blur(8px);
+    z-index:100;
 }
 
-.confirm{
+.modalBox{
     width:min(360px,90%);
-
     background:#090909;
-
-    border:1px solid rgba(255,0,0,.18);
-
-    border-radius:18px;
-
-    padding:24px;
-
-    box-shadow:0 20px 80px rgba(0,0,0,.6);
-
-    animation:confirmIn .25s ease;
+    border:1px solid rgba(255,240,0,.22);
+    border-radius:17px;
+    padding:22px;
+    box-shadow:0 20px 80px rgba(0,0,0,.5);
 }
 
-@keyframes confirmIn{
-    from{
-        opacity:0;
-        transform:scale(.95);
-    }
-
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
-}
-
-.confirm h3{
+.modalBox h3{
     font-size:17px;
 }
 
-.confirm p{
-    color:#777;
-    font-size:13px;
+.modalBox p{
     margin-top:8px;
+    color:#999;
+    font-size:13px;
     line-height:1.5;
 }
 
-.confirmActions{
+.modalActions{
     display:flex;
     justify-content:flex-end;
     gap:8px;
     margin-top:20px;
 }
 
-.confirmActions button{
+.modalActions button{
     padding:9px 14px;
-
     border-radius:9px;
-
-    cursor:pointer;
-
-    font-size:12px;
-}
-
-.cancel{
-    border:1px solid #222;
+    border:1px solid rgba(255,255,255,.1);
     background:#111;
     color:#aaa;
+    cursor:pointer;
 }
 
-.delete{
-    border:1px solid rgba(255,80,80,.25);
-    background:rgba(255,80,80,.06);
-    color:#ff7777;
+.modalActions .danger{
+    background:var(--yellow);
+    color:#000;
+    border-color:var(--yellow);
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
-@media(max-width:760px){
+@media(max-width:800px){
 
     .sidebar{
         position:fixed;
-
-        left:0;
+        left:-290px;
         top:0;
         bottom:0;
-
-        transform:translateX(-105%);
-
-        box-shadow:20px 0 60px rgba(0,0,0,.5);
+        width:280px;
+        transition:.3s ease;
+        z-index:30;
     }
 
     .sidebar.open{
-        transform:translateX(0);
+        left:0;
+    }
+
+    .overlay.open{
+        display:block;
     }
 
     .menuBtn{
         display:flex;
+        width:35px;
+        height:35px;
+        align-items:center;
+        justify-content:center;
+        border:0;
+        background:transparent;
+        color:#aaa;
+        cursor:pointer;
     }
 
-    .inputArea{
-        left:0;
-        padding:12px;
-    }
-
-    .header{
-        padding:0 10px;
+    .menuBtn:hover{
+        color:var(--yellow);
     }
 
     .messages{
-        padding:25px 12px 115px;
+        padding:25px 14px;
+    }
+
+    .inputArea{
+        padding:9px 10px 12px;
+    }
+
+    .bubble{
+        max-width:82%;
+        font-size:13px;
     }
 
     .welcome{
-        margin-top:5vh;
+        margin-top:7vh;
     }
 
     .welcome h1{
         font-size:27px;
     }
 
-    .suggestions{
-        gap:6px;
-    }
-
-    .suggestion{
-        font-size:11px;
+    .welcomeLogo{
+        width:62px;
+        height:62px;
     }
 
     .status{
         display:none;
     }
+}
 
-    .bubble{
-        font-size:13px;
+@media(max-width:500px){
+
+    .header{
+        padding:0 12px;
+    }
+
+    .headerLogo{
+        width:31px;
+        height:31px;
+    }
+
+    .headerTitle{
+        font-size:14px;
     }
 
     .message{
-        gap:8px;
+        margin:14px 0;
     }
 
     .avatar{
-        width:27px;
-        height:27px;
+        width:28px;
+        height:28px;
+        min-width:28px;
     }
 
-    .inputWrap{
+    .bubble{
+        max-width:84%;
+        padding:10px 12px;
+        border-radius:14px;
+    }
+
+    .inputBox{
         border-radius:15px;
     }
-}
 
-@media(prefers-reduced-motion:reduce){
+    .iconBtn{
+        width:38px;
+        min-width:38px;
+        height:38px;
+    }
 
-    *,*::before,*::after{
-        animation-duration:.01ms!important;
-        animation-iteration-count:1!important;
-        scroll-behavior:auto!important;
+    .sendBtn{
+        width:40px;
+        min-width:40px;
+        height:40px;
+    }
+
+    .suggestions{
+        padding:0 10px;
     }
 }
 </style>
@@ -1100,254 +990,222 @@ textarea::placeholder{
 
 <body>
 
-<div class="background">
+<!-- =====================================================
+     FONDO
+===================================================== -->
+
+<div id="background">
+
     <div class="grid"></div>
 
-    <div class="glow red"></div>
-    <div class="glow cyan"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+
+    <div class="orb yellow"></div>
+    <div class="orb cyan"></div>
+
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
 </div>
 
 <div class="app">
 
-<!-- SIDEBAR -->
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
 
-<aside class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar">
 
-    <div class="sidebarTop">
+        <div class="sidebarTop">
 
-        <div class="brand">
-
-            <img src="https://i.ibb.co/whKQvZsw/Nova.jpg">
-
-            <span>
-                NOVA <span>IA</span>
-            </span>
-
-        </div>
-
-        <button class="iconBtn" onclick="closeSidebar()">
-
-            <svg viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="2"
-                 stroke-linecap="round">
-
-                <path d="M18 6 6 18"></path>
-                <path d="m6 6 12 12"></path>
-
-            </svg>
-
-        </button>
-
-    </div>
-
-    <button class="newChat" onclick="newChat()">
-
-        <svg viewBox="0 0 24 24"
-             fill="none"
-             stroke="currentColor"
-             stroke-width="2"
-             stroke-linecap="round">
-
-            <path d="M12 5v14"></path>
-            <path d="M5 12h14"></path>
-
-        </svg>
-
-        Nueva conversación
-
-    </button>
-
-    <div class="chatTitle">
-        Mis chats
-    </div>
-
-    <div class="chatList" id="chatList"></div>
-
-    <div class="sidebarBottom">
-
-        <div class="creator">
-            Creada por <span>Yander</span>
-        </div>
-
-    </div>
-
-</aside>
-
-<!-- MAIN -->
-
-<main class="main">
-
-    <header class="header">
-
-        <button class="iconBtn menuBtn"
-                onclick="openSidebar()">
-
-            <svg viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="2"
-                 stroke-linecap="round">
-
-                <path d="M4 6h16"></path>
-                <path d="M4 12h16"></path>
-                <path d="M4 18h16"></path>
-
-            </svg>
-
-        </button>
-
-        <img
-            class="headerLogo"
-            src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-        >
-
-        <div class="headerName">
-            NOVA <span>IA</span>
-        </div>
-
-        <div class="status" id="serverStatus">
-
-            <span class="statusDot"></span>
-
-            <span id="statusText">
-                Conectando...
-            </span>
-
-        </div>
-
-    </header>
-
-    <section class="messages" id="messages">
-
-        <div class="welcome" id="welcome">
-
-            <div class="welcomeLogo">
-
+            <div class="brand">
                 <img src="https://i.ibb.co/whKQvZsw/Nova.jpg">
+                <div class="brandText">
+                    NOVA <span>IA</span>
+                </div>
+            </div>
+
+            <button class="iconBtn" onclick="closeSidebar()" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 6l12 12M18 6L6 18"/>
+                </svg>
+            </button>
+
+        </div>
+
+        <button class="newChat" onclick="newChat()">
+            + Nuevo chat
+        </button>
+
+        <div class="chatList" id="chatList"></div>
+
+    </aside>
+
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+    <!-- =================================================
+         MAIN
+    ================================================== -->
+
+    <main class="main">
+
+        <header class="header">
+
+            <div class="headerLeft">
+
+                <button class="menuBtn" onclick="openSidebar()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2">
+                        <path d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+
+                <img class="headerLogo" src="https://i.ibb.co/whKQvZsw/Nova.jpg">
+
+                <div class="headerTitle">
+                    NOVA <span>IA</span>
+                </div>
 
             </div>
 
-            <h1>
-                ¿En qué puedo <span>ayudarte?</span>
-            </h1>
+            <div class="status">
+                <div class="statusDot" id="statusDot"></div>
+                <span id="statusText">Conectando...</span>
+            </div>
 
-            <p>
-                Programación, Roblox, Lua y mucho más.
-            </p>
+        </header>
 
-            <div class="suggestions">
+        <!-- =================================================
+             MENSAJES
+        ================================================== -->
 
-                <button class="suggestion"
-                    onclick="useSuggestion('Créame un script de Roblox en Lua')">
-                    Script de Roblox
+        <section class="messages" id="messages">
+
+            <div class="welcome" id="welcome">
+
+                <img
+                    class="welcomeLogo"
+                    src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+                >
+
+                <h1>
+                    Bienvenido a <span>NOVA IA</span>
+                </h1>
+
+                <p>
+                    Tu asistente de programación especializado en Roblox y Lua.
+                </p>
+
+                <div class="suggestions">
+
+                    <button
+                        class="suggestion"
+                        onclick="useSuggestion('Créame un sistema de leaderboard en Roblox')">
+                        Sistema de leaderboard
+                    </button>
+
+                    <button
+                        class="suggestion"
+                        onclick="useSuggestion('Créame una GUI profesional para Roblox')">
+                        GUI profesional
+                    </button>
+
+                    <button
+                        class="suggestion"
+                        onclick="useSuggestion('Explícame este código Lua')">
+                        Explicar código
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =================================================
+             INPUT
+        ================================================== -->
+
+        <div class="inputArea">
+
+            <div class="inputBox">
+
+                <textarea
+                    id="messageInput"
+                    rows="1"
+                    placeholder="Escribe un mensaje para Nova IA..."
+                    autocomplete="off"
+                ></textarea>
+
+                <!-- SELECTOR DE IA PREPARADO -->
+                <button
+                    class="iconBtn"
+                    onclick="openAISelector()"
+                    aria-label="Seleccionar IA"
+                    title="Seleccionar IA"
+                >
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8">
+                        <path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3z"/>
+                        <path d="M19 15l.7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7L19 15z"/>
+                    </svg>
                 </button>
 
-                <button class="suggestion"
-                    onclick="useSuggestion('Explícame este código')">
-                    Explicar código
-                </button>
-
-                <button class="suggestion"
-                    onclick="useSuggestion('Ayúdame a crear una GUI para Roblox')">
-                    Crear una GUI
+                <button
+                    class="sendBtn"
+                    id="sendBtn"
+                    onclick="sendMessage()"
+                    aria-label="Enviar"
+                >
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13"/>
+                        <path d="M22 2l-7 20-4-9-9-4z"/>
+                    </svg>
                 </button>
 
             </div>
 
         </div>
 
-    </section>
-
-</main>
-
-<!-- INPUT -->
-
-<div class="inputArea">
-
-    <div class="inputWrap">
-
-        <textarea
-            id="input"
-            rows="1"
-            placeholder="Escribe un mensaje..."
-            autocomplete="off"
-        ></textarea>
-
-        <!-- BOTÓN PARA FUTURO SELECTOR DE IA -->
-
-        <button
-            class="aiBtn"
-            onclick="openAISelector()"
-            title="Seleccionar IA">
-
-            <svg viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="1.8"
-                 stroke-linecap="round"
-                 stroke-linejoin="round">
-
-                <path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z"></path>
-
-                <path d="m19 15 .8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"></path>
-
-            </svg>
-
-        </button>
-
-        <button
-            class="sendBtn"
-            id="sendBtn"
-            onclick="sendMessage()"
-            title="Enviar">
-
-            <svg viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="2"
-                 stroke-linecap="round"
-                 stroke-linejoin="round">
-
-                <path d="M22 2 11 13"></path>
-                <path d="m22 2-7 20-4-9-9-4Z"></path>
-
-            </svg>
-
-        </button>
-
-    </div>
+    </main>
 
 </div>
 
-</div>
+<!-- =====================================================
+     MODAL
+===================================================== -->
 
-<!-- CONFIRM -->
+<div class="modal" id="deleteModal">
 
-<div class="overlay" id="confirmOverlay">
+    <div class="modalBox">
 
-    <div class="confirm">
-
-        <h3>
-            Eliminar conversación
-        </h3>
+        <h3>Eliminar chat</h3>
 
         <p>
-            Esta conversación se eliminará de este dispositivo.
+            ¿Seguro que quieres eliminar esta conversación?
         </p>
 
-        <div class="confirmActions">
+        <div class="modalActions">
 
-            <button
-                class="cancel"
-                onclick="closeNovaConfirm()">
+            <button onclick="closeNovaConfirm()">
                 Cancelar
             </button>
 
-            <button
-                class="delete"
-                id="confirmDeleteBtn">
+            <button class="danger" onclick="confirmNovaDelete()">
                 Eliminar
             </button>
 
@@ -1358,32 +1216,27 @@ textarea::placeholder{
 </div>
 
 <script>
+/* =========================================================
+   CONFIGURACIÓN
+========================================================= */
 
 const RENDER_URL = "https://nova-ia-2oup.onrender.com";
-
 const CHAT_URL = RENDER_URL + "/chat";
-
 const STATUS_URL = RENDER_URL + "/status";
 
 const STORAGE_KEY = "nova_chats";
-
 const CURRENT_KEY = "nova_current";
 
-let chats =
-    JSON.parse(
-        localStorage.getItem(STORAGE_KEY) || "[]"
-    );
+let chats = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+let currentId = localStorage.getItem(CURRENT_KEY);
 
-let currentId =
-    localStorage.getItem(CURRENT_KEY);
+let deleteMode = false;
+let deleteTarget = null;
 
-let waiting=false;
 
-let deleteTarget=null;
-
-/* =========================
-   STORAGE
-========================= */
+/* =========================================================
+   GUARDAR
+========================================================= */
 
 function save(){
 
@@ -1400,6 +1253,30 @@ function save(){
     }
 }
 
+
+/* =========================================================
+   CREAR CHAT
+========================================================= */
+
+function createChat(){
+
+    const chat = {
+        id:Date.now().toString(),
+        title:"Nuevo chat",
+        messages:[]
+    };
+
+    chats.unshift(chat);
+    currentId = chat.id;
+
+    save();
+}
+
+
+/* =========================================================
+   CHAT ACTUAL
+========================================================= */
+
 function currentChat(){
 
     return chats.find(
@@ -1407,320 +1284,392 @@ function currentChat(){
     );
 }
 
-/* =========================
-   CHAT
-========================= */
 
-function createChat(){
-
-    const chat={
-        id:Date.now().toString(),
-
-        title:"Nueva conversación",
-
-        messages:[]
-    };
-
-    chats.unshift(chat);
-
-    currentId=chat.id;
-
-    save();
-
-    renderChatList();
-
-    render();
-}
-
-function newChat(){
-
-    createChat();
-
-    closeSidebar();
-}
-
-function generateTitle(text){
-
-    let title=text
-        .trim()
-        .replace(/\s+/g," ");
-
-    if(title.length>30){
-
-        title=
-            title.substring(0,30)
-            +"...";
-    }
-
-    return title || "Nueva conversación";
-}
-
-/* =========================
+/* =========================================================
    RENDER
-========================= */
+========================================================= */
 
 function render(){
 
-    const container=
-        document.getElementById("messages");
+    const chat = currentChat();
 
-    const chat=currentChat();
+    const messages = document.getElementById("messages");
 
-    container.innerHTML="";
+    messages.innerHTML = "";
 
-    if(!chat || chat.messages.length===0){
+    if(!chat || !chat.messages.length){
 
-        container.innerHTML=`
+        messages.innerHTML = `
+            <div class="welcome" id="welcome">
 
-        <div class="welcome">
+                <img
+                    class="welcomeLogo"
+                    src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+                >
 
-            <div class="welcomeLogo">
-                <img src="https://i.ibb.co/whKQvZsw/Nova.jpg">
+                <h1>
+                    Bienvenido a <span>NOVA IA</span>
+                </h1>
+
+                <p>
+                    Tu asistente de programación especializado en Roblox y Lua.
+                </p>
+
+                <div class="suggestions">
+
+                    <button
+                        class="suggestion"
+                        onclick="useSuggestion('Créame un sistema de leaderboard en Roblox')">
+                        Sistema de leaderboard
+                    </button>
+
+                    <button
+                        class="suggestion"
+                        onclick="useSuggestion('Créame una GUI profesional para Roblox')">
+                        GUI profesional
+                    </button>
+
+                    <button
+                        class="suggestion"
+                        onclick="useSuggestion('Explícame este código Lua')">
+                        Explicar código
+                    </button>
+
+                </div>
+
             </div>
+        `;
 
-            <h1>
-                ¿En qué puedo <span>ayudarte?</span>
-            </h1>
-
-            <p>
-                Programación, Roblox, Lua y mucho más.
-            </p>
-
-            <div class="suggestions">
-
-                <button class="suggestion"
-                    onclick="useSuggestion('Créame un script de Roblox en Lua')">
-                    Script de Roblox
-                </button>
-
-                <button class="suggestion"
-                    onclick="useSuggestion('Explícame este código')">
-                    Explicar código
-                </button>
-
-                <button class="suggestion"
-                    onclick="useSuggestion('Ayúdame a crear una GUI para Roblox')">
-                    Crear una GUI
-                </button>
-
-            </div>
-
-        </div>`;
-
+        renderChatList();
         return;
     }
 
-    chat.messages.forEach(message=>{
+    chat.messages.forEach(msg => {
 
         addMessage(
-            message.role,
-            message.content,
+            msg.role,
+            msg.content,
             false
         );
 
     });
 
+    renderChatList();
     scrollBottom();
 }
 
-/* =========================
-   MENSAJES
-========================= */
 
-function addMessage(
-    role,
-    content,
-    animate=true
-){
+/* =========================================================
+   AÑADIR MENSAJE
+========================================================= */
 
-    const container=
+function addMessage(role,content,saveMessage=true){
+
+    const messages =
         document.getElementById("messages");
 
-    const message=
+    const row =
         document.createElement("div");
 
-    message.className=
-        "message "+role;
+    row.className =
+        "message " +
+        (role === "user" ? "user" : "ai");
 
-    if(!animate){
-        message.style.animation="none";
-    }
 
-    message.innerHTML=`
+    /* AVATAR */
 
-        <div class="avatar">
+    const avatar =
+        document.createElement("div");
 
-            <img
-                src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-            >
+    if(role === "user"){
 
-        </div>
-
-        <div class="bubble"></div>
-
-    `;
-
-    const bubble=
-        message.querySelector(".bubble");
-
-    if(role==="user"){
-
-        bubble.textContent=content;
+        avatar.className = "avatar";
+        avatar.textContent = "Y";
 
     }else{
+
+        avatar.innerHTML = `
+            <img
+                class="avatar"
+                src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+            >
+        `;
+
+    }
+
+
+    /* BURBUJA */
+
+    const bubble =
+        document.createElement("div");
+
+    bubble.className = "bubble";
+
+
+    /* CONTENIDO */
+
+    if(role === "ai"){
 
         renderFormattedContent(
             bubble,
             content
         );
+
+    }else{
+
+        bubble.textContent = content;
+
     }
 
-    container.appendChild(message);
+
+    /* ORDEN */
+
+    if(role === "user"){
+
+        row.appendChild(bubble);
+        row.appendChild(avatar);
+
+    }else{
+
+        row.appendChild(avatar);
+        row.appendChild(bubble);
+
+    }
+
+    messages.appendChild(row);
+
+    if(saveMessage){
+
+        const chat = currentChat();
+
+        if(chat){
+
+            chat.messages.push({
+                role:role,
+                content:content
+            });
+
+            save();
+
+        }
+
+    }
+
+    scrollBottom();
 
     return bubble;
 }
 
-/* =========================
-   FORMATO
-========================= */
+
+/* =========================================================
+   CONTENIDO FORMATEADO
+========================================================= */
 
 function renderFormattedContent(
     container,
     content
 ){
 
-    if(!content.includes("```")){
+    const codeRegex =
+        /```([a-zA-Z0-9_-]*)\n?([\s\S]*?)```/g;
 
-        container.textContent=content;
+    let lastIndex = 0;
+    let match;
 
-        return;
-    }
+    while(
+        (match = codeRegex.exec(content)) !== null
+    ){
 
-    const parts=content.split("```");
+        const before =
+            content.slice(
+                lastIndex,
+                match.index
+            );
 
-    container.innerHTML="";
+        if(before){
 
-    parts.forEach((part,index)=>{
-
-        if(index%2===0){
-
-            if(part.trim()){
-
-                const text=
-                    document.createElement("div");
-
-                text.textContent=part;
-
-                container.appendChild(text);
-            }
-
-        }else{
-
-            let code=part;
-
-            let language="Código";
-
-            const firstLine=
-                code.split("\n")[0].trim();
-
-            if(
-                firstLine==="lua" ||
-                firstLine==="javascript" ||
-                firstLine==="js" ||
-                firstLine==="html" ||
-                firstLine==="css" ||
-                firstLine==="python"
-            ){
-
-                language=firstLine;
-
-                code=
-                    code.substring(
-                        code.indexOf("\n")+1
-                    );
-            }
-
-            const wrapper=
+            const text =
                 document.createElement("div");
 
-            wrapper.innerHTML=`
+            text.textContent = before;
 
-                <pre>
+            container.appendChild(text);
 
-                    <div class="codeHeader">
+        }
 
-                        <span>
-                            ${escapeHTML(language)}
-                        </span>
 
-                        <button class="copyCode">
-                            Copiar
-                        </button>
+        const codeBox =
+            document.createElement("div");
 
-                    </div>
+        codeBox.className = "codeBox";
 
-                    <code>
-                        ${escapeHTML(code.trim())}
-                    </code>
+        const lang =
+            match[1] || "code";
 
-                </pre>
+        const code =
+            match[2].replace(/\n$/, "");
 
-            `;
 
-            const copyButton=
-                wrapper.querySelector(".copyCode");
+        codeBox.innerHTML = `
 
-            copyButton.onclick=async()=>{
+            <div class="codeHead">
 
-                try{
+                <span class="codeLang">
+                    ${escapeHTML(lang)}
+                </span>
 
-                    await navigator.clipboard
-                        .writeText(code.trim());
+                <button class="copyBtn">
+                    Copiar
+                </button>
 
-                    copyButton.textContent=
-                        "Copiado";
+            </div>
 
-                    setTimeout(()=>{
+            <pre></pre>
 
-                        copyButton.textContent=
-                            "Copiar";
+        `;
 
-                    },1200);
+        codeBox
+            .querySelector("pre")
+            .textContent = code;
 
-                }catch{
+        codeBox
+            .querySelector(".copyBtn")
+            .onclick = function(){
 
-                    copyButton.textContent=
-                        "Error";
-                }
+                navigator.clipboard
+                    .writeText(code)
+                    .then(() => {
+
+                        this.textContent = "Copiado";
+
+                        setTimeout(
+                            () => this.textContent = "Copiar",
+                            1500
+                        );
+
+                    });
 
             };
 
-            container.appendChild(wrapper);
-        }
+        container.appendChild(codeBox);
 
-    });
+        lastIndex =
+            match.index +
+            match[0].length;
+    }
+
+
+    const after =
+        content.slice(lastIndex);
+
+    if(after){
+
+        const text =
+            document.createElement("div");
+
+        text.textContent = after;
+
+        container.appendChild(text);
+
+    }
+
+    if(!match){
+
+        container.textContent = content;
+
+    }
 }
 
-/* =========================
+
+/* =========================================================
+   ESCAPAR HTML
+========================================================= */
+
+function escapeHTML(text){
+
+    return text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   THINKING
+========================================================= */
+
+function showThinking(){
+
+    const messages =
+        document.getElementById("messages");
+
+    const row =
+        document.createElement("div");
+
+    row.className = "message ai";
+    row.id = "thinkingMessage";
+
+    row.innerHTML = `
+
+        <img
+            class="avatar"
+            src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+        >
+
+        <div class="bubble">
+
+            <div class="thinking">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+        </div>
+    `;
+
+    messages.appendChild(row);
+
+    scrollBottom();
+}
+
+
+function removeThinking(){
+
+    const thinking =
+        document.getElementById(
+            "thinkingMessage"
+        );
+
+    if(thinking){
+        thinking.remove();
+    }
+
+}
+
+
+/* =========================================================
    ESCRITURA PROGRESIVA
-========================= */
+========================================================= */
 
 async function typeResponse(
     bubble,
     content
 ){
 
-    const cursor=
+    const cursor =
         document.createElement("span");
 
-    cursor.className=
+    cursor.className =
         "typing-cursor";
 
     bubble.appendChild(cursor);
 
-    let text="";
+    let text = "";
 
-    const speed=7;
+    const speed = 7;
 
     for(
         let i=0;
@@ -1728,11 +1677,11 @@ async function typeResponse(
         i++
     ){
 
-        text+=content[i];
+        text += content[i];
 
         cursor.remove();
 
-        bubble.textContent=text;
+        bubble.textContent = text;
 
         bubble.appendChild(cursor);
 
@@ -1742,11 +1691,12 @@ async function typeResponse(
             resolve =>
                 setTimeout(resolve,speed)
         );
+
     }
 
     cursor.remove();
 
-    bubble.innerHTML="";
+    bubble.innerHTML = "";
 
     renderFormattedContent(
         bubble,
@@ -1756,119 +1706,84 @@ async function typeResponse(
     scrollBottom();
 }
 
-/* =========================
-   THINKING
-========================= */
 
-function showThinking(){
-
-    const container=
-        document.getElementById("messages");
-
-    const message=
-        document.createElement("div");
-
-    message.className="message ai";
-
-    message.id="thinking";
-
-    message.innerHTML=`
-
-        <div class="avatar">
-
-            <img
-                src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-            >
-
-        </div>
-
-        <div class="bubble">
-
-            <div class="thinking">
-
-                <span></span>
-                <span></span>
-                <span></span>
-
-            </div>
-
-        </div>
-
-    `;
-
-    container.appendChild(message);
-
-    scrollBottom();
-}
-
-function removeThinking(){
-
-    const thinking=
-        document.getElementById("thinking");
-
-    if(thinking){
-        thinking.remove();
-    }
-}
-
-/* =========================
-   SEND
-========================= */
+/* =========================================================
+   ENVIAR
+========================================================= */
 
 async function sendMessage(){
 
-    if(waiting) return;
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
 
-    const input=
-        document.getElementById("input");
+    const sendBtn =
+        document.getElementById(
+            "sendBtn"
+        );
 
-    const sendBtn=
-        document.getElementById("sendBtn");
-
-    const message=
+    const text =
         input.value.trim();
 
-    if(!message) return;
+    if(!text) return;
 
-    let chat=currentChat();
+
+    let chat = currentChat();
 
     if(!chat){
 
         createChat();
 
-        chat=currentChat();
+        chat = currentChat();
+
     }
 
-    if(chat.messages.length===0){
 
-        chat.title=
-            generateTitle(message);
+    /* OCULTAR WELCOME */
+
+    const welcome =
+        document.getElementById(
+            "welcome"
+        );
+
+    if(welcome){
+        welcome.remove();
     }
 
-    chat.messages.push({
 
-        role:"user",
+    /* USUARIO */
 
-        content:message
-    });
+    addMessage(
+        "user",
+        text,
+        true
+    );
 
-    save();
+    input.value = "";
 
-    input.value="";
+    input.style.height = "auto";
 
-    autoResize();
+    sendBtn.disabled = true;
 
-    render();
 
-    waiting=true;
-
-    sendBtn.disabled=true;
+    /* THINKING */
 
     showThinking();
 
+
     try{
 
-        const response=
+        const history =
+            chat.messages.map(
+                msg => ({
+                    role:msg.role,
+                    content:msg.content
+                })
+            );
+
+
+        const response =
             await fetch(
                 CHAT_URL,
                 {
@@ -1880,403 +1795,486 @@ async function sendMessage(){
                     },
 
                     body:JSON.stringify({
-                        message:message,
-                        history:chat.messages
+                        message:text,
+                        history:history
                     })
                 }
             );
 
+
         removeThinking();
 
-        const data=
-            await response.json();
 
-        if(!data.success){
+        if(!response.ok){
 
             throw new Error(
-                data.error ||
-                "Error del servidor"
+                "HTTP " +
+                response.status
             );
+
         }
 
-        const bubble=
-            addMessage(
-                "ai",
-                "",
-                true
+
+        const data =
+            await response.json();
+
+
+        if(
+            !data ||
+            !data.success ||
+            !data.response
+        ){
+
+            throw new Error(
+                "El servidor no devolvió una respuesta válida."
             );
 
+        }
+
+
+        /* CREAR BURBUJA VACÍA */
+
+        const messages =
+            document.getElementById(
+                "messages"
+            );
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "message ai";
+
+
+        const avatar =
+            document.createElement("img");
+
+        avatar.className =
+            "avatar";
+
+        avatar.src =
+            "https://i.ibb.co/whKQvZsw/Nova.jpg";
+
+
+        const bubble =
+            document.createElement("div");
+
+        bubble.className =
+            "bubble";
+
+
+        row.appendChild(avatar);
+        row.appendChild(bubble);
+
+        messages.appendChild(row);
+
+
+        /* GUARDAR RESPUESTA */
+
         chat.messages.push({
-
             role:"assistant",
-
             content:data.response
         });
 
         save();
+
+
+        /* TÍTULO */
+
+        if(
+            chat.title === "Nuevo chat"
+        ){
+
+            chat.title =
+                generateTitle(text);
+
+            save();
+
+            renderChatList();
+
+        }
+
+
+        /* ESCRITURA */
 
         await typeResponse(
             bubble,
             data.response
         );
 
+
     }catch(error){
 
         removeThinking();
 
-        const errorText=
-            "No pude obtener una respuesta de Nova IA.\n\nDetalle: "
-            +error.message;
-
         addMessage(
             "ai",
-            errorText,
+            "No pude obtener una respuesta de Nova IA.\n\nDetalle: " +
+            error.message,
             true
         );
 
-        chat.messages.push({
-
-            role:"assistant",
-
-            content:errorText
-        });
-
-        save();
-
-    }finally{
-
-        waiting=false;
-
-        sendBtn.disabled=false;
-
-        renderChatList();
     }
-}
 
-/* =========================
-   SUGERENCIAS
-========================= */
 
-function useSuggestion(text){
-
-    const input=
-        document.getElementById("input");
-
-    input.value=text;
-
-    autoResize();
+    sendBtn.disabled = false;
 
     input.focus();
 }
 
-/* =========================
-   SELECTOR IA
-========================= */
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+function generateTitle(text){
+
+    let title =
+        text
+            .replace(/\s+/g," ")
+            .trim();
+
+    if(title.length > 32){
+
+        title =
+            title.substring(0,32) +
+            "...";
+
+    }
+
+    return title || "Nuevo chat";
+}
+
+
+/* =========================================================
+   LISTA DE CHATS
+========================================================= */
+
+function renderChatList(){
+
+    const list =
+        document.getElementById(
+            "chatList"
+        );
+
+    list.innerHTML = "";
+
+    chats.forEach(chat => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "chatItem " +
+            (
+                chat.id === currentId
+                    ? "active"
+                    : ""
+            );
+
+        item.textContent =
+            chat.title || "Nuevo chat";
+
+        item.onclick = () => {
+
+            currentId = chat.id;
+
+            save();
+
+            render();
+
+            closeSidebar();
+
+        };
+
+        list.appendChild(item);
+
+    });
+
+}
+
+
+/* =========================================================
+   NUEVO CHAT
+========================================================= */
+
+function newChat(){
+
+    createChat();
+
+    render();
+
+    closeSidebar();
+
+}
+
+
+/* =========================================================
+   SUGERENCIA
+========================================================= */
+
+function useSuggestion(text){
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+    input.value = text;
+
+    input.focus();
+
+    autoResize();
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function openSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList.add("open");
+
+    document
+        .getElementById("overlay")
+        .classList.add("open");
+
+}
+
+
+function closeSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList.remove("open");
+
+    document
+        .getElementById("overlay")
+        .classList.remove("open");
+
+}
+
+
+/* =========================================================
+   BORRAR CHAT
+========================================================= */
+
+function toggleDeleteMode(){
+
+    deleteMode =
+        !deleteMode;
+
+}
+
+
+function deleteChat(id){
+
+    deleteTarget = id;
+
+    document
+        .getElementById("deleteModal")
+        .style.display = "flex";
+
+}
+
+
+function closeNovaConfirm(){
+
+    deleteTarget = null;
+
+    document
+        .getElementById("deleteModal")
+        .style.display = "none";
+
+}
+
+
+function confirmNovaDelete(){
+
+    if(!deleteTarget) return;
+
+    chats =
+        chats.filter(
+            c => c.id !== deleteTarget
+        );
+
+
+    if(currentId === deleteTarget){
+
+        if(chats.length){
+
+            currentId =
+                chats[0].id;
+
+        }else{
+
+            createChat();
+
+        }
+
+    }
+
+    save();
+
+    closeNovaConfirm();
+
+    render();
+
+}
+
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+function scrollBottom(){
+
+    const messages =
+        document.getElementById(
+            "messages"
+        );
+
+    setTimeout(() => {
+
+        messages.scrollTop =
+            messages.scrollHeight;
+
+    },10);
+
+}
+
+
+/* =========================================================
+   AUTO RESIZE
+========================================================= */
+
+function autoResize(){
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+    input.style.height = "auto";
+
+    input.style.height =
+        Math.min(
+            input.scrollHeight,
+            150
+        ) + "px";
+
+}
+
+
+/* =========================================================
+   ENTER
+========================================================= */
+
+document
+    .getElementById("messageInput")
+    .addEventListener(
+        "input",
+        autoResize
+    );
+
+
+document
+    .getElementById("messageInput")
+    .addEventListener(
+        "keydown",
+        function(e){
+
+            if(
+                e.key === "Enter" &&
+                !e.shiftKey
+            ){
+
+                e.preventDefault();
+
+                sendMessage();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   SELECTOR DE IA
+   PREPARADO PARA MÁS ADELANTE
+========================================================= */
 
 function openAISelector(){
 
     console.log(
         "Selector de IA preparado."
     );
+
 }
 
-/* =========================
-   LISTA CHATS
-========================= */
 
-function renderChatList(){
-
-    const list=
-        document.getElementById("chatList");
-
-    list.innerHTML="";
-
-    chats.forEach(chat=>{
-
-        const item=
-            document.createElement("div");
-
-        item.className=
-            "chatItem "+
-            (
-                chat.id===currentId
-                ?"active"
-                :""
-            );
-
-        item.textContent=
-            chat.title;
-
-        item.onclick=()=>{
-
-            currentId=chat.id;
-
-            save();
-
-            render();
-
-            renderChatList();
-
-            closeSidebar();
-        };
-
-        item.oncontextmenu=(event)=>{
-
-            event.preventDefault();
-
-            confirmNovaDelete(
-                chat.id
-            );
-        };
-
-        list.appendChild(item);
-    });
-}
-
-/* =========================
-   DELETE
-========================= */
-
-function confirmNovaDelete(id){
-
-    deleteTarget=id;
-
-    document.getElementById(
-        "confirmOverlay"
-    ).style.display="flex";
-
-    document.getElementById(
-        "confirmDeleteBtn"
-    ).onclick=()=>{
-
-        deleteChat(deleteTarget);
-
-        closeNovaConfirm();
-    };
-}
-
-function closeNovaConfirm(){
-
-    deleteTarget=null;
-
-    document.getElementById(
-        "confirmOverlay"
-    ).style.display="none";
-}
-
-function deleteChat(id){
-
-    chats=
-        chats.filter(
-            chat=>chat.id!==id
-        );
-
-    if(currentId===id){
-
-        if(chats.length){
-
-            currentId=
-                chats[0].id;
-
-        }else{
-
-            currentId=null;
-        }
-    }
-
-    save();
-
-    if(!currentId){
-
-        createChat();
-
-    }else{
-
-        render();
-
-        renderChatList();
-    }
-}
-
-/* =========================
-   SIDEBAR
-========================= */
-
-function openSidebar(){
-
-    document.getElementById(
-        "sidebar"
-    ).classList.add("open");
-}
-
-function closeSidebar(){
-
-    document.getElementById(
-        "sidebar"
-    ).classList.remove("open");
-}
-
-/* =========================
-   SERVER
-========================= */
+/* =========================================================
+   ESTADO DEL SERVIDOR
+========================================================= */
 
 async function checkServer(){
 
-    const status=
+    const dot =
         document.getElementById(
-            "serverStatus"
+            "statusDot"
         );
 
-    const statusText=
+    const text =
         document.getElementById(
             "statusText"
         );
 
     try{
 
-        const response=
+        const response =
             await fetch(
                 STATUS_URL,
                 {
-                    method:"GET",
                     cache:"no-store"
                 }
             );
 
+
         if(!response.ok){
+
             throw new Error();
+
         }
 
-        status.classList.remove(
-            "offline"
-        );
 
-        status.classList.add(
+        dot.classList.add(
             "online"
         );
 
-        statusText.textContent=
+        text.textContent =
             "Online";
 
     }catch{
 
-        status.classList.remove(
+        dot.classList.remove(
             "online"
         );
 
-        status.classList.add(
-            "offline"
-        );
-
-        statusText.textContent=
+        text.textContent =
             "Offline";
+
     }
+
 }
 
-/* =========================
-   UTILIDADES
-========================= */
 
-function escapeHTML(text){
-
-    return text
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-}
-
-function scrollBottom(){
-
-    const container=
-        document.getElementById(
-            "messages"
-        );
-
-    requestAnimationFrame(()=>{
-
-        container.scrollTop=
-            container.scrollHeight;
-    });
-}
-
-function autoResize(){
-
-    const input=
-        document.getElementById(
-            "input"
-        );
-
-    input.style.height="auto";
-
-    input.style.height=
-        Math.min(
-            input.scrollHeight,
-            150
-        )+"px";
-}
-
-/* =========================
-   TECLADO
-========================= */
-
-const input=
-    document.getElementById(
-        "input"
-    );
-
-input.addEventListener(
-    "input",
-    autoResize
-);
-
-input.addEventListener(
-    "keydown",
-    event=>{
-
-        if(
-            event.key==="Enter" &&
-            !event.shiftKey
-        ){
-
-            event.preventDefault();
-
-            sendMessage();
-        }
-    }
-);
-
-/* =========================
-   CLICK FUERA
-========================= */
-
-document.addEventListener(
-    "click",
-    event=>{
-
-        if(window.innerWidth>760)
-            return;
-
-        const sidebar=
-            document.getElementById(
-                "sidebar"
-            );
-
-        if(
-            sidebar.classList.contains("open") &&
-            !sidebar.contains(event.target) &&
-            !event.target.closest(".menuBtn")
-        ){
-
-            closeSidebar();
-        }
-    }
-);
-
-/* =========================
+/* =========================================================
    INICIO
-========================= */
+========================================================= */
 
 if(!chats.length){
 
@@ -2284,23 +2282,31 @@ if(!chats.length){
 
 }else{
 
-    if(
-        !currentId ||
-        !currentChat()
-    ){
+    const exists =
+        chats.some(
+            c => c.id === currentId
+        );
 
-        currentId=
+    if(!exists){
+
+        currentId =
             chats[0].id;
 
         save();
+
     }
 
-    render();
-
-    renderChatList();
 }
 
+
+render();
+
 checkServer();
+
+setInterval(
+    checkServer,
+    30000
+);
 
 </script>
 
