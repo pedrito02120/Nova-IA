@@ -13,14 +13,11 @@
 }
 
 :root{
-    --yellow:#fff000;
-    --yellow2:#ffe600;
+    --red:#ff2020;
+    --red2:#ff0000;
     --cyan:#59dcff;
-    --cyan2:#22c8ff;
     --black:#030303;
     --panel:#080808;
-    --panel2:#0d0d0d;
-    --border:rgba(255,240,0,.14);
     --text:#f4f4f4;
     --muted:#888;
 }
@@ -44,12 +41,13 @@ body{
 .background{
     position:fixed;
     inset:0;
-    pointer-events:none;
     overflow:hidden;
+    pointer-events:none;
     z-index:0;
+
     background:
-        radial-gradient(circle at 25% 15%,rgba(255,240,0,.045),transparent 25%),
-        radial-gradient(circle at 80% 80%,rgba(50,210,255,.045),transparent 25%),
+        radial-gradient(circle at 20% 15%,rgba(255,0,0,.055),transparent 25%),
+        radial-gradient(circle at 85% 80%,rgba(0,170,255,.035),transparent 25%),
         #030303;
 }
 
@@ -59,12 +57,16 @@ body{
     height:180%;
     left:-40%;
     top:-20%;
-    opacity:.09;
+    opacity:.08;
+
     background-image:
-        linear-gradient(rgba(255,240,0,.18) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(80,220,255,.12) 1px,transparent 1px);
+        linear-gradient(rgba(255,0,0,.18) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,0,0,.12) 1px,transparent 1px);
+
     background-size:60px 60px;
+
     transform:perspective(600px) rotateX(65deg);
+
     animation:gridMove 20s linear infinite;
 }
 
@@ -72,6 +74,7 @@ body{
     from{
         transform:perspective(600px) rotateX(65deg) translateY(0);
     }
+
     to{
         transform:perspective(600px) rotateX(65deg) translateY(60px);
     }
@@ -80,34 +83,34 @@ body{
 .glow{
     position:absolute;
     border-radius:50%;
-    filter:blur(55px);
-    opacity:.10;
+    filter:blur(60px);
+    opacity:.09;
 }
 
-.glow.yellow{
+.glow.red{
     width:300px;
     height:300px;
-    background:var(--yellow);
+    background:#ff0000;
     left:-130px;
     top:25%;
-    animation:yellowGlow 14s ease-in-out infinite;
+    animation:redMove 14s ease-in-out infinite;
 }
 
 .glow.cyan{
-    width:270px;
-    height:270px;
-    background:var(--cyan);
+    width:260px;
+    height:260px;
+    background:#00bfff;
     right:-120px;
     bottom:15%;
-    animation:cyanGlow 17s ease-in-out infinite;
+    animation:cyanMove 17s ease-in-out infinite;
 }
 
-@keyframes yellowGlow{
+@keyframes redMove{
     0%,100%{transform:translate(0,0);}
     50%{transform:translate(150px,-70px);}
 }
 
-@keyframes cyanGlow{
+@keyframes cyanMove{
     0%,100%{transform:translate(0,0);}
     50%{transform:translate(-140px,80px);}
 }
@@ -131,14 +134,20 @@ body{
 .sidebar{
     width:270px;
     height:100%;
-    background:rgba(5,5,5,.90);
+
+    background:rgba(5,5,5,.91);
     backdrop-filter:blur(20px);
     -webkit-backdrop-filter:blur(20px);
-    border-right:1px solid var(--border);
+
+    border-right:1px solid rgba(255,0,0,.13);
+
     display:flex;
     flex-direction:column;
+
     padding:16px;
+
     transition:transform .3s ease;
+
     z-index:20;
 }
 
@@ -160,40 +169,49 @@ body{
     width:34px;
     height:34px;
     border-radius:50%;
-    border:1px solid var(--yellow);
-    box-shadow:0 0 15px rgba(255,240,0,.15);
+    border:1px solid var(--red);
     animation:brandPulse 3s ease-in-out infinite;
 }
 
 @keyframes brandPulse{
-    0%,100%{box-shadow:0 0 10px rgba(255,240,0,.12);}
-    50%{box-shadow:0 0 20px rgba(255,240,0,.35);}
+    0%,100%{
+        box-shadow:0 0 10px rgba(255,0,0,.12);
+    }
+    50%{
+        box-shadow:0 0 20px rgba(255,0,0,.35);
+    }
 }
 
 .brand span span{
-    color:var(--yellow);
+    color:var(--red);
 }
 
 .newChat{
     width:100%;
     height:43px;
-    border:1px solid rgba(255,240,0,.22);
+
+    border:1px solid rgba(255,0,0,.2);
     border-radius:12px;
-    background:rgba(255,240,0,.05);
+
+    background:rgba(255,0,0,.045);
     color:#ddd;
+
     cursor:pointer;
+
     display:flex;
     align-items:center;
     justify-content:center;
     gap:9px;
+
     transition:.2s;
+
     margin-bottom:15px;
 }
 
 .newChat:hover{
-    border-color:var(--yellow);
-    color:var(--yellow);
-    background:rgba(255,240,0,.08);
+    border-color:var(--red);
+    color:#ff3030;
+    background:rgba(255,0,0,.08);
     transform:translateY(-1px);
 }
 
@@ -217,16 +235,23 @@ body{
 
 .chatItem{
     position:relative;
+
     padding:11px 12px;
     border-radius:11px;
+
     margin-bottom:5px;
+
     color:#999;
     font-size:13px;
+
     cursor:pointer;
+
     transition:.2s;
+
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
+
     border:1px solid transparent;
 }
 
@@ -237,19 +262,22 @@ body{
 
 .chatItem.active{
     color:white;
-    background:rgba(255,240,0,.065);
-    border-color:rgba(255,240,0,.12);
+    background:rgba(255,0,0,.055);
+    border-color:rgba(255,0,0,.12);
 }
 
 .chatItem.active::before{
     content:"";
+
     position:absolute;
     left:0;
     top:10px;
     bottom:10px;
+
     width:2px;
-    background:var(--yellow);
-    box-shadow:0 0 10px var(--yellow);
+
+    background:var(--red);
+    box-shadow:0 0 10px var(--red);
 }
 
 .sidebarBottom{
@@ -275,21 +303,25 @@ body{
     flex:1;
     height:100%;
     min-width:0;
+
     display:flex;
     flex-direction:column;
 }
 
-/* HEADER */
-
 .header{
     height:65px;
     flex-shrink:0;
+
     display:flex;
     align-items:center;
     gap:12px;
+
     padding:0 20px;
+
     border-bottom:1px solid rgba(255,255,255,.055);
+
     background:rgba(3,3,3,.55);
+
     backdrop-filter:blur(16px);
     -webkit-backdrop-filter:blur(16px);
 }
@@ -301,20 +333,26 @@ body{
 .iconBtn{
     width:38px;
     height:38px;
+
     border:0;
     border-radius:10px;
+
     background:transparent;
+
     color:#888;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     cursor:pointer;
+
     transition:.2s;
 }
 
 .iconBtn:hover{
-    color:var(--yellow);
-    background:rgba(255,240,0,.055);
+    color:var(--red);
+    background:rgba(255,0,0,.05);
 }
 
 .iconBtn svg{
@@ -325,8 +363,10 @@ body{
 .headerLogo{
     width:32px;
     height:32px;
+
     border-radius:50%;
-    border:1px solid var(--yellow);
+    border:1px solid var(--red);
+
     animation:headerFloat 4s ease-in-out infinite;
 }
 
@@ -341,14 +381,16 @@ body{
 }
 
 .headerName span{
-    color:var(--yellow);
+    color:var(--red);
 }
 
 .status{
     margin-left:auto;
+
     display:flex;
     align-items:center;
     gap:7px;
+
     color:#666;
     font-size:11px;
 }
@@ -370,13 +412,15 @@ body{
 }
 
 /* =========================
-   CHAT
+   MENSAJES
 ========================= */
 
 .messages{
     flex:1;
     overflow-y:auto;
+
     padding:35px 20px 130px;
+
     scroll-behavior:smooth;
 }
 
@@ -393,8 +437,11 @@ body{
 
 .welcome{
     max-width:760px;
+
     margin:7vh auto 0;
+
     text-align:center;
+
     animation:welcomeIn .8s cubic-bezier(.16,1,.3,1);
 }
 
@@ -403,6 +450,7 @@ body{
         opacity:0;
         transform:translateY(25px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
@@ -411,31 +459,43 @@ body{
 
 .welcomeLogo{
     position:relative;
+
     width:82px;
     height:82px;
+
     margin:0 auto 20px;
 }
 
 .welcomeLogo::before{
     content:"";
+
     position:absolute;
     inset:-13px;
+
     border-radius:50%;
-    border:1px solid rgba(91,220,255,.3);
+
+    border:1px solid rgba(255,0,0,.35);
+
     animation:ringSpin 8s linear infinite;
 }
 
 @keyframes ringSpin{
-    to{transform:rotate(360deg);}
+    to{
+        transform:rotate(360deg);
+    }
 }
 
 .welcomeLogo img{
     width:100%;
     height:100%;
+
     object-fit:cover;
+
     border-radius:50%;
-    border:2px solid var(--yellow);
-    box-shadow:0 0 35px rgba(255,240,0,.16);
+
+    border:2px solid var(--red);
+
+    box-shadow:0 0 35px rgba(255,0,0,.16);
 }
 
 .welcome h1{
@@ -444,7 +504,7 @@ body{
 }
 
 .welcome h1 span{
-    color:var(--yellow);
+    color:var(--red);
 }
 
 .welcome p{
@@ -463,28 +523,40 @@ body{
 
 .suggestion{
     border:1px solid rgba(255,255,255,.08);
+
     background:rgba(255,255,255,.025);
+
     color:#999;
+
     border-radius:12px;
+
     padding:10px 13px;
+
     cursor:pointer;
+
     font-size:12px;
+
     transition:.2s;
 }
 
 .suggestion:hover{
-    color:var(--yellow);
-    border-color:rgba(255,240,0,.2);
+    color:#ff3030;
+    border-color:rgba(255,0,0,.2);
     transform:translateY(-2px);
 }
 
-/* MENSAJES */
+/* =========================
+   MENSAJE GENERAL
+========================= */
 
 .message{
     width:min(850px,100%);
     margin:0 auto 22px;
+
     display:flex;
+
     gap:12px;
+
     animation:messageIn .35s ease both;
 }
 
@@ -493,19 +565,51 @@ body{
         opacity:0;
         transform:translateY(10px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
     }
 }
 
+/* =========================
+   NOVA IA = IZQUIERDA
+========================= */
+
+.message.ai{
+    justify-content:flex-start;
+    flex-direction:row;
+}
+
+/* =========================
+   USUARIO = DERECHA
+========================= */
+
+.message.user{
+    justify-content:flex-end;
+
+    /*
+      IMPORTANTE:
+      ponemos el avatar al extremo derecho
+    */
+    flex-direction:row-reverse;
+}
+
+/* =========================
+   AVATAR
+========================= */
+
 .avatar{
     flex-shrink:0;
+
     width:30px;
     height:30px;
+
     border-radius:50%;
+
     overflow:hidden;
-    border:1px solid rgba(255,240,0,.35);
+
+    border:1px solid rgba(255,0,0,.35);
 }
 
 .avatar img{
@@ -515,37 +619,61 @@ body{
 }
 
 .message.user .avatar{
-    border-color:rgba(91,220,255,.4);
+    border-color:rgba(90,210,255,.4);
 }
+
+/* =========================
+   BURBUJAS
+========================= */
 
 .bubble{
     max-width:calc(100% - 45px);
+
     line-height:1.6;
+
     font-size:14px;
+
     color:#ddd;
+
     min-width:0;
 }
 
 .message.user .bubble{
     padding:11px 14px;
+
     border-radius:15px;
+
+    border-top-right-radius:5px;
+
     background:rgba(255,255,255,.045);
-    border:1px solid rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,255,255,.07);
+
     color:#eee;
 }
 
 .message.ai .bubble{
     padding-top:3px;
+
+    border-top-left-radius:5px;
 }
+
+/* =========================
+   CÓDIGO
+========================= */
 
 .bubble pre{
     margin:12px 0;
+
     padding:15px;
+
     overflow-x:auto;
+
     border-radius:12px;
+
     background:#050505;
-    border:1px solid rgba(255,240,0,.14);
-    position:relative;
+
+    border:1px solid rgba(255,0,0,.14);
 }
 
 .bubble code{
@@ -558,32 +686,46 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
+
     margin-bottom:8px;
+
     color:#666;
+
     font-size:10px;
 }
 
 .copyCode{
     border:0;
     background:transparent;
+
     color:#777;
+
     cursor:pointer;
     font-size:10px;
 }
 
 .copyCode:hover{
-    color:var(--yellow);
+    color:#ff3030;
 }
 
-/* CURSOR */
+/* =========================
+   CURSOR
+========================= */
+
 .typing-cursor{
     display:inline-block;
+
     width:6px;
     height:16px;
+
     margin-left:3px;
+
     vertical-align:-3px;
-    background:var(--yellow);
-    box-shadow:0 0 8px rgba(255,240,0,.7);
+
+    background:var(--red);
+
+    box-shadow:0 0 8px rgba(255,0,0,.7);
+
     animation:cursorBlink .7s infinite;
 }
 
@@ -592,7 +734,10 @@ body{
     46%,100%{opacity:0;}
 }
 
-/* THINKING */
+/* =========================
+   THINKING
+========================= */
+
 .thinking{
     display:flex;
     gap:4px;
@@ -602,19 +747,28 @@ body{
 .thinking span{
     width:5px;
     height:5px;
+
     border-radius:50%;
-    background:var(--yellow);
+
+    background:var(--red);
+
     animation:thinking .8s infinite;
 }
 
-.thinking span:nth-child(2){animation-delay:.12s;}
-.thinking span:nth-child(3){animation-delay:.24s;}
+.thinking span:nth-child(2){
+    animation-delay:.12s;
+}
+
+.thinking span:nth-child(3){
+    animation-delay:.24s;
+}
 
 @keyframes thinking{
     0%,60%,100%{
         opacity:.25;
         transform:translateY(0);
     }
+
     30%{
         opacity:1;
         transform:translateY(-4px);
@@ -627,10 +781,14 @@ body{
 
 .inputArea{
     position:absolute;
+
     bottom:0;
+
     left:270px;
     right:0;
+
     padding:20px;
+
     background:linear-gradient(
         to top,
         rgba(3,3,3,1) 55%,
@@ -640,40 +798,59 @@ body{
 
 .inputWrap{
     width:min(850px,100%);
+
     margin:auto;
+
     display:flex;
     align-items:flex-end;
     gap:7px;
+
     padding:7px;
+
     border:1px solid rgba(255,255,255,.09);
+
     border-radius:17px;
+
     background:rgba(8,8,8,.9);
+
     box-shadow:
         0 10px 40px rgba(0,0,0,.45),
-        0 0 25px rgba(255,240,0,.025);
+        0 0 25px rgba(255,0,0,.025);
+
     backdrop-filter:blur(16px);
+
     transition:.25s;
 }
 
 .inputWrap:focus-within{
-    border-color:rgba(255,240,0,.28);
+    border-color:rgba(255,0,0,.3);
+
     box-shadow:
         0 10px 40px rgba(0,0,0,.45),
-        0 0 25px rgba(255,240,0,.06);
+        0 0 25px rgba(255,0,0,.06);
 }
 
 textarea{
     flex:1;
+
     resize:none;
+
     min-height:40px;
     max-height:150px;
+
     padding:10px 9px;
+
     border:0;
     outline:0;
+
     background:transparent;
+
     color:white;
+
     font-family:Arial,Helvetica,sans-serif;
+
     font-size:14px;
+
     line-height:20px;
 }
 
@@ -685,37 +862,51 @@ textarea::placeholder{
 .aiBtn{
     width:40px;
     height:40px;
+
     flex-shrink:0;
+
     border-radius:11px;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     cursor:pointer;
+
     transition:.2s;
 }
 
 .aiBtn{
     border:1px solid rgba(91,220,255,.18);
+
     background:rgba(91,220,255,.04);
+
     color:#777;
 }
 
 .aiBtn:hover{
-    color:var(--cyan);
+    color:#59dcff;
+
     border-color:rgba(91,220,255,.45);
+
     background:rgba(91,220,255,.08);
 }
 
 .sendBtn{
-    border:1px solid rgba(255,240,0,.35);
-    background:rgba(255,240,0,.08);
-    color:var(--yellow);
+    border:1px solid rgba(255,0,0,.35);
+
+    background:rgba(255,0,0,.07);
+
+    color:#ff3030;
 }
 
 .sendBtn:hover{
-    background:var(--yellow);
-    color:#000;
-    box-shadow:0 0 20px rgba(255,240,0,.18);
+    background:var(--red);
+
+    color:white;
+
+    box-shadow:0 0 20px rgba(255,0,0,.18);
+
     transform:translateY(-1px);
 }
 
@@ -732,27 +923,38 @@ textarea::placeholder{
 }
 
 /* =========================
-   OVERLAY / CONFIRM
+   CONFIRM
 ========================= */
 
 .overlay{
     display:none;
+
     position:fixed;
     inset:0;
+
     background:rgba(0,0,0,.68);
+
     backdrop-filter:blur(7px);
+
     z-index:50;
+
     align-items:center;
     justify-content:center;
 }
 
 .confirm{
     width:min(360px,90%);
+
     background:#090909;
-    border:1px solid rgba(255,240,0,.18);
+
+    border:1px solid rgba(255,0,0,.18);
+
     border-radius:18px;
+
     padding:24px;
+
     box-shadow:0 20px 80px rgba(0,0,0,.6);
+
     animation:confirmIn .25s ease;
 }
 
@@ -761,6 +963,7 @@ textarea::placeholder{
         opacity:0;
         transform:scale(.95);
     }
+
     to{
         opacity:1;
         transform:scale(1);
@@ -787,8 +990,11 @@ textarea::placeholder{
 
 .confirmActions button{
     padding:9px 14px;
+
     border-radius:9px;
+
     cursor:pointer;
+
     font-size:12px;
 }
 
@@ -812,10 +1018,13 @@ textarea::placeholder{
 
     .sidebar{
         position:fixed;
+
         left:0;
         top:0;
         bottom:0;
+
         transform:translateX(-105%);
+
         box-shadow:20px 0 60px rgba(0,0,0,.5);
     }
 
@@ -878,8 +1087,8 @@ textarea::placeholder{
     }
 }
 
-/* REDUCE MOTION */
 @media(prefers-reduced-motion:reduce){
+
     *,*::before,*::after{
         animation-duration:.01ms!important;
         animation-iteration-count:1!important;
@@ -893,74 +1102,119 @@ textarea::placeholder{
 
 <div class="background">
     <div class="grid"></div>
-    <div class="glow yellow"></div>
+
+    <div class="glow red"></div>
     <div class="glow cyan"></div>
 </div>
 
 <div class="app">
 
 <!-- SIDEBAR -->
+
 <aside class="sidebar" id="sidebar">
 
     <div class="sidebarTop">
+
         <div class="brand">
+
             <img src="https://i.ibb.co/whKQvZsw/Nova.jpg">
-            <span>NOVA <span>IA</span></span>
+
+            <span>
+                NOVA <span>IA</span>
+            </span>
+
         </div>
 
-        <button class="iconBtn" onclick="closeSidebar()" aria-label="Cerrar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2" stroke-linecap="round">
+        <button class="iconBtn" onclick="closeSidebar()">
+
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round">
+
                 <path d="M18 6 6 18"></path>
                 <path d="m6 6 12 12"></path>
+
             </svg>
+
         </button>
+
     </div>
 
     <button class="newChat" onclick="newChat()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2" stroke-linecap="round">
+
+        <svg viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round">
+
             <path d="M12 5v14"></path>
             <path d="M5 12h14"></path>
+
         </svg>
+
         Nueva conversación
+
     </button>
 
-    <div class="chatTitle">Mis chats</div>
+    <div class="chatTitle">
+        Mis chats
+    </div>
 
     <div class="chatList" id="chatList"></div>
 
     <div class="sidebarBottom">
+
         <div class="creator">
             Creada por <span>Yander</span>
         </div>
+
     </div>
 
 </aside>
 
 <!-- MAIN -->
+
 <main class="main">
 
     <header class="header">
 
-        <button class="iconBtn menuBtn" onclick="openSidebar()" aria-label="Menú">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2" stroke-linecap="round">
+        <button class="iconBtn menuBtn"
+                onclick="openSidebar()">
+
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round">
+
                 <path d="M4 6h16"></path>
                 <path d="M4 12h16"></path>
                 <path d="M4 18h16"></path>
+
             </svg>
+
         </button>
 
-        <img class="headerLogo" src="https://i.ibb.co/whKQvZsw/Nova.jpg">
+        <img
+            class="headerLogo"
+            src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+        >
 
         <div class="headerName">
             NOVA <span>IA</span>
         </div>
 
         <div class="status" id="serverStatus">
+
             <span class="statusDot"></span>
-            <span id="statusText">Conectando...</span>
+
+            <span id="statusText">
+                Conectando...
+            </span>
+
         </div>
 
     </header>
@@ -970,16 +1224,21 @@ textarea::placeholder{
         <div class="welcome" id="welcome">
 
             <div class="welcomeLogo">
+
                 <img src="https://i.ibb.co/whKQvZsw/Nova.jpg">
+
             </div>
 
-            <h1>¿En qué puedo <span>ayudarte?</span></h1>
+            <h1>
+                ¿En qué puedo <span>ayudarte?</span>
+            </h1>
 
             <p>
                 Programación, Roblox, Lua y mucho más.
             </p>
 
             <div class="suggestions">
+
                 <button class="suggestion"
                     onclick="useSuggestion('Créame un script de Roblox en Lua')">
                     Script de Roblox
@@ -994,6 +1253,7 @@ textarea::placeholder{
                     onclick="useSuggestion('Ayúdame a crear una GUI para Roblox')">
                     Crear una GUI
                 </button>
+
             </div>
 
         </div>
@@ -1003,6 +1263,7 @@ textarea::placeholder{
 </main>
 
 <!-- INPUT -->
+
 <div class="inputArea">
 
     <div class="inputWrap">
@@ -1014,30 +1275,36 @@ textarea::placeholder{
             autocomplete="off"
         ></textarea>
 
-        <!-- SELECTOR PREPARADO PARA DESPUÉS -->
-        <button class="aiBtn"
-                onclick="openAISelector()"
-                title="Seleccionar IA">
+        <!-- BOTÓN PARA FUTURO SELECTOR DE IA -->
 
-            <svg viewBox="0 0 24 24" fill="none"
+        <button
+            class="aiBtn"
+            onclick="openAISelector()"
+            title="Seleccionar IA">
+
+            <svg viewBox="0 0 24 24"
+                 fill="none"
                  stroke="currentColor"
                  stroke-width="1.8"
                  stroke-linecap="round"
                  stroke-linejoin="round">
 
                 <path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z"></path>
+
                 <path d="m19 15 .8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"></path>
 
             </svg>
 
         </button>
 
-        <button class="sendBtn"
-                id="sendBtn"
-                onclick="sendMessage()"
-                title="Enviar">
+        <button
+            class="sendBtn"
+            id="sendBtn"
+            onclick="sendMessage()"
+            title="Enviar">
 
-            <svg viewBox="0 0 24 24" fill="none"
+            <svg viewBox="0 0 24 24"
+                 fill="none"
                  stroke="currentColor"
                  stroke-width="2"
                  stroke-linecap="round"
@@ -1057,11 +1324,14 @@ textarea::placeholder{
 </div>
 
 <!-- CONFIRM -->
+
 <div class="overlay" id="confirmOverlay">
 
     <div class="confirm">
 
-        <h3>Eliminar conversación</h3>
+        <h3>
+            Eliminar conversación
+        </h3>
 
         <p>
             Esta conversación se eliminará de este dispositivo.
@@ -1069,11 +1339,15 @@ textarea::placeholder{
 
         <div class="confirmActions">
 
-            <button class="cancel" onclick="closeNovaConfirm()">
+            <button
+                class="cancel"
+                onclick="closeNovaConfirm()">
                 Cancelar
             </button>
 
-            <button class="delete" id="confirmDeleteBtn">
+            <button
+                class="delete"
+                id="confirmDeleteBtn">
                 Eliminar
             </button>
 
@@ -1084,32 +1358,53 @@ textarea::placeholder{
 </div>
 
 <script>
+
 const RENDER_URL = "https://nova-ia-2oup.onrender.com";
+
 const CHAT_URL = RENDER_URL + "/chat";
+
 const STATUS_URL = RENDER_URL + "/status";
 
 const STORAGE_KEY = "nova_chats";
+
 const CURRENT_KEY = "nova_current";
 
-let chats = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-let currentId = localStorage.getItem(CURRENT_KEY);
-let waiting = false;
-let deleteTarget = null;
+let chats =
+    JSON.parse(
+        localStorage.getItem(STORAGE_KEY) || "[]"
+    );
+
+let currentId =
+    localStorage.getItem(CURRENT_KEY);
+
+let waiting=false;
+
+let deleteTarget=null;
 
 /* =========================
    STORAGE
 ========================= */
 
 function save(){
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(chats));
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(chats)
+    );
 
     if(currentId){
-        localStorage.setItem(CURRENT_KEY,currentId);
+        localStorage.setItem(
+            CURRENT_KEY,
+            currentId
+        );
     }
 }
 
 function currentChat(){
-    return chats.find(c => c.id === currentId);
+
+    return chats.find(
+        c => c.id === currentId
+    );
 }
 
 /* =========================
@@ -1117,30 +1412,44 @@ function currentChat(){
 ========================= */
 
 function createChat(){
-    const chat = {
+
+    const chat={
         id:Date.now().toString(),
+
         title:"Nueva conversación",
+
         messages:[]
     };
 
     chats.unshift(chat);
-    currentId = chat.id;
+
+    currentId=chat.id;
 
     save();
+
     renderChatList();
+
     render();
 }
 
 function newChat(){
+
     createChat();
+
     closeSidebar();
 }
 
 function generateTitle(text){
-    let title = text.trim().replace(/\s+/g," ");
 
-    if(title.length > 30){
-        title = title.substring(0,30) + "...";
+    let title=text
+        .trim()
+        .replace(/\s+/g," ");
+
+    if(title.length>30){
+
+        title=
+            title.substring(0,30)
+            +"...";
     }
 
     return title || "Nueva conversación";
@@ -1152,21 +1461,26 @@ function generateTitle(text){
 
 function render(){
 
-    const container = document.getElementById("messages");
-    const chat = currentChat();
+    const container=
+        document.getElementById("messages");
+
+    const chat=currentChat();
 
     container.innerHTML="";
 
-    if(!chat || chat.messages.length === 0){
+    if(!chat || chat.messages.length===0){
 
-        container.innerHTML = `
-        <div class="welcome" id="welcome">
+        container.innerHTML=`
+
+        <div class="welcome">
 
             <div class="welcomeLogo">
                 <img src="https://i.ibb.co/whKQvZsw/Nova.jpg">
             </div>
 
-            <h1>¿En qué puedo <span>ayudarte?</span></h1>
+            <h1>
+                ¿En qué puedo <span>ayudarte?</span>
+            </h1>
 
             <p>
                 Programación, Roblox, Lua y mucho más.
@@ -1197,37 +1511,68 @@ function render(){
     }
 
     chat.messages.forEach(message=>{
-        addMessage(message.role,message.content,false);
+
+        addMessage(
+            message.role,
+            message.content,
+            false
+        );
+
     });
 
     scrollBottom();
 }
 
-function addMessage(role,content,animate=true){
+/* =========================
+   MENSAJES
+========================= */
 
-    const container = document.getElementById("messages");
+function addMessage(
+    role,
+    content,
+    animate=true
+){
 
-    const message = document.createElement("div");
-    message.className = "message " + role;
+    const container=
+        document.getElementById("messages");
+
+    const message=
+        document.createElement("div");
+
+    message.className=
+        "message "+role;
 
     if(!animate){
         message.style.animation="none";
     }
 
-    message.innerHTML = `
+    message.innerHTML=`
+
         <div class="avatar">
-            <img src="https://i.ibb.co/whKQvZsw/Nova.jpg">
+
+            <img
+                src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+            >
+
         </div>
 
         <div class="bubble"></div>
+
     `;
 
-    const bubble = message.querySelector(".bubble");
+    const bubble=
+        message.querySelector(".bubble");
 
-    if(role === "user"){
-        bubble.textContent = content;
+    if(role==="user"){
+
+        bubble.textContent=content;
+
     }else{
-        renderFormattedContent(bubble,content);
+
+        renderFormattedContent(
+            bubble,
+            content
+        );
     }
 
     container.appendChild(message);
@@ -1236,81 +1581,116 @@ function addMessage(role,content,animate=true){
 }
 
 /* =========================
-   FORMATO DE RESPUESTAS
+   FORMATO
 ========================= */
 
-function renderFormattedContent(container,content){
+function renderFormattedContent(
+    container,
+    content
+){
 
     if(!content.includes("```")){
-        container.textContent = content;
+
+        container.textContent=content;
+
         return;
     }
 
-    const parts = content.split("```");
+    const parts=content.split("```");
 
     container.innerHTML="";
 
     parts.forEach((part,index)=>{
 
-        if(index % 2 === 0){
+        if(index%2===0){
 
             if(part.trim()){
-                const text = document.createElement("div");
-                text.textContent = part;
+
+                const text=
+                    document.createElement("div");
+
+                text.textContent=part;
+
                 container.appendChild(text);
             }
 
         }else{
 
-            let code = part;
+            let code=part;
 
-            let language = "Código";
+            let language="Código";
 
-            const firstLine = code.split("\n")[0].trim();
+            const firstLine=
+                code.split("\n")[0].trim();
 
             if(
-                firstLine === "lua" ||
-                firstLine === "javascript" ||
-                firstLine === "js" ||
-                firstLine === "html" ||
-                firstLine === "css" ||
-                firstLine === "python"
+                firstLine==="lua" ||
+                firstLine==="javascript" ||
+                firstLine==="js" ||
+                firstLine==="html" ||
+                firstLine==="css" ||
+                firstLine==="python"
             ){
-                language = firstLine;
-                code = code.substring(code.indexOf("\n")+1);
+
+                language=firstLine;
+
+                code=
+                    code.substring(
+                        code.indexOf("\n")+1
+                    );
             }
 
-            const wrapper = document.createElement("div");
+            const wrapper=
+                document.createElement("div");
 
-            wrapper.innerHTML = `
+            wrapper.innerHTML=`
+
                 <pre>
+
                     <div class="codeHeader">
-                        <span>${escapeHTML(language)}</span>
+
+                        <span>
+                            ${escapeHTML(language)}
+                        </span>
 
                         <button class="copyCode">
                             Copiar
                         </button>
+
                     </div>
 
-                    <code>${escapeHTML(code.trim())}</code>
+                    <code>
+                        ${escapeHTML(code.trim())}
+                    </code>
+
                 </pre>
+
             `;
 
-            const copyButton = wrapper.querySelector(".copyCode");
+            const copyButton=
+                wrapper.querySelector(".copyCode");
 
-            copyButton.onclick = async ()=>{
+            copyButton.onclick=async()=>{
 
                 try{
-                    await navigator.clipboard.writeText(code.trim());
 
-                    copyButton.textContent="Copiado";
+                    await navigator.clipboard
+                        .writeText(code.trim());
+
+                    copyButton.textContent=
+                        "Copiado";
 
                     setTimeout(()=>{
-                        copyButton.textContent="Copiar";
+
+                        copyButton.textContent=
+                            "Copiar";
+
                     },1200);
 
                 }catch{
-                    copyButton.textContent="Error";
+
+                    copyButton.textContent=
+                        "Error";
                 }
 
             };
@@ -1325,27 +1705,30 @@ function renderFormattedContent(container,content){
    ESCRITURA PROGRESIVA
 ========================= */
 
-async function typeResponse(bubble,content){
+async function typeResponse(
+    bubble,
+    content
+){
 
-    const cursor = document.createElement("span");
-    cursor.className="typing-cursor";
+    const cursor=
+        document.createElement("span");
+
+    cursor.className=
+        "typing-cursor";
 
     bubble.appendChild(cursor);
 
     let text="";
 
-    /*
-      Velocidad:
-      4 = muy rápida
-      7 = normal
-      12 = lenta
-    */
+    const speed=7;
 
-    const speed = 7;
+    for(
+        let i=0;
+        i<content.length;
+        i++
+    ){
 
-    for(let i=0;i<content.length;i++){
-
-        text += content[i];
+        text+=content[i];
 
         cursor.remove();
 
@@ -1355,8 +1738,9 @@ async function typeResponse(bubble,content){
 
         scrollBottom();
 
-        await new Promise(resolve =>
-            setTimeout(resolve,speed)
+        await new Promise(
+            resolve =>
+                setTimeout(resolve,speed)
         );
     }
 
@@ -1364,7 +1748,10 @@ async function typeResponse(bubble,content){
 
     bubble.innerHTML="";
 
-    renderFormattedContent(bubble,content);
+    renderFormattedContent(
+        bubble,
+        content
+    );
 
     scrollBottom();
 }
@@ -1375,27 +1762,38 @@ async function typeResponse(bubble,content){
 
 function showThinking(){
 
-    const container = document.getElementById("messages");
+    const container=
+        document.getElementById("messages");
 
-    const message = document.createElement("div");
+    const message=
+        document.createElement("div");
 
     message.className="message ai";
+
     message.id="thinking";
 
     message.innerHTML=`
+
         <div class="avatar">
-            <img src="https://i.ibb.co/whKQvZsw/Nova.jpg">
+
+            <img
+                src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+            >
+
         </div>
 
         <div class="bubble">
 
             <div class="thinking">
+
                 <span></span>
                 <span></span>
                 <span></span>
+
             </div>
 
         </div>
+
     `;
 
     container.appendChild(message);
@@ -1405,7 +1803,8 @@ function showThinking(){
 
 function removeThinking(){
 
-    const thinking = document.getElementById("thinking");
+    const thinking=
+        document.getElementById("thinking");
 
     if(thinking){
         thinking.remove();
@@ -1420,87 +1819,125 @@ async function sendMessage(){
 
     if(waiting) return;
 
-    const input = document.getElementById("input");
-    const sendBtn = document.getElementById("sendBtn");
+    const input=
+        document.getElementById("input");
 
-    const message = input.value.trim();
+    const sendBtn=
+        document.getElementById("sendBtn");
+
+    const message=
+        input.value.trim();
 
     if(!message) return;
 
-    let chat = currentChat();
+    let chat=currentChat();
 
     if(!chat){
+
         createChat();
-        chat = currentChat();
+
+        chat=currentChat();
     }
 
-    if(chat.messages.length === 0){
-        chat.title = generateTitle(message);
+    if(chat.messages.length===0){
+
+        chat.title=
+            generateTitle(message);
     }
 
     chat.messages.push({
+
         role:"user",
+
         content:message
     });
 
     save();
 
     input.value="";
+
     autoResize();
 
     render();
 
     waiting=true;
+
     sendBtn.disabled=true;
 
     showThinking();
 
     try{
 
-        const response = await fetch(CHAT_URL,{
-            method:"POST",
+        const response=
+            await fetch(
+                CHAT_URL,
+                {
+                    method:"POST",
 
-            headers:{
-                "Content-Type":"application/json"
-            },
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
 
-            body:JSON.stringify({
-                message:message,
-                history:chat.messages
-            })
-        });
+                    body:JSON.stringify({
+                        message:message,
+                        history:chat.messages
+                    })
+                }
+            );
 
         removeThinking();
 
-        const data = await response.json();
+        const data=
+            await response.json();
 
         if(!data.success){
-            throw new Error(data.error || "Error del servidor");
+
+            throw new Error(
+                data.error ||
+                "Error del servidor"
+            );
         }
 
-        const bubble = addMessage("ai","",true);
+        const bubble=
+            addMessage(
+                "ai",
+                "",
+                true
+            );
 
         chat.messages.push({
+
             role:"assistant",
+
             content:data.response
         });
 
         save();
 
-        await typeResponse(bubble,data.response);
+        await typeResponse(
+            bubble,
+            data.response
+        );
 
     }catch(error){
 
         removeThinking();
 
-        const errorText =
+        const errorText=
             "No pude obtener una respuesta de Nova IA.\n\nDetalle: "
-            + error.message;
+            +error.message;
 
-        addMessage("ai",errorText,true);
+        addMessage(
+            "ai",
+            errorText,
+            true
+        );
 
         chat.messages.push({
+
             role:"assistant",
+
             content:errorText
         });
 
@@ -1509,6 +1946,7 @@ async function sendMessage(){
     }finally{
 
         waiting=false;
+
         sendBtn.disabled=false;
 
         renderChatList();
@@ -1521,7 +1959,8 @@ async function sendMessage(){
 
 function useSuggestion(text){
 
-    const input = document.getElementById("input");
+    const input=
+        document.getElementById("input");
 
     input.value=text;
 
@@ -1531,55 +1970,51 @@ function useSuggestion(text){
 }
 
 /* =========================
-   SELECTOR DE IA
+   SELECTOR IA
 ========================= */
 
 function openAISelector(){
 
-    /*
-      ESTE BOTÓN QUEDA PREPARADO.
-
-      Más adelante aquí podemos poner:
-      - NOVA
-      - GPT
-      - Claude
-      - Gemini
-      - Groq
-      - otros modelos
-
-      Por ahora NO cambia el funcionamiento
-      de NOVA IA.
-    */
-
-    console.log("Selector de IA preparado.");
+    console.log(
+        "Selector de IA preparado."
+    );
 }
 
 /* =========================
-   CHAT LIST
+   LISTA CHATS
 ========================= */
 
 function renderChatList(){
 
-    const list = document.getElementById("chatList");
+    const list=
+        document.getElementById("chatList");
 
     list.innerHTML="";
 
     chats.forEach(chat=>{
 
-        const item = document.createElement("div");
+        const item=
+            document.createElement("div");
 
-        item.className =
-            "chatItem " +
-            (chat.id === currentId ? "active" : "");
+        item.className=
+            "chatItem "+
+            (
+                chat.id===currentId
+                ?"active"
+                :""
+            );
 
-        item.textContent = chat.title;
+        item.textContent=
+            chat.title;
 
         item.onclick=()=>{
 
             currentId=chat.id;
 
             save();
+
             render();
+
             renderChatList();
 
             closeSidebar();
@@ -1589,7 +2024,9 @@ function renderChatList(){
 
             event.preventDefault();
 
-            confirmNovaDelete(chat.id);
+            confirmNovaDelete(
+                chat.id
+            );
         };
 
         list.appendChild(item);
@@ -1604,9 +2041,13 @@ function confirmNovaDelete(id){
 
     deleteTarget=id;
 
-    document.getElementById("confirmOverlay").style.display="flex";
+    document.getElementById(
+        "confirmOverlay"
+    ).style.display="flex";
 
-    document.getElementById("confirmDeleteBtn").onclick=()=>{
+    document.getElementById(
+        "confirmDeleteBtn"
+    ).onclick=()=>{
 
         deleteChat(deleteTarget);
 
@@ -1618,18 +2059,27 @@ function closeNovaConfirm(){
 
     deleteTarget=null;
 
-    document.getElementById("confirmOverlay").style.display="none";
+    document.getElementById(
+        "confirmOverlay"
+    ).style.display="none";
 }
 
 function deleteChat(id){
 
-    chats=chats.filter(chat=>chat.id!==id);
+    chats=
+        chats.filter(
+            chat=>chat.id!==id
+        );
 
     if(currentId===id){
 
         if(chats.length){
-            currentId=chats[0].id;
+
+            currentId=
+                chats[0].id;
+
         }else{
+
             currentId=null;
         }
     }
@@ -1637,9 +2087,13 @@ function deleteChat(id){
     save();
 
     if(!currentId){
+
         createChat();
+
     }else{
+
         render();
+
         renderChatList();
     }
 }
@@ -1650,50 +2104,72 @@ function deleteChat(id){
 
 function openSidebar(){
 
-    document.getElementById("sidebar")
-        .classList.add("open");
+    document.getElementById(
+        "sidebar"
+    ).classList.add("open");
 }
 
 function closeSidebar(){
 
-    document.getElementById("sidebar")
-        .classList.remove("open");
+    document.getElementById(
+        "sidebar"
+    ).classList.remove("open");
 }
 
 /* =========================
-   SERVER STATUS
+   SERVER
 ========================= */
 
 async function checkServer(){
 
-    const status = document.getElementById("serverStatus");
-    const statusText = document.getElementById("statusText");
+    const status=
+        document.getElementById(
+            "serverStatus"
+        );
+
+    const statusText=
+        document.getElementById(
+            "statusText"
+        );
 
     try{
 
-        const response = await fetch(
-            STATUS_URL,
-            {
-                method:"GET",
-                cache:"no-store"
-            }
-        );
+        const response=
+            await fetch(
+                STATUS_URL,
+                {
+                    method:"GET",
+                    cache:"no-store"
+                }
+            );
 
         if(!response.ok){
             throw new Error();
         }
 
-        status.classList.remove("offline");
-        status.classList.add("online");
+        status.classList.remove(
+            "offline"
+        );
 
-        statusText.textContent="Online";
+        status.classList.add(
+            "online"
+        );
+
+        statusText.textContent=
+            "Online";
 
     }catch{
 
-        status.classList.remove("online");
-        status.classList.add("offline");
+        status.classList.remove(
+            "online"
+        );
 
-        statusText.textContent="Offline";
+        status.classList.add(
+            "offline"
+        );
+
+        statusText.textContent=
+            "Offline";
     }
 }
 
@@ -1713,59 +2189,90 @@ function escapeHTML(text){
 
 function scrollBottom(){
 
-    const container=document.getElementById("messages");
+    const container=
+        document.getElementById(
+            "messages"
+        );
 
     requestAnimationFrame(()=>{
-        container.scrollTop=container.scrollHeight;
+
+        container.scrollTop=
+            container.scrollHeight;
     });
 }
 
 function autoResize(){
 
-    const input=document.getElementById("input");
+    const input=
+        document.getElementById(
+            "input"
+        );
 
     input.style.height="auto";
 
-    input.style.height =
-        Math.min(input.scrollHeight,150) + "px";
+    input.style.height=
+        Math.min(
+            input.scrollHeight,
+            150
+        )+"px";
 }
 
 /* =========================
    TECLADO
 ========================= */
 
-const input=document.getElementById("input");
+const input=
+    document.getElementById(
+        "input"
+    );
 
-input.addEventListener("input",autoResize);
+input.addEventListener(
+    "input",
+    autoResize
+);
 
-input.addEventListener("keydown",event=>{
+input.addEventListener(
+    "keydown",
+    event=>{
 
-    if(event.key==="Enter" && !event.shiftKey){
+        if(
+            event.key==="Enter" &&
+            !event.shiftKey
+        ){
 
-        event.preventDefault();
+            event.preventDefault();
 
-        sendMessage();
+            sendMessage();
+        }
     }
-});
+);
 
 /* =========================
-   CLICK FUERA SIDEBAR
+   CLICK FUERA
 ========================= */
 
-document.addEventListener("click",event=>{
+document.addEventListener(
+    "click",
+    event=>{
 
-    if(window.innerWidth > 760) return;
+        if(window.innerWidth>760)
+            return;
 
-    const sidebar=document.getElementById("sidebar");
+        const sidebar=
+            document.getElementById(
+                "sidebar"
+            );
 
-    if(
-        sidebar.classList.contains("open") &&
-        !sidebar.contains(event.target) &&
-        !event.target.closest(".menuBtn")
-    ){
-        closeSidebar();
+        if(
+            sidebar.classList.contains("open") &&
+            !sidebar.contains(event.target) &&
+            !event.target.closest(".menuBtn")
+        ){
+
+            closeSidebar();
+        }
     }
-});
+);
 
 /* =========================
    INICIO
@@ -1777,16 +2284,24 @@ if(!chats.length){
 
 }else{
 
-    if(!currentId || !currentChat()){
-        currentId=chats[0].id;
+    if(
+        !currentId ||
+        !currentChat()
+    ){
+
+        currentId=
+            chats[0].id;
+
         save();
     }
 
     render();
+
     renderChatList();
 }
 
 checkServer();
+
 </script>
 
 </body>
