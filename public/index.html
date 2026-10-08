@@ -19,47 +19,49 @@ html,body{
 
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#030303;
+    background:#000;
     color:white;
     overflow:hidden;
 }
 
 /* =========================
-   FONDO
+   FONDO COMPLETAMENTE VISIBLE
 ========================= */
 
 .background{
     position:fixed;
     inset:0;
     overflow:hidden;
-    background:
-        radial-gradient(circle at 50% 20%,rgba(255,0,0,.10),transparent 30%),
-        radial-gradient(circle at 85% 80%,rgba(0,150,255,.06),transparent 25%),
-        #030303;
+    background:#000;
+    z-index:0;
 }
 
-/* Líneas animadas */
+/* Líneas */
 
 .lines{
     position:absolute;
     inset:0;
     overflow:hidden;
-    opacity:.45;
+    opacity:.55;
 }
 
 .line{
     position:absolute;
     width:2px;
     height:150%;
+
     background:linear-gradient(
         transparent,
-        rgba(255,0,0,.15),
-        rgba(255,30,30,.8),
-        rgba(255,0,0,.12),
+        rgba(255,240,0,.12),
+        rgba(255,240,0,.9),
+        rgba(255,240,0,.12),
         transparent
     );
+
     filter:blur(.4px);
+
     transform:rotate(25deg);
+
     animation:lineMove linear infinite;
 }
 
@@ -111,105 +113,174 @@ body{
 }
 
 @keyframes lineMove{
+
     0%{
         transform:translateY(-60%) rotate(25deg);
     }
+
     100%{
         transform:translateY(70%) rotate(25deg);
     }
 }
 
-/* Cuadrícula */
+/* =========================
+   CUADRÍCULA
+========================= */
 
 .grid{
     position:absolute;
+
     width:200%;
     height:200%;
+
     left:-50%;
     top:-20%;
-    opacity:.07;
+
+    opacity:.10;
+
     background-image:
-        linear-gradient(rgba(255,0,0,.25) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,0,0,.20) 1px,transparent 1px);
+        linear-gradient(
+            rgba(255,240,0,.25) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,240,0,.20) 1px,
+            transparent 1px
+        );
+
     background-size:65px 65px;
-    transform:perspective(600px) rotateX(65deg);
+
+    transform:
+        perspective(600px)
+        rotateX(65deg);
+
     animation:gridMove 18s linear infinite;
 }
 
 @keyframes gridMove{
+
     from{
-        transform:perspective(600px) rotateX(65deg) translateY(0);
+        transform:
+            perspective(600px)
+            rotateX(65deg)
+            translateY(0);
     }
+
     to{
-        transform:perspective(600px) rotateX(65deg) translateY(65px);
+        transform:
+            perspective(600px)
+            rotateX(65deg)
+            translateY(65px);
     }
 }
 
-/* Luces */
+/* =========================
+   LUCES
+========================= */
 
 .orb{
     position:absolute;
     border-radius:50%;
-    filter:blur(60px);
+    filter:blur(65px);
     pointer-events:none;
 }
 
-.orb.red{
-    width:300px;
-    height:300px;
-    background:#ff0000;
+.orb.yellow{
+
+    width:330px;
+    height:330px;
+
+    background:#fff000;
+
     opacity:.13;
-    left:-120px;
+
+    left:-130px;
     top:15%;
-    animation:redOrb 12s ease-in-out infinite;
+
+    animation:yellowOrb 12s ease-in-out infinite;
 }
 
-.orb.blue{
-    width:250px;
-    height:250px;
-    background:#008cff;
+.orb.cyan{
+
+    width:270px;
+    height:270px;
+
+    background:#00c8ff;
+
     opacity:.08;
+
     right:-100px;
     bottom:10%;
-    animation:blueOrb 15s ease-in-out infinite;
+
+    animation:cyanOrb 15s ease-in-out infinite;
 }
 
-@keyframes redOrb{
+@keyframes yellowOrb{
+
     0%,100%{
         transform:translate(0,0);
     }
+
     50%{
-        transform:translate(140px,80px);
+        transform:translate(150px,80px);
     }
 }
 
-@keyframes blueOrb{
+@keyframes cyanOrb{
+
     0%,100%{
         transform:translate(0,0);
     }
+
     50%{
         transform:translate(-120px,-70px);
     }
 }
 
-/* Partículas */
+/* =========================
+   PARTÍCULAS
+========================= */
 
 .particles{
+
     position:absolute;
     inset:0;
+
     background-image:
-        radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1px),
-        radial-gradient(circle,rgba(255,0,0,.8) 1px,transparent 1px);
-    background-size:100px 100px,150px 150px;
-    background-position:20px 30px,70px 50px;
-    opacity:.10;
-    animation:particlesMove 25s linear infinite;
+
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.8) 1px,
+            transparent 1px
+        ),
+
+        radial-gradient(
+            circle,
+            rgba(255,240,0,.8) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        100px 100px,
+        150px 150px;
+
+    background-position:
+        20px 30px,
+        70px 50px;
+
+    opacity:.12;
+
+    animation:
+        particlesMove 25s linear infinite;
 }
 
 @keyframes particlesMove{
+
     from{
         transform:translate(0,0);
     }
+
     to{
         transform:translate(-100px,100px);
     }
@@ -220,47 +291,85 @@ body{
 ========================= */
 
 .page{
+
     position:relative;
+
     z-index:2;
+
     width:100%;
     height:100%;
+
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     padding:20px;
 }
 
+/* =========================
+   CARD TRANSPARENTE
+========================= */
+
 .card{
+
     width:min(900px,100%);
+
     min-height:600px;
+
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
     justify-content:center;
+
     padding:50px 25px;
 
-    background:rgba(7,7,7,.70);
-    border:1px solid rgba(255,0,0,.18);
+    /*
+       IMPORTANTE:
+       Sin fondo negro.
+       Ahora se ve completamente
+       la animación del fondo.
+    */
+
+    background:transparent;
+
+    border:1px solid rgba(255,240,0,.20);
+
     border-radius:30px;
 
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
+    /*
+       Solo desenfoca ligeramente
+       lo que está detrás.
+    */
+
+    backdrop-filter:blur(3px);
+    -webkit-backdrop-filter:blur(3px);
 
     box-shadow:
-        0 0 80px rgba(255,0,0,.06),
-        inset 0 0 50px rgba(255,255,255,.015);
+        0 0 60px rgba(255,240,0,.025),
+        inset 0 0 40px rgba(255,240,0,.015);
 
-    animation:cardEnter 1s cubic-bezier(.16,1,.3,1);
+    animation:
+        cardEnter 1s
+        cubic-bezier(.16,1,.3,1);
 }
 
 @keyframes cardEnter{
+
     from{
         opacity:0;
-        transform:translateY(30px) scale(.96);
+        transform:
+            translateY(30px)
+            scale(.96);
     }
+
     to{
         opacity:1;
-        transform:translateY(0) scale(1);
+        transform:
+            translateY(0)
+            scale(1);
     }
 }
 
@@ -269,72 +378,116 @@ body{
 ========================= */
 
 .logoContainer{
+
     position:relative;
+
     width:125px;
     height:125px;
+
     margin-bottom:28px;
-    animation:logoFloat 4s ease-in-out infinite;
+
+    animation:
+        logoFloat 4s ease-in-out infinite;
 }
 
 .logoGlow{
+
     position:absolute;
+
     inset:-25px;
+
     border-radius:50%;
-    background:radial-gradient(
-        circle,
-        rgba(255,0,0,.35),
-        transparent 65%
-    );
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,240,0,.35),
+            transparent 65%
+        );
+
     filter:blur(12px);
-    animation:logoGlow 3s ease-in-out infinite;
+
+    animation:
+        logoGlow 3s ease-in-out infinite;
 }
 
 .logoRing{
+
     position:absolute;
+
     inset:-9px;
+
     border-radius:50%;
-    border:1px solid rgba(255,0,0,.6);
-    border-top-color:rgba(255,255,255,.8);
-    animation:ringRotate 7s linear infinite;
+
+    border:
+        1px solid
+        rgba(255,240,0,.7);
+
+    border-top-color:
+        rgba(255,255,255,.9);
+
+    animation:
+        ringRotate 7s linear infinite;
 }
 
 .logoRing::before{
+
     content:"";
+
     position:absolute;
+
     width:7px;
     height:7px;
+
     border-radius:50%;
-    background:#ff3030;
-    box-shadow:0 0 15px #ff0000;
+
+    background:#fff000;
+
+    box-shadow:
+        0 0 15px #fff000;
+
     top:5px;
     left:50%;
 }
 
 .logo{
+
     width:100%;
     height:100%;
+
     object-fit:cover;
+
     border-radius:50%;
-    border:3px solid #ff2020;
+
+    border:3px solid #fff000;
+
     box-shadow:
-        0 0 25px rgba(255,0,0,.35),
-        0 0 60px rgba(255,0,0,.12);
+
+        0 0 25px
+        rgba(255,240,0,.4),
+
+        0 0 60px
+        rgba(255,240,0,.14);
 }
 
 @keyframes logoFloat{
+
     0%,100%{
         transform:translateY(0);
     }
+
     50%{
         transform:translateY(-8px);
     }
 }
 
 @keyframes logoGlow{
+
     0%,100%{
         opacity:.5;
         transform:scale(.95);
     }
+
     50%{
         opacity:1;
         transform:scale(1.08);
@@ -342,6 +495,7 @@ body{
 }
 
 @keyframes ringRotate{
+
     to{
         transform:rotate(360deg);
     }
@@ -352,30 +506,58 @@ body{
 ========================= */
 
 h1{
-    font-size:clamp(38px,7vw,65px);
+
+    font-size:
+        clamp(38px,7vw,65px);
+
     font-weight:800;
+
     letter-spacing:-3px;
-    animation:textEnter .9s .15s both cubic-bezier(.16,1,.3,1);
+
+    text-align:center;
+
+    animation:
+        textEnter
+        .9s
+        .15s
+        both
+        cubic-bezier(.16,1,.3,1);
 }
 
 h1 span{
-    color:#ff2020;
-    text-shadow:0 0 25px rgba(255,0,0,.25);
+
+    color:#fff000;
+
+    text-shadow:
+        0 0 25px
+        rgba(255,240,0,.25);
 }
 
 .subtitle{
+
     margin-top:12px;
-    color:#999;
+
+    color:#aaa;
+
     text-align:center;
+
     font-size:16px;
-    animation:textEnter .9s .25s both cubic-bezier(.16,1,.3,1);
+
+    animation:
+        textEnter
+        .9s
+        .25s
+        both
+        cubic-bezier(.16,1,.3,1);
 }
 
 @keyframes textEnter{
+
     from{
         opacity:0;
         transform:translateY(15px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
@@ -387,30 +569,61 @@ h1 span{
 ========================= */
 
 .tags{
+
     display:flex;
+
     justify-content:center;
+
     flex-wrap:wrap;
+
     gap:8px;
+
     margin-top:24px;
-    animation:textEnter .9s .35s both cubic-bezier(.16,1,.3,1);
+
+    animation:
+        textEnter
+        .9s
+        .35s
+        both
+        cubic-bezier(.16,1,.3,1);
 }
 
 .tag{
+
     padding:8px 13px;
-    border:1px solid rgba(255,0,0,.18);
+
+    border:
+        1px solid
+        rgba(255,240,0,.22);
+
     border-radius:10px;
-    color:#999;
-    background:rgba(255,0,0,.035);
+
+    color:#aaa;
+
+    background:
+        rgba(255,240,0,.025);
+
     font-size:12px;
+
     transition:.25s;
 }
 
 .tag:hover{
-    color:#ff3030;
-    border-color:rgba(255,0,0,.5);
-    background:rgba(255,0,0,.08);
-    transform:translateY(-2px);
-    box-shadow:0 0 18px rgba(255,0,0,.08);
+
+    color:#fff000;
+
+    border-color:
+        rgba(255,240,0,.6);
+
+    background:
+        rgba(255,240,0,.08);
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 0 18px
+        rgba(255,240,0,.10);
 }
 
 /* =========================
@@ -418,69 +631,117 @@ h1 span{
 ========================= */
 
 .startBtn{
+
     margin-top:34px;
+
     height:52px;
+
     padding:0 25px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     gap:10px;
 
     border-radius:14px;
-    border:1px solid rgba(255,0,0,.55);
 
-    background:rgba(255,0,0,.07);
-    color:#ff3030;
+    border:
+        1px solid
+        rgba(255,240,0,.65);
+
+    background:
+        rgba(255,240,0,.07);
+
+    color:#fff000;
 
     font-size:14px;
+
     font-weight:700;
 
     cursor:pointer;
+
     position:relative;
+
     overflow:hidden;
 
     transition:.25s;
 
-    animation:textEnter .9s .45s both cubic-bezier(.16,1,.3,1);
+    animation:
+        textEnter
+        .9s
+        .45s
+        both
+        cubic-bezier(.16,1,.3,1);
 }
 
 .startBtn::before{
+
     content:"";
+
     position:absolute;
+
     width:45px;
     height:100%;
+
     left:-70px;
     top:0;
-    background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.4),
-        transparent
-    );
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.5),
+            transparent
+        );
+
     transform:skewX(-20deg);
-    animation:buttonShine 3.5s infinite;
+
+    animation:
+        buttonShine
+        3.5s
+        infinite;
 }
 
 @keyframes buttonShine{
+
     0%,65%{
         left:-70px;
     }
+
     85%,100%{
         left:130%;
     }
 }
 
 .startBtn:hover{
-    background:#ff2020;
-    color:white;
-    transform:translateY(-2px);
+
+    background:#fff000;
+
+    color:#000;
+
+    transform:
+        translateY(-2px);
+
     box-shadow:
-        0 0 25px rgba(255,0,0,.25),
-        0 0 60px rgba(255,0,0,.08);
+
+        0 0 25px
+        rgba(255,240,0,.3),
+
+        0 0 60px
+        rgba(255,240,0,.08);
+}
+
+.startBtn:active{
+
+    transform:
+        translateY(0)
+        scale(.98);
 }
 
 .startBtn svg{
+
     width:18px;
     height:18px;
 }
@@ -490,9 +751,13 @@ h1 span{
 ========================= */
 
 .creator{
+
     position:absolute;
+
     bottom:20px;
+
     color:#555;
+
     font-size:12px;
 }
 
@@ -511,12 +776,18 @@ h1 span{
     }
 
     .card{
-        min-height:calc(100vh - 24px);
+
+        min-height:
+            calc(100vh - 24px);
+
         border-radius:24px;
-        padding:35px 18px;
+
+        padding:
+            35px 18px;
     }
 
     .logoContainer{
+
         width:105px;
         height:105px;
     }
@@ -526,22 +797,29 @@ h1 span{
     }
 
     .subtitle{
+
         max-width:310px;
+
         line-height:1.5;
     }
 
     .tags{
+
         max-width:310px;
     }
 
     .startBtn{
+
         margin-top:28px;
     }
 }
 
 @media(prefers-reduced-motion:reduce){
+
     *,*::before,*::after{
+
         animation-duration:.01ms!important;
+
         animation-iteration-count:1!important;
     }
 }
@@ -550,9 +828,14 @@ h1 span{
 
 <body>
 
+<!-- =========================
+     FONDO
+========================= -->
+
 <div class="background">
 
     <div class="lines">
+
         <div class="line"></div>
         <div class="line"></div>
         <div class="line"></div>
@@ -561,16 +844,22 @@ h1 span{
         <div class="line"></div>
         <div class="line"></div>
         <div class="line"></div>
+
     </div>
 
     <div class="grid"></div>
 
     <div class="particles"></div>
 
-    <div class="orb red"></div>
-    <div class="orb blue"></div>
+    <div class="orb yellow"></div>
+
+    <div class="orb cyan"></div>
 
 </div>
+
+<!-- =========================
+     CONTENIDO
+========================= -->
 
 <main class="page">
 
@@ -591,7 +880,8 @@ h1 span{
         </div>
 
         <h1>
-            Bienvenido a <span>Nova IA</span>
+            Bienvenido a
+            <span>Nova IA</span>
         </h1>
 
         <p class="subtitle">
@@ -601,16 +891,25 @@ h1 span{
         <div class="tags">
 
             <div class="tag">Lua</div>
+
             <div class="tag">Roblox</div>
+
             <div class="tag">Delta</div>
+
             <div class="tag">Scripts</div>
+
             <div class="tag">Debug</div>
 
         </div>
 
-        <button class="startBtn" onclick="openIA()">
+        <button
+            class="startBtn"
+            onclick="openIA()"
+        >
 
-            <span>Comenzar con Nova</span>
+            <span>
+                Comenzar con Nova
+            </span>
 
             <svg
                 viewBox="0 0 24 24"
@@ -620,8 +919,11 @@ h1 span{
                 stroke-linecap="round"
                 stroke-linejoin="round"
             >
+
                 <path d="M5 12h14"></path>
+
                 <path d="m13 6 6 6-6 6"></path>
+
             </svg>
 
         </button>
@@ -629,23 +931,89 @@ h1 span{
     </section>
 
     <div class="creator">
-        Creada por <span>Yander</span>
+
+        Creada por
+        <span>Yander</span>
+
     </div>
 
 </main>
 
 <script>
+
+/*
+====================================================
+   ABRIR NOVA IA
+====================================================
+*/
+
 function openIA(){
 
-    const card=document.querySelector(".card");
+    /*
+       Ya NO ponemos opacity:0 al card.
 
-    card.style.opacity="0";
-    card.style.transform="scale(.97) translateY(10px)";
+       Así evitamos el problema de que al volver
+       atrás el index aparezca invisible.
+    */
 
-    setTimeout(()=>{
-        window.location.href="ia.html";
-    },220);
+    document.body.style.transition =
+        "opacity .18s ease";
+
+    document.body.style.opacity = "0";
+
+    setTimeout(function(){
+
+        window.location.href = "ia.html";
+
+    },180);
 }
+
+
+/*
+====================================================
+   ARREGLAR BOTÓN ATRÁS
+====================================================
+
+Si el navegador restaura index.html desde memoria
+(BFCache), obligamos a que vuelva a verse.
+*/
+
+window.addEventListener(
+    "pageshow",
+    function(){
+
+        document.body.style.opacity = "1";
+
+        const card =
+            document.querySelector(".card");
+
+        if(card){
+
+            card.style.opacity = "1";
+
+            card.style.transform =
+                "translateY(0) scale(1)";
+        }
+
+    }
+);
+
+
+/*
+====================================================
+   TAMBIÉN AL VOLVER A LA PÁGINA
+====================================================
+*/
+
+window.addEventListener(
+    "focus",
+    function(){
+
+        document.body.style.opacity = "1";
+
+    }
+);
+
 </script>
 
 </body>
