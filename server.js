@@ -706,8 +706,6 @@ function buildMessages(
     let cleanHistory =
         sanitizeHistory(history);
 
-    // Evita duplicar el mensaje actual si el frontend
-    // ya lo incluyó dentro del historial.
     const lastMessage =
         cleanHistory[cleanHistory.length - 1];
 
@@ -1096,8 +1094,6 @@ async function processChat(req, res) {
                 ? body.provider.toLowerCase().trim()
                 : "groq";
 
-        // Si el frontend manda un proveedor inexistente,
-        // usamos Groq como respaldo.
         if (!PROVIDERS[provider]) {
             provider = "groq";
         }
@@ -1561,23 +1557,3 @@ app.listen(
         console.log("");
     }
 );
-
-Ahora haz solo esto
-
-En Render → Environment Variables, asegúrate de tener:
-
-GROQ_API_KEY
-GEMINI_API_KEY
-OPENROUTER_API_KEY
-
-No tienes que instalar nada nuevo.
-
-El backend ya acepta:
-
-provider: "groq"
-provider: "gemini"
-provider: "openrouter"
-
-Groq usa actualmente "openai/gpt-oss-120b", mientras que OpenRouter tiene un router gratuito "openrouter/free"; ambos están documentados como compatibles con sus APIs respectivas.
-
-Después de subir este "server.js" a Render, el siguiente paso es modificar tu "ia.html" para que el botón de las estrellitas abra el selector con Groq / Gemini / OpenRouter, y que al tocar uno realmente mande "provider" al backend.
