@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nova IA</title>
+<title>NOVA IA</title>
 
 <style>
 *{
@@ -15,459 +15,341 @@
 html,body{
     width:100%;
     height:100%;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#000;
-    color:white;
     overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#020202;
+    color:white;
 }
 
-/* =========================
-   FONDO COMPLETAMENTE VISIBLE
-========================= */
+/* =========================================================
+   FONDO
+========================================================= */
 
 .background{
     position:fixed;
     inset:0;
     overflow:hidden;
-    background:#000;
     z-index:0;
+    background:
+        radial-gradient(
+            circle at 20% 25%,
+            rgba(255,240,0,.12),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(60,210,255,.10),
+            transparent 30%
+        ),
+        #020202;
 }
 
-/* Líneas */
-
-.lines{
-    position:absolute;
-    inset:0;
-    overflow:hidden;
-    opacity:.55;
-}
-
-.line{
-    position:absolute;
-    width:2px;
-    height:150%;
-
-    background:linear-gradient(
-        transparent,
-        rgba(255,240,0,.12),
-        rgba(255,240,0,.9),
-        rgba(255,240,0,.12),
-        transparent
-    );
-
-    filter:blur(.4px);
-
-    transform:rotate(25deg);
-
-    animation:lineMove linear infinite;
-}
-
-.line:nth-child(1){
-    left:5%;
-    animation-duration:9s;
-}
-
-.line:nth-child(2){
-    left:17%;
-    animation-duration:12s;
-    animation-delay:-3s;
-}
-
-.line:nth-child(3){
-    left:29%;
-    animation-duration:10s;
-    animation-delay:-6s;
-}
-
-.line:nth-child(4){
-    left:41%;
-    animation-duration:14s;
-    animation-delay:-4s;
-}
-
-.line:nth-child(5){
-    left:55%;
-    animation-duration:11s;
-    animation-delay:-8s;
-}
-
-.line:nth-child(6){
-    left:68%;
-    animation-duration:13s;
-    animation-delay:-2s;
-}
-
-.line:nth-child(7){
-    left:82%;
-    animation-duration:10s;
-    animation-delay:-5s;
-}
-
-.line:nth-child(8){
-    left:95%;
-    animation-duration:15s;
-    animation-delay:-9s;
-}
-
-@keyframes lineMove{
-
-    0%{
-        transform:translateY(-60%) rotate(25deg);
-    }
-
-    100%{
-        transform:translateY(70%) rotate(25deg);
-    }
-}
-
-/* =========================
-   CUADRÍCULA
-========================= */
+/* =========================================================
+   GRID
+========================================================= */
 
 .grid{
     position:absolute;
-
-    width:200%;
-    height:200%;
-
-    left:-50%;
-    top:-20%;
-
-    opacity:.10;
+    width:170%;
+    height:100%;
+    left:-35%;
+    bottom:-43%;
 
     background-image:
         linear-gradient(
-            rgba(255,240,0,.25) 1px,
+            rgba(255,240,0,.13) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(255,240,0,.20) 1px,
+            rgba(255,240,0,.13) 1px,
             transparent 1px
         );
 
-    background-size:65px 65px;
+    background-size:70px 70px;
 
     transform:
-        perspective(600px)
-        rotateX(65deg);
+        perspective(500px)
+        rotateX(62deg);
 
-    animation:gridMove 18s linear infinite;
+    opacity:.22;
+
+    animation:gridMove 8s linear infinite;
 }
 
 @keyframes gridMove{
 
     from{
         transform:
-            perspective(600px)
-            rotateX(65deg)
+            perspective(500px)
+            rotateX(62deg)
             translateY(0);
     }
 
     to{
         transform:
-            perspective(600px)
-            rotateX(65deg)
-            translateY(65px);
+            perspective(500px)
+            rotateX(62deg)
+            translateY(70px);
     }
+
 }
 
-/* =========================
-   LUCES
-========================= */
+/* =========================================================
+   ORBES
+========================================================= */
 
 .orb{
     position:absolute;
     border-radius:50%;
-    filter:blur(65px);
+    filter:blur(75px);
     pointer-events:none;
 }
 
-.orb.yellow{
-
-    width:330px;
-    height:330px;
-
-    background:#fff000;
-
-    opacity:.13;
-
-    left:-130px;
-    top:15%;
-
-    animation:yellowOrb 12s ease-in-out infinite;
+.orbYellow{
+    width:260px;
+    height:260px;
+    left:-100px;
+    top:10%;
+    background:rgba(255,240,0,.22);
+    animation:floatYellow 9s ease-in-out infinite;
 }
 
-.orb.cyan{
-
-    width:270px;
-    height:270px;
-
-    background:#00c8ff;
-
-    opacity:.08;
-
-    right:-100px;
-    bottom:10%;
-
-    animation:cyanOrb 15s ease-in-out infinite;
+.orbCyan{
+    width:280px;
+    height:280px;
+    right:-110px;
+    bottom:5%;
+    background:rgba(40,210,255,.17);
+    animation:floatCyan 10s ease-in-out infinite;
 }
 
-@keyframes yellowOrb{
+@keyframes floatYellow{
 
     0%,100%{
         transform:translate(0,0);
     }
 
     50%{
-        transform:translate(150px,80px);
+        transform:translate(45px,-30px);
     }
+
 }
 
-@keyframes cyanOrb{
+@keyframes floatCyan{
 
     0%,100%{
         transform:translate(0,0);
     }
 
     50%{
-        transform:translate(-120px,-70px);
+        transform:translate(-40px,25px);
     }
+
 }
 
-/* =========================
+/* =========================================================
    PARTÍCULAS
-========================= */
+========================================================= */
 
 .particles{
-
     position:absolute;
     inset:0;
-
-    background-image:
-
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.8) 1px,
-            transparent 1px
-        ),
-
-        radial-gradient(
-            circle,
-            rgba(255,240,0,.8) 1px,
-            transparent 1px
-        );
-
-    background-size:
-        100px 100px,
-        150px 150px;
-
-    background-position:
-        20px 30px,
-        70px 50px;
-
-    opacity:.12;
-
-    animation:
-        particlesMove 25s linear infinite;
 }
 
-@keyframes particlesMove{
-
-    from{
-        transform:translate(0,0);
-    }
-
-    to{
-        transform:translate(-100px,100px);
-    }
+.particle{
+    position:absolute;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:#fff000;
+    box-shadow:0 0 10px #fff000;
+    opacity:.45;
+    animation:particleMove linear infinite;
 }
 
-/* =========================
-   CONTENIDO
-========================= */
+.particle:nth-child(1){
+    left:8%;
+    top:20%;
+    animation-duration:8s;
+}
+
+.particle:nth-child(2){
+    left:18%;
+    top:70%;
+    animation-duration:11s;
+}
+
+.particle:nth-child(3){
+    left:31%;
+    top:35%;
+    animation-duration:9s;
+}
+
+.particle:nth-child(4){
+    left:45%;
+    top:80%;
+    animation-duration:13s;
+}
+
+.particle:nth-child(5){
+    left:57%;
+    top:18%;
+    animation-duration:10s;
+}
+
+.particle:nth-child(6){
+    left:68%;
+    top:62%;
+    animation-duration:12s;
+}
+
+.particle:nth-child(7){
+    left:79%;
+    top:30%;
+    animation-duration:9s;
+}
+
+.particle:nth-child(8){
+    left:91%;
+    top:78%;
+    animation-duration:14s;
+}
+
+.particle:nth-child(9){
+    left:84%;
+    top:48%;
+    animation-duration:10s;
+}
+
+.particle:nth-child(10){
+    left:25%;
+    top:12%;
+    animation-duration:12s;
+}
+
+@keyframes particleMove{
+
+    0%{
+        transform:translateY(30px);
+        opacity:.05;
+    }
+
+    50%{
+        opacity:.7;
+    }
+
+    100%{
+        transform:translateY(-80px);
+        opacity:0;
+    }
+
+}
+
+/* =========================================================
+   APP
+========================================================= */
 
 .page{
-
     position:relative;
-
     z-index:2;
-
     width:100%;
     height:100%;
-
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     padding:20px;
 }
 
-/* =========================
-   CARD TRANSPARENTE
-========================= */
+/* =========================================================
+   TARJETA
+========================================================= */
 
 .card{
-
-    width:min(900px,100%);
-
-    min-height:600px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-    justify-content:center;
-
-    padding:50px 25px;
-
-    /*
-       IMPORTANTE:
-       Sin fondo negro.
-       Ahora se ve completamente
-       la animación del fondo.
-    */
+    width:min(850px,100%);
+    text-align:center;
 
     background:transparent;
 
-    border:1px solid rgba(255,240,0,.20);
+    border:0;
 
-    border-radius:30px;
+    padding:30px;
 
-    /*
-       Solo desenfoca ligeramente
-       lo que está detrás.
-    */
-
-    backdrop-filter:blur(3px);
-    -webkit-backdrop-filter:blur(3px);
-
-    box-shadow:
-        0 0 60px rgba(255,240,0,.025),
-        inset 0 0 40px rgba(255,240,0,.015);
-
-    animation:
-        cardEnter 1s
-        cubic-bezier(.16,1,.3,1);
+    animation:cardAppear .8s ease forwards;
 }
 
-@keyframes cardEnter{
+@keyframes cardAppear{
 
     from{
         opacity:0;
-        transform:
-            translateY(30px)
-            scale(.96);
+        transform:translateY(18px) scale(.98);
     }
 
     to{
         opacity:1;
-        transform:
-            translateY(0)
-            scale(1);
+        transform:translateY(0) scale(1);
     }
+
 }
 
-/* =========================
+/* =========================================================
    LOGO
-========================= */
+========================================================= */
 
-.logoContainer{
-
+.logoWrap{
     position:relative;
+    width:115px;
+    height:115px;
+    margin:auto;
 
-    width:125px;
-    height:125px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    margin-bottom:28px;
-
-    animation:
-        logoFloat 4s ease-in-out infinite;
+    animation:logoFloat 4s ease-in-out infinite;
 }
 
 .logoGlow{
-
     position:absolute;
-
-    inset:-25px;
-
-    border-radius:50%;
+    inset:-14px;
+    border-radius:34px;
 
     background:
         radial-gradient(
             circle,
-            rgba(255,240,0,.35),
-            transparent 65%
+            rgba(255,240,0,.30),
+            transparent 68%
         );
 
     filter:blur(12px);
-
-    animation:
-        logoGlow 3s ease-in-out infinite;
 }
 
 .logoRing{
-
     position:absolute;
+    inset:-3px;
 
-    inset:-9px;
+    border-radius:31px;
 
-    border-radius:50%;
-
-    border:
-        1px solid
-        rgba(255,240,0,.7);
-
-    border-top-color:
-        rgba(255,255,255,.9);
-
-    animation:
-        ringRotate 7s linear infinite;
-}
-
-.logoRing::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:7px;
-    height:7px;
-
-    border-radius:50%;
-
-    background:#fff000;
+    border:1px solid rgba(255,240,0,.35);
 
     box-shadow:
-        0 0 15px #fff000;
-
-    top:5px;
-    left:50%;
+        0 0 20px rgba(255,240,0,.16),
+        inset 0 0 20px rgba(255,240,0,.06);
 }
 
 .logo{
+    width:100px;
+    height:100px;
 
-    width:100%;
-    height:100%;
+    border-radius:28px;
 
     object-fit:cover;
 
-    border-radius:50%;
-
-    border:3px solid #fff000;
+    position:relative;
+    z-index:2;
 
     box-shadow:
-
-        0 0 25px
-        rgba(255,240,0,.4),
-
-        0 0 60px
-        rgba(255,240,0,.14);
+        0 0 25px rgba(255,240,0,.18);
 }
 
 @keyframes logoFloat{
@@ -479,96 +361,59 @@ body{
     50%{
         transform:translateY(-8px);
     }
+
 }
 
-@keyframes logoGlow{
-
-    0%,100%{
-        opacity:.5;
-        transform:scale(.95);
-    }
-
-    50%{
-        opacity:1;
-        transform:scale(1.08);
-    }
-}
-
-@keyframes ringRotate{
-
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-/* =========================
+/* =========================================================
    TEXTO
-========================= */
+========================================================= */
 
 h1{
+    margin-top:30px;
 
-    font-size:
-        clamp(38px,7vw,65px);
+    font-size:clamp(
+        38px,
+        7vw,
+        70px
+    );
 
-    font-weight:800;
+    line-height:1;
+
+    font-weight:900;
 
     letter-spacing:-3px;
 
-    text-align:center;
-
-    animation:
-        textEnter
-        .9s
-        .15s
-        both
-        cubic-bezier(.16,1,.3,1);
+    color:white;
 }
 
 h1 span{
-
     color:#fff000;
 
     text-shadow:
-        0 0 25px
-        rgba(255,240,0,.25);
+        0 0 15px rgba(255,240,0,.22),
+        0 0 40px rgba(255,240,0,.10);
 }
 
 .subtitle{
-
-    margin-top:12px;
+    margin-top:18px;
 
     color:#aaa;
 
-    text-align:center;
+    font-size:15px;
 
-    font-size:16px;
-
-    animation:
-        textEnter
-        .9s
-        .25s
-        both
-        cubic-bezier(.16,1,.3,1);
+    line-height:1.6;
 }
 
-@keyframes textEnter{
-
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+.subtitle strong{
+    color:#fff000;
 }
 
-/* =========================
+/* =========================================================
    TAGS
-========================= */
+========================================================= */
 
 .tags{
+    margin-top:26px;
 
     display:flex;
 
@@ -576,296 +421,205 @@ h1 span{
 
     flex-wrap:wrap;
 
-    gap:8px;
-
-    margin-top:24px;
-
-    animation:
-        textEnter
-        .9s
-        .35s
-        both
-        cubic-bezier(.16,1,.3,1);
+    gap:9px;
 }
 
 .tag{
+    padding:8px 12px;
 
-    padding:8px 13px;
+    border-radius:9px;
 
-    border:
-        1px solid
-        rgba(255,240,0,.22);
+    border:1px solid rgba(255,240,0,.16);
 
-    border-radius:10px;
+    background:rgba(255,240,0,.035);
 
-    color:#aaa;
+    color:#bbb;
 
-    background:
-        rgba(255,240,0,.025);
+    font-size:11px;
 
-    font-size:12px;
-
-    transition:.25s;
+    transition:.2s;
 }
 
 .tag:hover{
+    color:white;
 
-    color:#fff000;
+    border-color:rgba(255,240,0,.45);
 
-    border-color:
-        rgba(255,240,0,.6);
-
-    background:
-        rgba(255,240,0,.08);
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 0 18px
-        rgba(255,240,0,.10);
+    background:rgba(255,240,0,.08);
 }
 
-/* =========================
+/* =========================================================
    BOTÓN
-========================= */
+========================================================= */
 
 .startBtn{
+    margin-top:32px;
 
-    margin-top:34px;
+    padding:12px 20px;
 
-    height:52px;
+    border-radius:12px;
 
-    padding:0 25px;
+    border:1px solid rgba(255,240,0,.55);
 
-    display:flex;
+    background:#fff000;
 
-    align-items:center;
-    justify-content:center;
+    color:#050505;
 
-    gap:10px;
+    font-size:13px;
 
-    border-radius:14px;
-
-    border:
-        1px solid
-        rgba(255,240,0,.65);
-
-    background:
-        rgba(255,240,0,.07);
-
-    color:#fff000;
-
-    font-size:14px;
-
-    font-weight:700;
+    font-weight:800;
 
     cursor:pointer;
 
-    position:relative;
-
-    overflow:hidden;
-
     transition:.25s;
 
-    animation:
-        textEnter
-        .9s
-        .45s
-        both
-        cubic-bezier(.16,1,.3,1);
-}
-
-.startBtn::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:45px;
-    height:100%;
-
-    left:-70px;
-    top:0;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.5),
-            transparent
-        );
-
-    transform:skewX(-20deg);
-
-    animation:
-        buttonShine
-        3.5s
-        infinite;
-}
-
-@keyframes buttonShine{
-
-    0%,65%{
-        left:-70px;
-    }
-
-    85%,100%{
-        left:130%;
-    }
+    box-shadow:
+        0 0 18px rgba(255,240,0,.12);
 }
 
 .startBtn:hover{
 
-    background:#fff000;
-
-    color:#000;
-
-    transform:
-        translateY(-2px);
+    transform:translateY(-2px);
 
     box-shadow:
-
-        0 0 25px
-        rgba(255,240,0,.3),
-
-        0 0 60px
-        rgba(255,240,0,.08);
+        0 0 30px rgba(255,240,0,.25);
 }
 
 .startBtn:active{
-
-    transform:
-        translateY(0)
-        scale(.98);
+    transform:translateY(0);
 }
 
-.startBtn svg{
-
-    width:18px;
-    height:18px;
-}
-
-/* =========================
-   CREATOR
-========================= */
+/* =========================================================
+   CREADOR
+========================================================= */
 
 .creator{
+    margin-top:25px;
 
-    position:absolute;
+    color:#666;
 
-    bottom:20px;
-
-    color:#555;
-
-    font-size:12px;
+    font-size:11px;
 }
 
 .creator span{
-    color:#aaa;
+    color:#fff000;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* =========================================================
+   TRANSICIÓN
+========================================================= */
+
+body{
+    opacity:1;
+    transition:opacity .25s ease;
+}
+
+/* =========================================================
+   MÓVIL
+========================================================= */
 
 @media(max-width:600px){
 
     .page{
-        padding:12px;
+        padding:14px;
     }
 
     .card{
-
-        min-height:
-            calc(100vh - 24px);
-
-        border-radius:24px;
-
-        padding:
-            35px 18px;
+        padding:15px;
     }
 
-    .logoContainer{
+    .logoWrap{
+        width:95px;
+        height:95px;
+    }
 
-        width:105px;
-        height:105px;
+    .logo{
+        width:82px;
+        height:82px;
+        border-radius:23px;
     }
 
     h1{
+        margin-top:25px;
         letter-spacing:-2px;
     }
 
     .subtitle{
-
-        max-width:310px;
-
-        line-height:1.5;
+        font-size:13px;
+        padding:0 10px;
     }
 
     .tags{
+        gap:7px;
+    }
 
-        max-width:310px;
+    .tag{
+        font-size:10px;
+        padding:7px 10px;
     }
 
     .startBtn{
-
-        margin-top:28px;
+        margin-top:27px;
     }
+
 }
+
+/* =========================================================
+   REDUCIR ANIMACIÓN SI EL SISTEMA LO PIDE
+========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
-    *,*::before,*::after{
-
-        animation-duration:.01ms!important;
-
-        animation-iteration-count:1!important;
+    *,
+    *::before,
+    *::after{
+        animation:none !important;
+        transition:none !important;
     }
+
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     FONDO
-========================= -->
+<!-- =====================================================
+     FONDO ANIMADO
+===================================================== -->
 
 <div class="background">
 
-    <div class="lines">
+    <div class="grid"></div>
 
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
+    <div class="orb orbYellow"></div>
+    <div class="orb orbCyan"></div>
+
+    <div class="particles">
+
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
 
     </div>
 
-    <div class="grid"></div>
-
-    <div class="particles"></div>
-
-    <div class="orb yellow"></div>
-
-    <div class="orb cyan"></div>
-
 </div>
 
-<!-- =========================
+<!-- =====================================================
      CONTENIDO
-========================= -->
+===================================================== -->
 
-<main class="page">
+<div class="page">
 
-    <section class="card">
+    <main class="card">
 
-        <div class="logoContainer">
+        <div class="logoWrap">
 
             <div class="logoGlow"></div>
 
@@ -874,31 +628,37 @@ h1 span{
             <img
                 class="logo"
                 src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-                alt="Nova IA"
+                alt="NOVA IA"
             >
 
         </div>
 
         <h1>
-            Bienvenido a
-            <span>Nova IA</span>
+            NOVA <span>IA</span>
         </h1>
 
         <p class="subtitle">
-            Tu asistente especializado en Delta Executor
+            Tu asistente inteligente para
+            <strong>programación, Roblox y Lua.</strong>
         </p>
 
         <div class="tags">
 
-            <div class="tag">Lua</div>
+            <div class="tag">
+                Roblox
+            </div>
 
-            <div class="tag">Roblox</div>
+            <div class="tag">
+                Lua
+            </div>
 
-            <div class="tag">Delta</div>
+            <div class="tag">
+                Scripts
+            </div>
 
-            <div class="tag">Scripts</div>
-
-            <div class="tag">Debug</div>
+            <div class="tag">
+                Programación
+            </div>
 
         </div>
 
@@ -906,58 +666,24 @@ h1 span{
             class="startBtn"
             onclick="openIA()"
         >
-
-            <span>
-                Comenzar con Nova
-            </span>
-
-            <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-
-                <path d="M5 12h14"></path>
-
-                <path d="m13 6 6 6-6 6"></path>
-
-            </svg>
-
+            Comenzar con Nova
         </button>
 
-    </section>
+        <div class="creator">
+            Creada por <span>Yander</span>
+        </div>
 
-    <div class="creator">
+    </main>
 
-        Creada por
-        <span>Yander</span>
-
-    </div>
-
-</main>
+</div>
 
 <script>
 
-/*
-====================================================
+/* =========================================================
    ABRIR NOVA IA
-====================================================
-*/
+========================================================= */
 
 function openIA(){
-
-    /*
-       Ya NO ponemos opacity:0 al card.
-
-       Así evitamos el problema de que al volver
-       atrás el index aparezca invisible.
-    */
-
-    document.body.style.transition =
-        "opacity .18s ease";
 
     document.body.style.opacity = "0";
 
@@ -965,18 +691,14 @@ function openIA(){
 
         window.location.href = "ia.html";
 
-    },180);
+    },250);
+
 }
 
 
-/*
-====================================================
-   ARREGLAR BOTÓN ATRÁS
-====================================================
-
-Si el navegador restaura index.html desde memoria
-(BFCache), obligamos a que vuelva a verse.
-*/
+/* =========================================================
+   SOLUCIONAR REGRESO CON BOTÓN ATRÁS
+========================================================= */
 
 window.addEventListener(
     "pageshow",
@@ -984,26 +706,13 @@ window.addEventListener(
 
         document.body.style.opacity = "1";
 
-        const card =
-            document.querySelector(".card");
-
-        if(card){
-
-            card.style.opacity = "1";
-
-            card.style.transform =
-                "translateY(0) scale(1)";
-        }
-
     }
 );
 
 
-/*
-====================================================
-   TAMBIÉN AL VOLVER A LA PÁGINA
-====================================================
-*/
+/* =========================================================
+   SOLUCIONAR REGRESO DESDE OTRA PÁGINA
+========================================================= */
 
 window.addEventListener(
     "focus",
