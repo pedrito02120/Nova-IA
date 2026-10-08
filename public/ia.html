@@ -13,14 +13,15 @@
 }
 
 :root{
-    --yellow:#ffd000;
-    --yellow-soft:#e9b900;
-    --black:#050505;
-    --panel:#0a0a0a;
-    --panel2:#101010;
-    --border:#242424;
-    --text:#f5f5f5;
-    --muted:#8d8d8d;
+    --yellow:#fff000;
+    --yellow2:#ffe600;
+    --cyan:#59d9ff;
+    --cyan2:#27c8ff;
+    --black:#030303;
+    --panel:#090909;
+    --border:#222;
+    --text:#f4f4f4;
+    --muted:#858585;
 }
 
 html,body{
@@ -32,48 +33,51 @@ html,body{
     color:var(--text);
 }
 
-/* FONDO */
-
 body{
     background:
-        radial-gradient(circle at 50% -20%,rgba(255,208,0,.09),transparent 38%),
-        #050505;
+        radial-gradient(circle at 50% -20%,rgba(255,240,0,.07),transparent 35%),
+        radial-gradient(circle at 100% 100%,rgba(89,217,255,.045),transparent 32%),
+        #030303;
 }
+
+/* FONDO */
 
 .background-lights{
     position:fixed;
     inset:0;
     pointer-events:none;
     overflow:hidden;
-    opacity:.25;
+    opacity:.4;
 }
 
 .light{
     position:absolute;
     border-radius:50%;
-    filter:blur(90px);
-    background:rgba(255,208,0,.12);
+    filter:blur(100px);
 }
 
 .light:nth-child(1){
-    width:260px;
-    height:260px;
-    top:-120px;
-    left:15%;
+    width:280px;
+    height:280px;
+    top:-150px;
+    left:20%;
+    background:rgba(255,240,0,.07);
 }
 
 .light:nth-child(2){
-    width:220px;
-    height:220px;
+    width:240px;
+    height:240px;
     right:-100px;
     bottom:10%;
+    background:rgba(89,217,255,.055);
 }
 
 .light:nth-child(3){
-    width:180px;
-    height:180px;
-    left:-90px;
-    bottom:-50px;
+    width:200px;
+    height:200px;
+    left:-100px;
+    bottom:-60px;
+    background:rgba(255,240,0,.035);
 }
 
 /* APP */
@@ -84,7 +88,6 @@ body{
     height:100%;
     display:flex;
     flex-direction:column;
-    background:rgba(0,0,0,.25);
 }
 
 /* HEADER */
@@ -96,7 +99,7 @@ body{
     align-items:center;
     padding:0 16px;
     border-bottom:1px solid var(--border);
-    background:rgba(5,5,5,.88);
+    background:rgba(3,3,3,.9);
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
     z-index:10;
@@ -108,8 +111,8 @@ body{
     height:38px;
     border:1px solid #292929;
     border-radius:11px;
-    background:#0d0d0d;
-    color:#ddd;
+    background:#0b0b0b;
+    color:#aaa;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -119,9 +122,9 @@ body{
 
 .menu-btn:hover,
 .delete-btn:hover{
-    border-color:rgba(255,208,0,.45);
+    border-color:rgba(255,240,0,.45);
     color:var(--yellow);
-    background:#111;
+    background:#101010;
 }
 
 .menu-btn svg,
@@ -136,15 +139,14 @@ body{
     border-radius:50%;
     object-fit:cover;
     margin-left:13px;
-    border:1px solid rgba(255,208,0,.7);
-    box-shadow:0 0 16px rgba(255,208,0,.12);
+    border:1px solid rgba(255,240,0,.7);
+    box-shadow:0 0 18px rgba(255,240,0,.08);
 }
 
 .title{
     margin-left:10px;
     font-size:16px;
     font-weight:600;
-    letter-spacing:.2px;
 }
 
 .title span{
@@ -184,10 +186,6 @@ body{
     border-radius:20px;
 }
 
-.messages::-webkit-scrollbar-thumb:hover{
-    background:#363636;
-}
-
 /* WELCOME */
 
 .welcome-message{
@@ -213,13 +211,13 @@ body{
     object-fit:cover;
     position:relative;
     z-index:2;
-    border:1px solid rgba(255,208,0,.7);
+    border:1px solid rgba(89,217,255,.75);
 }
 
 .logo-ring{
     position:absolute;
     inset:3px;
-    border:1px solid rgba(255,208,0,.3);
+    border:1px solid rgba(255,240,0,.35);
     border-radius:50%;
 }
 
@@ -227,8 +225,8 @@ body{
     position:absolute;
     inset:-10px;
     border-radius:50%;
-    background:rgba(255,208,0,.08);
-    filter:blur(14px);
+    background:rgba(255,240,0,.055);
+    filter:blur(16px);
 }
 
 .welcome-message h1{
@@ -264,17 +262,17 @@ body{
     text-align:left;
     border:1px solid var(--border);
     border-radius:13px;
-    background:#0b0b0b;
-    color:#bdbdbd;
+    background:#090909;
+    color:#aaa;
     cursor:pointer;
     transition:.2s ease;
     font-size:13px;
 }
 
 .suggestion:hover{
-    border-color:rgba(255,208,0,.4);
+    border-color:rgba(89,217,255,.4);
     color:#fff;
-    background:#101010;
+    background:#0d0d0d;
 }
 
 /* MENSAJES */
@@ -303,7 +301,7 @@ body{
 
 .message.user .avatar{
     order:2;
-    border-color:rgba(255,208,0,.4);
+    border-color:rgba(89,217,255,.35);
 }
 
 .bubble{
@@ -317,17 +315,39 @@ body{
 }
 
 .message.ai .bubble{
-    background:#0d0d0d;
+    background:#0b0b0b;
     border:1px solid #202020;
     border-top-left-radius:5px;
     color:#e8e8e8;
 }
 
 .message.user .bubble{
-    background:#161616;
-    border:1px solid rgba(255,208,0,.25);
+    background:#111;
+    border:1px solid rgba(255,240,0,.23);
     border-top-right-radius:5px;
     color:#f5f5f5;
+}
+
+/* CURSOR DE ESCRITURA */
+
+.typing-cursor{
+    display:inline-block;
+    width:2px;
+    height:15px;
+    margin-left:2px;
+    vertical-align:-2px;
+    background:var(--cyan);
+    animation:blinkCursor .8s infinite;
+}
+
+@keyframes blinkCursor{
+    0%,45%{
+        opacity:1;
+    }
+
+    46%,100%{
+        opacity:0;
+    }
 }
 
 /* CÓDIGO */
@@ -337,7 +357,7 @@ body{
     overflow:hidden;
     border:1px solid #292929;
     border-radius:12px;
-    background:#070707;
+    background:#060606;
 }
 
 .code-header{
@@ -346,7 +366,7 @@ body{
     align-items:center;
     padding:0 11px;
     border-bottom:1px solid #252525;
-    background:#0e0e0e;
+    background:#0d0d0d;
 }
 
 .code-header::before{
@@ -354,9 +374,9 @@ body{
     width:7px;
     height:7px;
     border-radius:50%;
-    background:var(--yellow);
+    background:var(--cyan);
     margin-right:9px;
-    box-shadow:0 0 8px rgba(255,208,0,.35);
+    box-shadow:0 0 9px rgba(89,217,255,.4);
 }
 
 .code-header span{
@@ -401,7 +421,7 @@ body{
     width:6px;
     height:6px;
     border-radius:50%;
-    background:#777;
+    background:var(--cyan);
     animation:thinking 1.2s infinite;
 }
 
@@ -418,6 +438,7 @@ body{
         opacity:.25;
         transform:translateY(0);
     }
+
     30%{
         opacity:1;
         transform:translateY(-3px);
@@ -434,8 +455,8 @@ body{
     padding:15px 18px 18px;
     background:linear-gradient(
         to top,
-        rgba(5,5,5,1) 45%,
-        rgba(5,5,5,.94) 75%,
+        rgba(3,3,3,1) 45%,
+        rgba(3,3,3,.94) 75%,
         transparent
     );
     z-index:5;
@@ -450,7 +471,7 @@ body{
     align-items:flex-end;
     gap:7px;
     padding:7px;
-    background:#0b0b0b;
+    background:#090909;
     border:1px solid #292929;
     border-radius:18px;
     box-shadow:0 12px 35px rgba(0,0,0,.35);
@@ -458,8 +479,10 @@ body{
 }
 
 .input-box:focus-within{
-    border-color:rgba(255,208,0,.4);
-    box-shadow:0 12px 35px rgba(0,0,0,.4),0 0 0 2px rgba(255,208,0,.04);
+    border-color:rgba(89,217,255,.4);
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.4),
+        0 0 0 2px rgba(89,217,255,.035);
 }
 
 textarea{
@@ -500,12 +523,13 @@ textarea::placeholder{
 .ai-selector-btn{
     border:1px solid #292929;
     background:#101010;
-    color:#aaa;
+    color:var(--cyan);
 }
 
 .ai-selector-btn:hover{
     color:var(--yellow);
-    border-color:rgba(255,208,0,.45);
+    border-color:rgba(255,240,0,.45);
+    background:#131313;
 }
 
 .ai-selector-btn svg{
@@ -516,12 +540,12 @@ textarea::placeholder{
 .send-btn{
     border:1px solid var(--yellow);
     background:var(--yellow);
-    color:#080808;
+    color:#050505;
 }
 
 .send-btn:hover{
-    background:#ffe16a;
-    border-color:#ffe16a;
+    background:#fff84d;
+    border-color:#fff84d;
     transform:translateY(-1px);
 }
 
@@ -544,7 +568,7 @@ textarea::placeholder{
     bottom:0;
     left:0;
     width:300px;
-    background:#080808;
+    background:#070707;
     border-right:1px solid #252525;
     transform:translateX(-100%);
     transition:transform .25s ease;
@@ -587,7 +611,7 @@ textarea::placeholder{
 
 .close-sidebar:hover{
     color:var(--yellow);
-    border-color:rgba(255,208,0,.4);
+    border-color:rgba(255,240,0,.4);
 }
 
 .close-sidebar svg{
@@ -606,7 +630,7 @@ textarea::placeholder{
     width:40px;
     height:40px;
     border-radius:50%;
-    border:1px solid rgba(255,208,0,.55);
+    border:1px solid rgba(89,217,255,.65);
 }
 
 .sidebar-logo strong{
@@ -616,16 +640,16 @@ textarea::placeholder{
 .sidebar-logo small{
     display:block;
     margin-top:3px;
-    color:#777;
+    color:var(--cyan);
     font-size:11px;
 }
 
 .new-chat{
     margin:0 15px 12px;
     height:44px;
-    border:1px solid rgba(255,208,0,.35);
+    border:1px solid rgba(255,240,0,.3);
     border-radius:11px;
-    background:#111;
+    background:#101010;
     color:#eee;
     cursor:pointer;
     font-size:13px;
@@ -659,14 +683,14 @@ textarea::placeholder{
 }
 
 .chat-item:hover{
-    background:#111;
+    background:#101010;
     color:#eee;
 }
 
 .chat-item.active{
-    background:rgba(255,208,0,.07);
+    background:rgba(255,240,0,.055);
     color:#fff;
-    border:1px solid rgba(255,208,0,.15);
+    border:1px solid rgba(255,240,0,.15);
 }
 
 .chat-item.active::before{
@@ -680,7 +704,7 @@ textarea::placeholder{
 }
 
 .chat-item.delete-mode{
-    border:1px solid rgba(255,208,0,.3);
+    border:1px solid rgba(89,217,255,.3);
 }
 
 .overlay{
@@ -730,7 +754,7 @@ textarea::placeholder{
     width:55px;
     height:55px;
     border-radius:50%;
-    border:1px solid rgba(255,208,0,.55);
+    border:1px solid rgba(255,240,0,.55);
     margin-bottom:15px;
 }
 
@@ -858,6 +882,7 @@ textarea::placeholder{
 }
 
 @media(prefers-reduced-motion:reduce){
+
     *,
     *::before,
     *::after{
@@ -880,149 +905,140 @@ textarea::placeholder{
 
 <div class="app">
 
-    <!-- HEADER -->
-    <header class="header">
+<header class="header">
 
-        <button class="menu-btn" onclick="openSidebar()" aria-label="Abrir menú">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-        </button>
+    <button class="menu-btn" onclick="openSidebar()" aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+    </button>
+
+    <img
+        class="logo-small"
+        src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+        alt="Nova IA"
+    >
+
+    <div class="title">
+        <span>Nova</span> IA
+    </div>
+
+    <button class="delete-btn" onclick="clearChat()" aria-label="Limpiar chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 7h16"/>
+            <path d="M9 7V4h6v3"/>
+            <path d="M7 7l1 13h8l1-13"/>
+            <path d="M10 11v5M14 11v5"/>
+        </svg>
+    </button>
+
+</header>
+
+<main class="chat">
+
+<div class="messages" id="messages">
+
+<div class="welcome-message" id="welcomeMessage">
+
+    <div class="logo-container">
+
+        <div class="logo-glow"></div>
+        <div class="logo-ring"></div>
 
         <img
-            class="logo-small"
+            class="big-logo"
             src="https://i.ibb.co/whKQvZsw/Nova.jpg"
             alt="Nova IA"
         >
 
-        <div class="title">
-            <span>Nova</span> IA
+    </div>
+
+    <h1>
+        Hola, soy <span>Nova IA</span>
+    </h1>
+
+    <p>
+        Tu asistente especializado en programación,
+        Roblox, Lua, scripts y desarrollo.
+    </p>
+
+    <div class="suggestions">
+
+        <div
+            class="suggestion"
+            onclick="useSuggestion('Créame un script de Roblox en Lua')"
+        >
+            Crear un script de Roblox
         </div>
 
-        <button class="delete-btn" onclick="clearChat()" aria-label="Limpiar chat">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="M4 7h16"/>
-                <path d="M9 7V4h6v3"/>
-                <path d="M7 7l1 13h8l1-13"/>
-                <path d="M10 11v5M14 11v5"/>
-            </svg>
-        </button>
-
-    </header>
-
-    <!-- CHAT -->
-
-    <main class="chat">
-
-        <div class="messages" id="messages">
-
-            <div class="welcome-message" id="welcomeMessage">
-
-                <div class="logo-container">
-                    <div class="logo-glow"></div>
-                    <div class="logo-ring"></div>
-
-                    <img
-                        class="big-logo"
-                        src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-                        alt="Nova IA"
-                    >
-                </div>
-
-                <h1>
-                    Hola, soy <span>Nova IA</span>
-                </h1>
-
-                <p>
-                    Tu asistente especializado en programación,
-                    Roblox, Lua, scripts y desarrollo.
-                </p>
-
-                <div class="suggestions">
-
-                    <div
-                        class="suggestion"
-                        onclick="useSuggestion('Créame un script de Roblox en Lua')"
-                    >
-                        Crear un script de Roblox
-                    </div>
-
-                    <div
-                        class="suggestion"
-                        onclick="useSuggestion('Ayúdame a corregir este código')"
-                    >
-                        Corregir un código
-                    </div>
-
-                    <div
-                        class="suggestion"
-                        onclick="useSuggestion('Explícame cómo funciona este script')"
-                    >
-                        Explicar un script
-                    </div>
-
-                    <div
-                        class="suggestion"
-                        onclick="useSuggestion('Créame una GUI profesional para Roblox')"
-                    >
-                        Crear una GUI
-                    </div>
-
-                </div>
-
-            </div>
-
+        <div
+            class="suggestion"
+            onclick="useSuggestion('Ayúdame a corregir este código')"
+        >
+            Corregir un código
         </div>
 
-        <!-- INPUT -->
-
-        <div class="input-area">
-
-            <div class="input-box">
-
-                <textarea
-                    id="messageInput"
-                    rows="1"
-                    placeholder="Escribe un mensaje..."
-                    autocomplete="off"
-                ></textarea>
-
-                <!-- BOTÓN PARA SELECCIONAR IA -->
-                <button
-                    class="ai-selector-btn"
-                    type="button"
-                    onclick="openAISelector()"
-                    aria-label="Seleccionar IA"
-                    title="Seleccionar IA"
-                >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                        <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/>
-                        <path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16z"/>
-                    </svg>
-                </button>
-
-                <!-- ENVIAR -->
-                <button
-                    class="send-btn"
-                    id="sendBtn"
-                    onclick="sendMessage()"
-                    aria-label="Enviar mensaje"
-                >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 19V5"/>
-                        <path d="M6 11l6-6 6 6"/>
-                    </svg>
-                </button>
-
-            </div>
-
+        <div
+            class="suggestion"
+            onclick="useSuggestion('Explícame cómo funciona este script')"
+        >
+            Explicar un script
         </div>
 
-    </main>
+        <div
+            class="suggestion"
+            onclick="useSuggestion('Créame una GUI profesional para Roblox')"
+        >
+            Crear una GUI
+        </div>
+
+    </div>
 
 </div>
 
-<!-- OVERLAY -->
+</div>
+
+<div class="input-area">
+
+<div class="input-box">
+
+<textarea
+    id="messageInput"
+    rows="1"
+    placeholder="Escribe un mensaje..."
+    autocomplete="off"
+></textarea>
+
+<button
+    class="ai-selector-btn"
+    type="button"
+    onclick="openAISelector()"
+    aria-label="Seleccionar IA"
+    title="Seleccionar IA"
+>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/>
+        <path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16z"/>
+    </svg>
+</button>
+
+<button
+    class="send-btn"
+    id="sendBtn"
+    onclick="sendMessage()"
+    aria-label="Enviar mensaje"
+>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 19V5"/>
+        <path d="M6 11l6-6 6 6"/>
+    </svg>
+</button>
+
+</div>
+</div>
+
+</main>
+</div>
 
 <div
     class="overlay"
@@ -1030,51 +1046,54 @@ textarea::placeholder{
     onclick="closeSidebar()"
 ></div>
 
-<!-- SIDEBAR -->
-
 <aside class="sidebar" id="sidebar">
 
-    <div class="sidebar-header">
+<div class="sidebar-header">
 
-        <div class="sidebar-title">
-            Mis chats
-        </div>
-
-        <button
-            class="close-sidebar"
-            onclick="closeSidebar()"
-            aria-label="Cerrar"
-        >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 6l12 12M18 6L6 18"/>
-            </svg>
-        </button>
-
+    <div class="sidebar-title">
+        Mis chats
     </div>
 
-    <div class="sidebar-logo">
-
-        <img
-            src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-            alt="Nova IA"
-        >
-
-        <div>
-            <strong>Nova IA</strong>
-            <small>Creada por Yander</small>
-        </div>
-
-    </div>
-
-    <button class="new-chat" onclick="newChat()">
-        + Nuevo chat
+    <button
+        class="close-sidebar"
+        onclick="closeSidebar()"
+        aria-label="Cerrar"
+    >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 6l12 12M18 6L6 18"/>
+        </svg>
     </button>
 
-    <div class="chat-list" id="chatList"></div>
+</div>
+
+<div class="sidebar-logo">
+
+    <img
+        src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+        alt="Nova IA"
+    >
+
+    <div>
+        <strong>Nova IA</strong>
+        <small>Creada por Yander</small>
+    </div>
+
+</div>
+
+<button class="new-chat" onclick="newChat()">
+    + Nuevo chat
+</button>
+
+<div class="chat-list" id="chatList"></div>
 
 </aside>
 
 <script>
+
+/* ============================================================
+   NOVA IA
+   CONFIGURACIÓN
+============================================================ */
 
 const RENDER_URL = "https://nova-ia-2oup.onrender.com";
 const CHAT_URL = RENDER_URL + "/chat";
@@ -1085,18 +1104,31 @@ const CURRENT_KEY = "nova_current";
 
 let chats = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
 let currentId = localStorage.getItem(CURRENT_KEY);
+
 let deleteMode = false;
 
 
-/* GUARDAR */
+/* ============================================================
+   GUARDAR
+============================================================ */
 
 function save(){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(chats));
-    localStorage.setItem(CURRENT_KEY, currentId);
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(chats)
+    );
+
+    localStorage.setItem(
+        CURRENT_KEY,
+        currentId
+    );
 }
 
 
-/* CREAR CHAT */
+/* ============================================================
+   CREAR CHAT
+============================================================ */
 
 function createChat(){
 
@@ -1107,27 +1139,39 @@ function createChat(){
     };
 
     chats.unshift(chat);
+
     currentId = chat.id;
 
     save();
 }
 
 
-/* CHAT ACTUAL */
+/* ============================================================
+   CHAT ACTUAL
+============================================================ */
 
 function currentChat(){
-    return chats.find(chat => chat.id === currentId);
+
+    return chats.find(
+        chat => chat.id === currentId
+    );
 }
 
 
-/* RENDER */
+/* ============================================================
+   RENDER GENERAL
+============================================================ */
 
 function render(){
 
-    const messages = document.getElementById("messages");
-    const welcome = document.getElementById("welcomeMessage");
+    const messages =
+        document.getElementById("messages");
 
-    const activeChat = currentChat();
+    const welcome =
+        document.getElementById("welcomeMessage");
+
+    const activeChat =
+        currentChat();
 
     if(!activeChat) return;
 
@@ -1137,128 +1181,66 @@ function render(){
 
         messages.appendChild(welcome);
 
+        renderChatList();
+
         return;
     }
 
     activeChat.messages.forEach(message => {
-        addMessage(message.role, message.content, false);
+
+        addMessage(
+            message.role,
+            message.content,
+            false
+        );
+
     });
 
     renderChatList();
+
     scrollBottom();
 }
 
 
-/* AGREGAR MENSAJE */
+/* ============================================================
+   AGREGAR MENSAJE
+============================================================ */
 
-function addMessage(role, content, saveMessage = false){
+function addMessage(
+    role,
+    content,
+    saveMessage = false
+){
 
-    const messages = document.getElementById("messages");
+    const messages =
+        document.getElementById("messages");
 
-    const message = document.createElement("div");
+    const message =
+        document.createElement("div");
 
-    message.className = "message " + role;
+    message.className =
+        "message " + role;
 
-    const avatar = document.createElement("img");
+    const avatar =
+        document.createElement("img");
 
     avatar.className = "avatar";
 
-    avatar.src = role === "ai"
-        ? "https://i.ibb.co/whKQvZsw/Nova.jpg"
-        : "https://i.ibb.co/whKQvZsw/Nova.jpg";
+    avatar.src =
+        "https://i.ibb.co/whKQvZsw/Nova.jpg";
 
-    avatar.alt = role === "ai" ? "Nova" : "Tú";
+    avatar.alt =
+        role === "ai" ? "Nova" : "Tú";
 
-    const bubble = document.createElement("div");
+    const bubble =
+        document.createElement("div");
 
     bubble.className = "bubble";
 
-    /*
-        Detectar bloques de código
-    */
-
-    const regex = /```([a-zA-Z0-9_+-]*)\n?([\s\S]*?)```/g;
-
-    let lastIndex = 0;
-    let match;
-
-    while((match = regex.exec(content)) !== null){
-
-        const before = content.slice(lastIndex, match.index);
-
-        if(before){
-            const textNode = document.createTextNode(before);
-            bubble.appendChild(textNode);
-        }
-
-        const wrapper = document.createElement("div");
-        wrapper.className = "code-wrapper";
-
-        const header = document.createElement("div");
-        header.className = "code-header";
-
-        const language = document.createElement("span");
-        language.textContent = match[1] || "code";
-
-        const copy = document.createElement("button");
-        copy.className = "copy-code";
-        copy.textContent = "Copiar";
-
-        const codeText = match[2];
-
-        copy.onclick = async function(){
-
-            try{
-
-                await navigator.clipboard.writeText(codeText);
-
-                copy.textContent = "Copiado";
-
-                setTimeout(() => {
-                    copy.textContent = "Copiar";
-                },1500);
-
-            }catch(error){
-
-                copy.textContent = "Error";
-
-                setTimeout(() => {
-                    copy.textContent = "Copiar";
-                },1500);
-            }
-        };
-
-        header.appendChild(language);
-        header.appendChild(copy);
-
-        const code = document.createElement("div");
-
-        code.className = "code-content";
-        code.textContent = codeText;
-
-        wrapper.appendChild(header);
-        wrapper.appendChild(code);
-
-        bubble.appendChild(wrapper);
-
-        lastIndex = regex.lastIndex;
-    }
-
-    const after = content.slice(lastIndex);
-
-    if(after){
-        const textNode = document.createTextNode(after);
-        bubble.appendChild(textNode);
-    }
-
-    /*
-        Si no había código
-    */
-
-    if(!regex.test(content)){
-
-        bubble.textContent = content;
-    }
+    renderFormattedContent(
+        bubble,
+        content
+    );
 
     message.appendChild(avatar);
     message.appendChild(bubble);
@@ -1266,7 +1248,9 @@ function addMessage(role, content, saveMessage = false){
     messages.appendChild(message);
 
     if(saveMessage){
-        const activeChat = currentChat();
+
+        const activeChat =
+            currentChat();
 
         if(activeChat){
 
@@ -1278,33 +1262,191 @@ function addMessage(role, content, saveMessage = false){
             save();
         }
     }
+
+    return bubble;
 }
 
 
-/* THINKING */
+/* ============================================================
+   FORMATEAR TEXTO Y CÓDIGO
+============================================================ */
+
+function renderFormattedContent(
+    container,
+    content
+){
+
+    const regex =
+        /```([a-zA-Z0-9_+-]*)\n?([\s\S]*?)```/g;
+
+    let lastIndex = 0;
+
+    let match;
+
+    while(
+        (match = regex.exec(content)) !== null
+    ){
+
+        const before =
+            content.slice(
+                lastIndex,
+                match.index
+            );
+
+        if(before){
+
+            container.appendChild(
+                document.createTextNode(before)
+            );
+        }
+
+        const wrapper =
+            document.createElement("div");
+
+        wrapper.className =
+            "code-wrapper";
+
+        const header =
+            document.createElement("div");
+
+        header.className =
+            "code-header";
+
+        const language =
+            document.createElement("span");
+
+        language.textContent =
+            match[1] || "code";
+
+        const copy =
+            document.createElement("button");
+
+        copy.className =
+            "copy-code";
+
+        copy.textContent =
+            "Copiar";
+
+        const codeText =
+            match[2];
+
+        copy.onclick =
+            async function(){
+
+                try{
+
+                    await navigator.clipboard.writeText(
+                        codeText
+                    );
+
+                    copy.textContent =
+                        "Copiado";
+
+                    setTimeout(
+                        () => {
+                            copy.textContent =
+                                "Copiar";
+                        },
+                        1500
+                    );
+
+                }catch(error){
+
+                    copy.textContent =
+                        "Error";
+
+                    setTimeout(
+                        () => {
+                            copy.textContent =
+                                "Copiar";
+                        },
+                        1500
+                    );
+                }
+            };
+
+        header.appendChild(language);
+        header.appendChild(copy);
+
+        const code =
+            document.createElement("div");
+
+        code.className =
+            "code-content";
+
+        code.textContent =
+            codeText;
+
+        wrapper.appendChild(header);
+        wrapper.appendChild(code);
+
+        container.appendChild(wrapper);
+
+        lastIndex =
+            regex.lastIndex;
+    }
+
+    const after =
+        content.slice(lastIndex);
+
+    if(after){
+
+        container.appendChild(
+            document.createTextNode(after)
+        );
+    }
+
+    if(
+        !content.includes("```")
+    ){
+
+        container.textContent =
+            content;
+    }
+}
+
+
+/* ============================================================
+   PENSANDO
+============================================================ */
 
 function showThinking(){
 
-    const messages = document.getElementById("messages");
+    const messages =
+        document.getElementById("messages");
 
-    const message = document.createElement("div");
+    const message =
+        document.createElement("div");
 
-    message.className = "message ai";
-    message.id = "thinkingMessage";
+    message.className =
+        "message ai";
 
-    const avatar = document.createElement("img");
+    message.id =
+        "thinkingMessage";
 
-    avatar.className = "avatar";
-    avatar.src = "https://i.ibb.co/whKQvZsw/Nova.jpg";
-    avatar.alt = "Nova";
+    const avatar =
+        document.createElement("img");
 
-    const bubble = document.createElement("div");
+    avatar.className =
+        "avatar";
 
-    bubble.className = "bubble";
+    avatar.src =
+        "https://i.ibb.co/whKQvZsw/Nova.jpg";
 
-    const thinking = document.createElement("div");
+    avatar.alt =
+        "Nova";
 
-    thinking.className = "thinking";
+    const bubble =
+        document.createElement("div");
+
+    bubble.className =
+        "bubble";
+
+    const thinking =
+        document.createElement("div");
+
+    thinking.className =
+        "thinking";
 
     thinking.innerHTML = `
         <span></span>
@@ -1323,11 +1465,16 @@ function showThinking(){
 }
 
 
-/* QUITAR THINKING */
+/* ============================================================
+   QUITAR PENSANDO
+============================================================ */
 
 function removeThinking(){
 
-    const thinking = document.getElementById("thinkingMessage");
+    const thinking =
+        document.getElementById(
+            "thinkingMessage"
+        );
 
     if(thinking){
         thinking.remove();
@@ -1335,65 +1482,162 @@ function removeThinking(){
 }
 
 
-/* ESTADO DEL SERVIDOR */
+/* ============================================================
+   ESCRITURA PROGRESIVA
+============================================================ */
+
+async function typeResponse(
+    bubble,
+    content
+){
+
+    const cursor =
+        document.createElement("span");
+
+    cursor.className =
+        "typing-cursor";
+
+    bubble.appendChild(cursor);
+
+    let text = "";
+
+    /*
+        Velocidad de escritura.
+
+        Menor número = más rápido.
+    */
+
+    const speed = 7;
+
+    for(
+        let i = 0;
+        i < content.length;
+        i++
+    ){
+
+        text += content[i];
+
+        cursor.remove();
+
+        bubble.textContent = text;
+
+        bubble.appendChild(cursor);
+
+        scrollBottom();
+
+        await new Promise(
+            resolve =>
+                setTimeout(resolve, speed)
+        );
+    }
+
+    cursor.remove();
+
+    /*
+        Cuando termina de escribir,
+        renderizamos nuevamente para
+        convertir los ``` en bloques de código.
+    */
+
+    bubble.innerHTML = "";
+
+    renderFormattedContent(
+        bubble,
+        content
+    );
+
+    scrollBottom();
+}
+
+
+/* ============================================================
+   ESTADO DEL SERVIDOR
+============================================================ */
 
 async function checkServer(){
 
     try{
 
-        const response = await fetch(STATUS_URL);
+        const response =
+            await fetch(STATUS_URL);
 
         if(!response.ok){
-            throw new Error("Servidor no disponible");
+
+            throw new Error(
+                "Servidor no disponible"
+            );
         }
 
         return true;
 
     }catch(error){
 
-        console.log("Servidor:", error.message);
+        console.log(
+            "Servidor:",
+            error.message
+        );
 
         return false;
     }
 }
 
 
-/* ENVIAR */
+/* ============================================================
+   ENVIAR MENSAJE
+============================================================ */
 
 async function sendMessage(){
 
-    const input = document.getElementById("messageInput");
-    const sendBtn = document.getElementById("sendBtn");
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
 
-    const message = input.value.trim();
+    const sendBtn =
+        document.getElementById(
+            "sendBtn"
+        );
+
+    const message =
+        input.value.trim();
 
     if(!message) return;
 
-    let activeChat = currentChat();
+    let activeChat =
+        currentChat();
 
     if(!activeChat){
 
         createChat();
 
-        activeChat = currentChat();
+        activeChat =
+            currentChat();
     }
 
-    const isFirstMessage = activeChat.messages.length === 0;
+    const isFirstMessage =
+        activeChat.messages.length === 0;
 
     activeChat.messages.push({
+
         role:"user",
+
         content:message
+
     });
 
     if(isFirstMessage){
-        activeChat.title = generateTitle(message);
+
+        activeChat.title =
+            generateTitle(message);
     }
 
     input.value = "";
 
-    input.style.height = "42px";
+    input.style.height =
+        "42px";
 
     save();
+
     render();
 
     showThinking();
@@ -1402,27 +1646,45 @@ async function sendMessage(){
 
     try{
 
-        const response = await fetch(CHAT_URL,{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                message:message,
-                history:activeChat.messages.slice(-20)
-            })
-        });
+        const response =
+            await fetch(
+                CHAT_URL,
+                {
+                    method:"POST",
 
-        const data = await response.json();
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        message:message,
+
+                        history:
+                            activeChat.messages
+                            .slice(-20)
+
+                    })
+                }
+            );
+
+        const data =
+            await response.json();
 
         if(!response.ok){
-            throw new Error(data?.error || "Error del servidor");
+
+            throw new Error(
+                data?.error ||
+                "Error del servidor"
+            );
         }
 
         if(
             !data.success ||
             typeof data.response !== "string"
         ){
+
             throw new Error(
                 data?.error ||
                 "El servidor no devolvió una respuesta válida."
@@ -1431,13 +1693,73 @@ async function sendMessage(){
 
         removeThinking();
 
+        /*
+            Creamos el mensaje de Nova
+            vacío para comenzar la animación.
+        */
+
+        const aiMessage =
+            document.createElement("div");
+
+        aiMessage.className =
+            "message ai";
+
+        const avatar =
+            document.createElement("img");
+
+        avatar.className =
+            "avatar";
+
+        avatar.src =
+            "https://i.ibb.co/whKQvZsw/Nova.jpg";
+
+        avatar.alt =
+            "Nova";
+
+        const bubble =
+            document.createElement("div");
+
+        bubble.className =
+            "bubble";
+
+        aiMessage.appendChild(
+            avatar
+        );
+
+        aiMessage.appendChild(
+            bubble
+        );
+
+        document
+            .getElementById("messages")
+            .appendChild(aiMessage);
+
+        /*
+            Guardamos la respuesta inmediatamente
+            para que no se pierda si se cierra.
+        */
+
         activeChat.messages.push({
+
             role:"ai",
+
             content:data.response
+
         });
 
         save();
-        render();
+
+        /*
+            Aquí ocurre la escritura
+            letra por letra.
+        */
+
+        await typeResponse(
+            bubble,
+            data.response
+        );
+
+        renderChatList();
 
     }catch(error){
 
@@ -1449,41 +1771,58 @@ async function sendMessage(){
             error.message;
 
         activeChat.messages.push({
+
             role:"ai",
+
             content:errorMessage
+
         });
 
         save();
+
         render();
 
     }finally{
 
-        sendBtn.disabled = false;
+        sendBtn.disabled =
+            false;
 
         input.focus();
     }
 }
 
 
-/* TITULO */
+/* ============================================================
+   TÍTULO
+============================================================ */
 
 function generateTitle(text){
 
-    let title = text.trim();
+    let title =
+        text.trim();
 
     if(title.length > 30){
-        title = title.substring(0,30) + "...";
+
+        title =
+            title.substring(0,30) +
+            "...";
     }
 
-    return title || "Nuevo chat";
+    return title ||
+        "Nuevo chat";
 }
 
 
-/* LISTA DE CHATS */
+/* ============================================================
+   LISTA DE CHATS
+============================================================ */
 
 function renderChatList(){
 
-    const list = document.getElementById("chatList");
+    const list =
+        document.getElementById(
+            "chatList"
+        );
 
     if(!list) return;
 
@@ -1491,80 +1830,111 @@ function renderChatList(){
 
     chats.forEach(chat => {
 
-        const item = document.createElement("div");
+        const item =
+            document.createElement("div");
 
-        item.className = "chat-item";
+        item.className =
+            "chat-item";
 
         if(chat.id === currentId){
-            item.classList.add("active");
+
+            item.classList.add(
+                "active"
+            );
         }
 
         if(deleteMode){
-            item.classList.add("delete-mode");
+
+            item.classList.add(
+                "delete-mode"
+            );
         }
 
-        item.textContent = chat.title || "Nuevo chat";
+        item.textContent =
+            chat.title ||
+            "Nuevo chat";
 
-        item.onclick = function(){
+        item.onclick =
+            function(){
 
-            if(deleteMode){
+                if(deleteMode){
 
-                deleteChat(chat.id);
+                    deleteChat(
+                        chat.id
+                    );
 
-                return;
-            }
+                    return;
+                }
 
-            currentId = chat.id;
+                currentId =
+                    chat.id;
 
-            save();
+                save();
 
-            render();
+                render();
 
-            closeSidebar();
-        };
+                closeSidebar();
+            };
 
         list.appendChild(item);
-
     });
 }
 
 
-/* EDITAR / ELIMINAR */
+/* ============================================================
+   ELIMINAR
+============================================================ */
 
 function toggleDeleteMode(){
 
-    deleteMode = !deleteMode;
+    deleteMode =
+        !deleteMode;
 
     renderChatList();
 }
 
-
-/* BORRAR CHAT */
-
 function deleteChat(id){
 
-    const chat = chats.find(c => c.id === id);
+    const chat =
+        chats.find(
+            c => c.id === id
+        );
 
     if(!chat) return;
 
-    showDeleteConfirmation(id, chat.title);
+    showDeleteConfirmation(
+        id,
+        chat.title
+    );
 }
 
 
-/* CONFIRMACIÓN */
+/* ============================================================
+   CONFIRMACIÓN
+============================================================ */
 
-function showDeleteConfirmation(id, title){
+function showDeleteConfirmation(
+    id,
+    title
+){
 
-    const existing = document.getElementById("novaConfirmOverlay");
+    const existing =
+        document.getElementById(
+            "novaConfirmOverlay"
+        );
 
     if(existing){
         existing.remove();
     }
 
-    const overlay = document.createElement("div");
+    const overlay =
+        document.createElement("div");
 
-    overlay.className = "nova-confirm-overlay";
-    overlay.id = "novaConfirmOverlay";
+    overlay.className =
+        "nova-confirm-overlay";
+
+    overlay.id =
+        "novaConfirmOverlay";
 
     overlay.innerHTML = `
         <div class="nova-confirm">
@@ -1578,7 +1948,9 @@ function showDeleteConfirmation(id, title){
 
             <p>
                 ¿Seguro que quieres eliminar
-                "${escapeHTML(title || "este chat")}"?
+                "${escapeHTML(
+                    title || "este chat"
+                )}"?
             </p>
 
             <div class="nova-confirm-buttons">
@@ -1602,33 +1974,40 @@ function showDeleteConfirmation(id, title){
         </div>
     `;
 
-    document.body.appendChild(overlay);
+    document.body.appendChild(
+        overlay
+    );
 }
-
-
-/* CERRAR CONFIRMACIÓN */
 
 function closeNovaConfirm(){
 
-    const overlay = document.getElementById("novaConfirmOverlay");
+    const overlay =
+        document.getElementById(
+            "novaConfirmOverlay"
+        );
 
     if(overlay){
+
         overlay.remove();
     }
 }
 
-
-/* CONFIRMAR ELIMINACIÓN */
-
 function confirmNovaDelete(id){
 
-    chats = chats.filter(chat => chat.id !== id);
+    chats =
+        chats.filter(
+            chat => chat.id !== id
+        );
 
     if(currentId === id){
 
         if(chats.length > 0){
-            currentId = chats[0].id;
+
+            currentId =
+                chats[0].id;
+
         }else{
+
             createChat();
         }
     }
@@ -1640,11 +2019,14 @@ function confirmNovaDelete(id){
     deleteMode = false;
 
     render();
+
     renderChatList();
 }
 
 
-/* NUEVO CHAT */
+/* ============================================================
+   NUEVO CHAT
+============================================================ */
 
 function newChat(){
 
@@ -1658,40 +2040,60 @@ function newChat(){
 
     closeSidebar();
 
-    setTimeout(() => {
-        document.getElementById("messageInput").focus();
-    },100);
+    setTimeout(
+        () => {
+
+            document
+                .getElementById(
+                    "messageInput"
+                )
+                .focus();
+
+        },
+        100
+    );
 }
 
 
-/* LIMPIAR CHAT */
+/* ============================================================
+   LIMPIAR CHAT
+============================================================ */
 
 function clearChat(){
 
-    const activeChat = currentChat();
+    const activeChat =
+        currentChat();
 
     if(!activeChat) return;
 
-    if(activeChat.messages.length === 0) return;
+    if(
+        activeChat.messages.length === 0
+    ){
+        return;
+    }
 
     showClearConfirmation();
 }
 
-
-/* CONFIRMAR LIMPIAR */
-
 function showClearConfirmation(){
 
-    const existing = document.getElementById("novaConfirmOverlay");
+    const existing =
+        document.getElementById(
+            "novaConfirmOverlay"
+        );
 
     if(existing){
         existing.remove();
     }
 
-    const overlay = document.createElement("div");
+    const overlay =
+        document.createElement("div");
 
-    overlay.className = "nova-confirm-overlay";
-    overlay.id = "novaConfirmOverlay";
+    overlay.className =
+        "nova-confirm-overlay";
+
+    overlay.id =
+        "novaConfirmOverlay";
 
     overlay.innerHTML = `
         <div class="nova-confirm">
@@ -1728,20 +2130,22 @@ function showClearConfirmation(){
         </div>
     `;
 
-    document.body.appendChild(overlay);
+    document.body.appendChild(
+        overlay
+    );
 }
-
-
-/* CONFIRMAR LIMPIAR */
 
 function confirmClearChat(){
 
-    const activeChat = currentChat();
+    const activeChat =
+        currentChat();
 
     if(activeChat){
 
         activeChat.messages = [];
-        activeChat.title = "Nuevo chat";
+
+        activeChat.title =
+            "Nuevo chat";
 
         save();
     }
@@ -1749,53 +2153,76 @@ function confirmClearChat(){
     closeNovaConfirm();
 
     render();
+
     renderChatList();
 }
 
 
-/* SIDEBAR */
+/* ============================================================
+   SIDEBAR
+============================================================ */
 
 function openSidebar(){
 
-    document.getElementById("sidebar")
+    document
+        .getElementById("sidebar")
         .classList.add("open");
 
-    document.getElementById("overlay")
+    document
+        .getElementById("overlay")
         .classList.add("active");
 
     renderChatList();
 }
 
-
 function closeSidebar(){
 
-    document.getElementById("sidebar")
+    document
+        .getElementById("sidebar")
         .classList.remove("open");
 
-    document.getElementById("overlay")
+    document
+        .getElementById("overlay")
         .classList.remove("active");
 }
 
 
-/* SCROLL */
+/* ============================================================
+   SCROLL
+============================================================ */
 
 function scrollBottom(){
 
-    const messages = document.getElementById("messages");
+    const messages =
+        document.getElementById(
+            "messages"
+        );
 
-    setTimeout(() => {
-        messages.scrollTop = messages.scrollHeight;
-    },50);
+    setTimeout(
+        () => {
+
+            messages.scrollTop =
+                messages.scrollHeight;
+
+        },
+        20
+    );
 }
 
 
-/* SUGERENCIA */
+/* ============================================================
+   SUGERENCIAS
+============================================================ */
 
 function useSuggestion(text){
 
-    const input = document.getElementById("messageInput");
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
 
-    input.value = text;
+    input.value =
+        text;
 
     input.focus();
 
@@ -1805,57 +2232,103 @@ function useSuggestion(text){
 }
 
 
-/* AUTO RESIZE */
+/* ============================================================
+   AUTO RESIZE
+============================================================ */
 
 function autoResize(){
 
-    const input = document.getElementById("messageInput");
-
-    input.style.height = "42px";
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
 
     input.style.height =
-        Math.min(input.scrollHeight,160) + "px";
+        "42px";
+
+    input.style.height =
+        Math.min(
+            input.scrollHeight,
+            160
+        ) + "px";
 }
 
 
-/* BOTÓN DE SELECCIÓN DE IA */
-
-/*
-    Este botón queda preparado.
-
-    El selector de modelos/IA lo agregaremos
-    posteriormente sin tocar el sistema de chats.
-*/
+/* ============================================================
+   SELECTOR DE IA
+============================================================ */
 
 function openAISelector(){
 
-    console.log("Selector de IA preparado para la siguiente fase.");
+    /*
+        Esta función queda preparada.
+        El selector de modelos lo hacemos
+        en la siguiente fase.
+    */
 
+    console.log(
+        "Selector de IA preparado."
+    );
 }
 
 
-/* ENTER */
+/* ============================================================
+   ESCAPAR HTML
+============================================================ */
+
+function escapeHTML(text){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+}
+
+
+/* ============================================================
+   INPUT
+============================================================ */
 
 document
-    .getElementById("messageInput")
-    .addEventListener("input",autoResize);
+    .getElementById(
+        "messageInput"
+    )
+    .addEventListener(
+        "input",
+        autoResize
+    );
 
 
 document
-    .getElementById("messageInput")
-    .addEventListener("keydown",function(event){
+    .getElementById(
+        "messageInput"
+    )
+    .addEventListener(
+        "keydown",
+        function(event){
 
-        if(event.key === "Enter" && !event.shiftKey){
+            if(
+                event.key === "Enter" &&
+                !event.shiftKey
+            ){
 
-            event.preventDefault();
+                event.preventDefault();
 
-            sendMessage();
+                sendMessage();
+            }
+
         }
+    );
 
-    });
 
-
-/* INICIO */
+/* ============================================================
+   INICIO
+============================================================ */
 
 if(chats.length === 0){
 
@@ -1863,24 +2336,33 @@ if(chats.length === 0){
 
 }else if(
     !currentId ||
-    !chats.some(chat => chat.id === currentId)
+    !chats.some(
+        chat => chat.id === currentId
+    )
 ){
 
-    currentId = chats[0].id;
+    currentId =
+        chats[0].id;
 
     save();
 }
 
 render();
+
 renderChatList();
 
-checkServer().then(status => {
+checkServer().then(
+    status => {
 
-    if(!status){
-        console.log("Nova IA: servidor no disponible.");
+        if(!status){
+
+            console.log(
+                "Nova IA: servidor no disponible."
+            );
+        }
+
     }
-
-});
+);
 
 </script>
 
