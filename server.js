@@ -9,7 +9,6 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const fs = require("fs");
 const path = require("path");
-const OpenAI = require("openai");
 
 dotenv.config();
 
@@ -29,18 +28,28 @@ app.use(
 );
 
 // ============================================================
-// OPENAI
+// PROVEEDORES
 // ============================================================
 
-if (!process.env.OPENAI_API_KEY) {
-    console.warn("⚠️ OPENAI_API_KEY no está configurada.");
-}
+const PROVIDERS = {
+    groq: {
+        name: "Groq",
+        model: "openai/gpt-oss-120b",
+        env: "GROQ_API_KEY"
+    },
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY || ""
-});
+    gemini: {
+        name: "Gemini",
+        model: "gemini-2.5-flash",
+        env: "GEMINI_API_KEY"
+    },
 
-const MODEL = "gpt-5.6";
+    openrouter: {
+        name: "OpenRouter",
+        model: "openrouter/free",
+        env: "OPENROUTER_API_KEY"
+    }
+};
 
 // ============================================================
 // RUTAS
@@ -272,54 +281,7 @@ No agregues instrucciones como:
 si el usuario no pidió una versión para Studio.
 
 ============================================================
-FORMATO DE SCRIPTS DELTA
-============================================================
-
-Cuando el usuario pida un script para Delta:
-
-entrega normalmente un SCRIPT LUA COMPLETO listo para
-ser ejecutado en el entorno solicitado.
-
-Cuando sea apropiado puedes utilizar:
-
-- game:GetService()
-- Players
-- RunService
-- UserInputService
-- TweenService
-- Workspace
-- CurrentCamera
-- PlayerGui
-- Drawing API cuando corresponda y sea compatible
-- loadstring cuando el usuario lo solicite o sea necesario
-- APIs disponibles en el entorno de ejecución
-
-Pero NO inventes APIs.
-
-Si una API depende del executor:
-
-debes tener en cuenta que su disponibilidad puede variar.
-
-============================================================
-NO CAMBIES EL ENTORNO
-============================================================
-
-Nunca hagas esto:
-
-Usuario:
-"hazme un ESP para Delta"
-
-Respuesta incorrecta:
-
-"Pon este LocalScript en StarterPlayerScripts."
-
-Eso cambia el entorno solicitado.
-
-La respuesta debe permanecer orientada al entorno
-de ejecución indicado por el usuario.
-
-============================================================
-CÓDIGO COMPLETO
+REGLA DE CÓDIGO
 ============================================================
 
 Cuando el usuario solicite un script:
@@ -349,58 +311,16 @@ Si el usuario proporciona un script existente:
 
 NO lo reemplaces completamente sin motivo.
 
-Analiza:
-
-1. Qué hace.
-2. Qué partes funcionan.
-3. Qué partes están rotas.
-4. Qué características ya existen.
-5. Qué configuraciones existen.
-6. Qué dependencias existen.
-7. Qué errores de lógica existen.
-8. Qué errores de sintaxis existen.
-9. Qué conexiones pueden duplicarse.
-10. Qué ocurre al ejecutar el script nuevamente.
-
-Después modifica el mismo sistema.
+Analiza qué hace, qué funciona, qué está roto,
+qué características existen y qué dependencias tiene.
 
 Conserva las características válidas.
 
-Corrige los errores.
+Corrige errores.
 
-Mejora la estabilidad.
+Mejora estabilidad y rendimiento.
 
 Devuelve TODO el script.
-
-============================================================
-ANÁLISIS INTERNO
-============================================================
-
-Antes de entregar código debes analizar internamente:
-
-1. Entorno objetivo.
-2. APIs utilizadas.
-3. Dependencias.
-4. Flujo de ejecución.
-5. Variables.
-6. Eventos.
-7. conexiones.
-8. loops.
-9. GUI.
-10. configuración.
-11. respawn.
-12. PlayerRemoving.
-13. CurrentCamera.
-14. rendimiento.
-15. compatibilidad móvil.
-16. compatibilidad PC.
-17. ejecución duplicada.
-18. limpieza.
-
-NO muestres tu razonamiento interno detallado.
-
-Solamente entrega el resultado y una explicación breve
-cuando sea necesaria.
 
 ============================================================
 CONFIG CENTRAL
@@ -409,22 +329,9 @@ CONFIG CENTRAL
 Cuando el usuario solicite un sistema configurable,
 utiliza una configuración central.
 
-Ejemplo:
+Cada opción debe estar conectada con la lógica real.
 
-local Config = {
-    Enabled = false,
-    FOV = 120,
-    Smoothness = 0.2,
-    MaxDistance = 500
-}
-
-Pero cada opción DEBE estar conectada con la lógica real.
-
-No crees:
-
-Config.WallCheck = true
-
-si después nunca utilizas Config.WallCheck.
+No crees configuraciones decorativas.
 
 ============================================================
 GUI PROFESIONAL
@@ -451,35 +358,15 @@ Puede utilizar:
 - UIGridLayout
 - TweenService
 
-Debe tener:
-
-- jerarquía visual
-- secciones
-- controles claros
-- estados visibles
-- animaciones reales
-- buen espaciado
-- soporte táctil cuando corresponda
+Debe tener buena jerarquía visual,
+espaciado, controles claros y soporte táctil
+cuando corresponda.
 
 ============================================================
 TOGGLES
 ============================================================
 
 Cada toggle debe controlar una característica REAL.
-
-Ejemplo:
-
-Aimbot ON/OFF
-
-debe activar y desactivar realmente la lógica.
-
-ESP ON/OFF
-
-debe activar y desactivar realmente el ESP.
-
-RGB ON/OFF
-
-debe activar y desactivar realmente el RGB.
 
 No hagas toggles decorativos.
 
@@ -492,9 +379,8 @@ Los sliders deben:
 - tener mínimo
 - tener máximo
 - mostrar el valor
-- actualizar Config
+- actualizar la configuración
 - modificar la lógica real
-- permitir entrada numérica cuando corresponda
 - validar números
 - evitar valores fuera de rango
 
@@ -503,16 +389,6 @@ DROPDOWNS
 ============================================================
 
 Los dropdowns deben modificar valores reales.
-
-Ejemplo:
-
-AimPart:
-
-Head
-HumanoidRootPart
-Torso
-
-La selección debe utilizarse realmente en la lógica.
 
 ============================================================
 RGB
@@ -524,19 +400,7 @@ utiliza un sistema real basado en:
 
 Color3.fromHSV()
 
-El RGB puede controlar:
-
-- UIStroke
-- botones
-- indicadores
-- FOV
-- elementos destacados
-
-Debe tener:
-
-ON/OFF
-
-y una velocidad configurable cuando el usuario la solicite.
+Debe tener ON/OFF cuando sea solicitado.
 
 ============================================================
 ANIMACIONES
@@ -557,9 +421,6 @@ Implementa realmente:
 - sliders
 - dropdowns
 
-No agregues una opción llamada AnimationEnabled
-sin implementar animaciones reales.
-
 ============================================================
 MÓVIL
 ============================================================
@@ -573,16 +434,12 @@ considera:
 - controles cómodos
 - scrolling
 - ausencia de teclado físico
-- controles táctiles
-- botones flotantes cuando sean apropiados
 
-NO copies literalmente:
+No copies literalmente el tipo de dispositivo detectado
+por el backend dentro del script.
 
-DEVICE_TYPE = "MOBILE"
-
-al script solamente porque el backend detectó un móvil.
-
-El código debe manejar el input correctamente.
+Si el script necesita detectar input dentro de Roblox,
+debe hacerlo mediante APIs reales.
 
 ============================================================
 PC
@@ -611,7 +468,7 @@ Obtén y valida CurrentCamera cuando sea necesario.
 RESPAWN
 ============================================================
 
-El código debe considerar:
+Considera:
 
 CharacterAdded
 CharacterRemoving
@@ -621,8 +478,6 @@ Head
 Torso
 
 cuando sean necesarios.
-
-No mantengas referencias inválidas después de respawn.
 
 ============================================================
 PLAYER REMOVING
@@ -642,13 +497,7 @@ El script debe evitar duplicar:
 - conexiones
 - loops
 - ESP
-- FOV
 - objetos visuales
-- sistemas de actualización
-
-Si ya existe una instancia anterior:
-
-elimínala o reutilízala correctamente.
 
 ============================================================
 LIMPIEZA
@@ -656,16 +505,7 @@ LIMPIEZA
 
 Cuando exista botón Close:
 
-debe limpiar:
-
-- conexiones
-- loops
-- GUI
-- ESP
-- objetos visuales
-- estados temporales
-
-No dejes sistemas ejecutándose después de cerrar.
+debe limpiar correctamente los sistemas creados.
 
 ============================================================
 RENDIMIENTO
@@ -675,110 +515,9 @@ Evita:
 
 - conexiones innecesarias
 - RenderStepped duplicados
-- loops infinitos sin necesidad
+- loops infinitos
 - crear objetos constantemente
 - recrear GUI continuamente
-
-Cuando varias funciones necesiten actualización continua,
-considera un ciclo centralizado.
-
-============================================================
-FOV
-============================================================
-
-Si el usuario solicita FOV:
-
-diferencia entre:
-
-FOV DE CÁMARA
-
-y
-
-RADIO VISUAL DE SELECCIÓN.
-
-No mezcles grados con píxeles.
-
-Si existe un círculo visual:
-
-debe representar correctamente el área utilizada
-por la selección.
-
-============================================================
-SISTEMAS DE AIM
-============================================================
-
-Si el usuario solicita un sistema de selección de objetivos,
-analiza correctamente:
-
-- objetivo
-- distancia
-- FOV
-- AimPart
-- TeamCheck
-- AliveCheck
-- WallCheck
-- MaxDistance
-- Smoothness
-- TargetLock
-- activación
-- cámara
-
-Cada opción solicitada debe tener lógica real.
-
-No crees una GUI que solamente parezca tener las opciones.
-
-============================================================
-WALL CHECK
-============================================================
-
-Cuando se solicite:
-
-utiliza RaycastParams correctamente.
-
-Configura los filtros necesarios.
-
-Ten en cuenta:
-
-- jugador local
-- personaje objetivo
-- accesorios
-- partes del personaje
-- objetos que deben ignorarse
-
-============================================================
-SISTEMAS ESP
-============================================================
-
-Cuando el usuario solicite ESP:
-
-maneja correctamente:
-
-- creación
-- actualización
-- eliminación
-- respawn
-- PlayerRemoving
-- TeamCheck
-- distancia
-- nombres
-- colores
-- Highlight
-- limpieza
-- duplicados
-
-============================================================
-DRAWING API
-============================================================
-
-No asumas que Drawing está disponible en absolutamente
-todos los entornos.
-
-Si utilizas Drawing:
-
-hazlo de manera controlada.
-
-Si una función visual depende de Drawing,
-evita que el resto del sistema se rompa innecesariamente.
 
 ============================================================
 NO INVENTES APIs
@@ -786,58 +525,36 @@ NO INVENTES APIs
 
 Nunca escribas APIs ficticias.
 
-Nunca inventes funciones del executor.
-
 Si una función depende específicamente del entorno:
 
 utilízala solamente cuando corresponda.
 
 ============================================================
-REVISIÓN DEL CÓDIGO
+REVISIÓN
 ============================================================
 
 Antes de entregar el script revisa internamente:
 
 [ ] Sintaxis Lua válida.
-
 [ ] Variables existentes.
-
 [ ] Funciones existentes.
-
 [ ] Servicios correctos.
-
 [ ] Eventos correctos.
-
 [ ] Configuración utilizada.
-
 [ ] Toggles conectados.
-
 [ ] Sliders conectados.
-
 [ ] Dropdowns conectados.
-
 [ ] RGB conectado.
-
 [ ] Animaciones conectadas.
-
 [ ] GUI sin duplicados.
-
 [ ] Conexiones controladas.
-
 [ ] Respawn manejado.
-
 [ ] PlayerRemoving manejado.
-
 [ ] CurrentCamera validada.
-
 [ ] Limpieza implementada.
-
 [ ] Sin pseudocódigo.
-
 [ ] Sin funciones falsas.
-
 [ ] Sin opciones decorativas.
-
 [ ] Código completo.
 
 ============================================================
@@ -879,7 +596,7 @@ ENTENDER
 → CORREGIR
 → ENTREGAR
 
-Y debe priorizar:
+Debe priorizar:
 
 - código completo
 - lógica real
@@ -917,8 +634,7 @@ IMPORTANTE:
 Este contexto solamente sirve para adaptar la experiencia
 de la GUI y los controles.
 
-NO copies literalmente estos valores dentro del script
-como una detección falsa del dispositivo.
+NO copies literalmente estos valores dentro del script.
 
 Si el script necesita detectar input dentro de Roblox,
 debe hacerlo mediante APIs reales del entorno.
@@ -942,7 +658,8 @@ function sanitizeHistory(history) {
 
             if (
                 item.role !== "user" &&
-                item.role !== "assistant"
+                item.role !== "assistant" &&
+                item.role !== "ai"
             ) {
                 return false;
             }
@@ -957,8 +674,13 @@ function sanitizeHistory(history) {
         })
         .slice(-20)
         .map(item => ({
-            role: item.role,
-            content: item.content.slice(0, 30000)
+            role:
+                item.role === "ai"
+                    ? "assistant"
+                    : item.role,
+
+            content:
+                item.content.slice(0, 30000)
         }));
 }
 
@@ -981,8 +703,22 @@ function buildMessages(
         }
     ];
 
-    const cleanHistory =
+    let cleanHistory =
         sanitizeHistory(history);
+
+    // Evita duplicar el mensaje actual si el frontend
+    // ya lo incluyó dentro del historial.
+    const lastMessage =
+        cleanHistory[cleanHistory.length - 1];
+
+    if (
+        lastMessage &&
+        lastMessage.role === "user" &&
+        lastMessage.content.trim() === userMessage.trim()
+    ) {
+        cleanHistory =
+            cleanHistory.slice(0, -1);
+    }
 
     for (const item of cleanHistory) {
         messages.push({
@@ -1000,117 +736,298 @@ function buildMessages(
 }
 
 // ============================================================
-// OPENAI
+// UTILIDAD FETCH
 // ============================================================
 
-async function askOpenAI(messages) {
-    let lastError = null;
+async function fetchJson(
+    url,
+    options,
+    providerName
+) {
+    const response =
+        await fetch(url, options);
 
-    for (
-        let attempt = 1;
-        attempt <= 3;
-        attempt++
-    ) {
-        try {
-            console.log(
-                `Enviando solicitud a OpenAI... intento ${attempt}/3`
-            );
+    const text =
+        await response.text();
 
-            const systemMessage =
-                messages.find(
-                    message =>
-                        message.role === "system"
-                );
+    let data = null;
 
-            const inputMessages =
-                messages.filter(
-                    message =>
-                        message.role !== "system"
-                );
-
-            const response =
-                await openai.responses.create({
-                    model: MODEL,
-
-                    instructions:
-                        systemMessage?.content || "",
-
-                    input:
-                        inputMessages,
-
-                    max_output_tokens: 16000
-                });
-
-            const answer =
-                response?.output_text;
-
-            if (
-                typeof answer !== "string" ||
-                !answer.trim()
-            ) {
-                throw new Error(
-                    "OpenAI respondió sin contenido."
-                );
-            }
-
-            console.log(
-                "Respuesta de OpenAI recibida correctamente."
-            );
-
-            return answer;
-
-        } catch (error) {
-            lastError = error;
-
-            console.error(
-                `ERROR OPENAI - INTENTO ${attempt}/3`
-            );
-
-            console.error(
-                "Mensaje:",
-                error?.message
-            );
-
-            console.error(
-                "Status:",
-                error?.status
-            );
-
-            console.error(
-                "Code:",
-                error?.code
-            );
-
-            const status =
-                Number(error?.status);
-
-            const retryable =
-                status === 429 ||
-                status === 500 ||
-                status === 502 ||
-                status === 503 ||
-                status === 504;
-
-            if (!retryable) {
-                break;
-            }
-
-            if (attempt < 3) {
-                await new Promise(
-                    resolve =>
-                        setTimeout(
-                            resolve,
-                            attempt * 2500
-                        )
-                );
-            }
-        }
+    try {
+        data = text
+            ? JSON.parse(text)
+            : {};
+    } catch {
+        data = {};
     }
 
-    throw (
-        lastError ||
-        new Error("Error desconocido de OpenAI.")
-    );
+    if (!response.ok) {
+        const error =
+            new Error(
+                data?.error?.message ||
+                data?.error ||
+                data?.message ||
+                text ||
+                `Error HTTP ${response.status}`
+            );
+
+        error.status =
+            response.status;
+
+        error.provider =
+            providerName;
+
+        error.raw =
+            data;
+
+        throw error;
+    }
+
+    return data;
+}
+
+// ============================================================
+// GROQ
+// ============================================================
+
+async function askGroq(messages) {
+    const apiKey =
+        process.env.GROQ_API_KEY;
+
+    if (!apiKey) {
+        throw new Error(
+            "GROQ_API_KEY no está configurada en Render."
+        );
+    }
+
+    const data =
+        await fetchJson(
+            "https://api.groq.com/openai/v1/chat/completions",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json",
+
+                    "Authorization":
+                        `Bearer ${apiKey}`
+                },
+
+                body: JSON.stringify({
+                    model:
+                        PROVIDERS.groq.model,
+
+                    messages,
+
+                    max_tokens:
+                        16000,
+
+                    temperature:
+                        0.7
+                })
+            },
+            "Groq"
+        );
+
+    const answer =
+        data?.choices?.[0]?.message?.content;
+
+    if (
+        typeof answer !== "string" ||
+        !answer.trim()
+    ) {
+        throw new Error(
+            "Groq respondió sin contenido."
+        );
+    }
+
+    return answer;
+}
+
+// ============================================================
+// GEMINI
+// ============================================================
+
+async function askGemini(messages) {
+    const apiKey =
+        process.env.GEMINI_API_KEY;
+
+    if (!apiKey) {
+        throw new Error(
+            "GEMINI_API_KEY no está configurada en Render."
+        );
+    }
+
+    const systemMessage =
+        messages.find(
+            item => item.role === "system"
+        );
+
+    const history =
+        messages.filter(
+            item => item.role !== "system"
+        );
+
+    const contents =
+        history.map(item => ({
+            role:
+                item.role === "assistant"
+                    ? "model"
+                    : "user",
+
+            parts: [
+                {
+                    text:
+                        item.content
+                }
+            ]
+        }));
+
+    const url =
+        `https://generativelanguage.googleapis.com/v1beta/models/${PROVIDERS.gemini.model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+    const data =
+        await fetchJson(
+            url,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+                    systemInstruction: {
+                        parts: [
+                            {
+                                text:
+                                    systemMessage?.content ||
+                                    ""
+                            }
+                        ]
+                    },
+
+                    contents,
+
+                    generationConfig: {
+                        maxOutputTokens:
+                            16000,
+
+                        temperature:
+                            0.7
+                    }
+                })
+            },
+            "Gemini"
+        );
+
+    const answer =
+        data?.candidates?.[0]?.content?.parts
+            ?.map(part => part?.text || "")
+            .join("");
+
+    if (
+        typeof answer !== "string" ||
+        !answer.trim()
+    ) {
+        throw new Error(
+            "Gemini respondió sin contenido."
+        );
+    }
+
+    return answer;
+}
+
+// ============================================================
+// OPENROUTER
+// ============================================================
+
+async function askOpenRouter(messages) {
+    const apiKey =
+        process.env.OPENROUTER_API_KEY;
+
+    if (!apiKey) {
+        throw new Error(
+            "OPENROUTER_API_KEY no está configurada en Render."
+        );
+    }
+
+    const data =
+        await fetchJson(
+            "https://openrouter.ai/api/v1/chat/completions",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json",
+
+                    "Authorization":
+                        `Bearer ${apiKey}`,
+
+                    "HTTP-Referer":
+                        "https://nova-ia-2oup.onrender.com",
+
+                    "X-Title":
+                        "NOVA IA"
+                },
+
+                body: JSON.stringify({
+                    model:
+                        PROVIDERS.openrouter.model,
+
+                    messages,
+
+                    max_tokens:
+                        16000,
+
+                    temperature:
+                        0.7
+                })
+            },
+            "OpenRouter"
+        );
+
+    const answer =
+        data?.choices?.[0]?.message?.content;
+
+    if (
+        typeof answer !== "string" ||
+        !answer.trim()
+    ) {
+        throw new Error(
+            "OpenRouter respondió sin contenido."
+        );
+    }
+
+    return answer;
+}
+
+// ============================================================
+// SELECCIONAR PROVEEDOR
+// ============================================================
+
+async function askProvider(
+    provider,
+    messages
+) {
+    switch (provider) {
+
+        case "groq":
+            return await askGroq(messages);
+
+        case "gemini":
+            return await askGemini(messages);
+
+        case "openrouter":
+            return await askOpenRouter(messages);
+
+        default:
+            throw new Error(
+                `Proveedor no válido: ${provider}`
+            );
+    }
 }
 
 // ============================================================
@@ -1163,34 +1080,56 @@ function getSafeErrorMessage(error) {
 
 async function processChat(req, res) {
     try {
-        const body = req.body || {};
+        const body =
+            req.body || {};
 
         const message =
             typeof body.message === "string"
                 ? body.message.trim()
                 : "";
 
-        const history = body.history;
+        const history =
+            body.history;
+
+        let provider =
+            typeof body.provider === "string"
+                ? body.provider.toLowerCase().trim()
+                : "groq";
+
+        // Si el frontend manda un proveedor inexistente,
+        // usamos Groq como respaldo.
+        if (!PROVIDERS[provider]) {
+            provider = "groq";
+        }
 
         if (!message) {
             return res.status(400).json({
                 success: false,
-                error: "El mensaje está vacío."
+                error:
+                    "El mensaje está vacío."
             });
         }
 
         if (message.length > 30000) {
             return res.status(400).json({
                 success: false,
-                error: "El mensaje es demasiado largo."
+                error:
+                    "El mensaje es demasiado largo."
             });
         }
 
-        if (!process.env.OPENAI_API_KEY) {
+        const providerConfig =
+            PROVIDERS[provider];
+
+        if (
+            !process.env[
+                providerConfig.env
+            ]
+        ) {
             return res.status(500).json({
                 success: false,
                 error:
-                    "OPENAI_API_KEY no está configurada en Render."
+                    `${providerConfig.env} no está configurada en Render.`
             });
         }
 
@@ -1203,6 +1142,16 @@ async function processChat(req, res) {
 
         console.log(
             "NUEVA SOLICITUD"
+        );
+
+        console.log(
+            "Proveedor:",
+            providerConfig.name
+        );
+
+        console.log(
+            "Modelo:",
+            providerConfig.model
         );
 
         console.log(
@@ -1237,11 +1186,19 @@ async function processChat(req, res) {
             );
 
         const answer =
-            await askOpenAI(messages);
+            await askProvider(
+                provider,
+                messages
+            );
 
         conversationMemory.push({
             timestamp:
                 new Date().toISOString(),
+
+            provider,
+
+            model:
+                providerConfig.model,
 
             device:
                 device.type,
@@ -1272,7 +1229,15 @@ async function processChat(req, res) {
 
         return res.json({
             success: true,
-            response: answer,
+
+            response:
+                answer,
+
+            provider,
+
+            model:
+                providerConfig.model,
+
             device
         });
 
@@ -1298,6 +1263,7 @@ async function processChat(req, res) {
             httpStatus
         ).json({
             success: false,
+
             error:
                 `Error procesando el mensaje: ${safeError}`
         });
@@ -1327,6 +1293,7 @@ app.get(
     (req, res) => {
         return res.json({
             success: true,
+
             memory:
                 conversationMemory
         });
@@ -1349,6 +1316,7 @@ app.delete(
 
             return res.json({
                 success: true,
+
                 message:
                     "Memoria eliminada correctamente."
             });
@@ -1361,6 +1329,7 @@ app.delete(
 
             return res.status(500).json({
                 success: false,
+
                 error:
                     "No se pudo eliminar la memoria."
             });
@@ -1380,6 +1349,7 @@ app.get(
 
         return res.json({
             success: true,
+
             device
         });
     }
@@ -1401,19 +1371,40 @@ app.get(
             status:
                 "NOVA IA ONLINE",
 
-            model:
-                MODEL,
-
             creator:
                 "Yander",
 
-            provider:
-                "OpenAI",
+            providers: {
+                groq: {
+                    configured:
+                        Boolean(
+                            process.env.GROQ_API_KEY
+                        ),
 
-            openaiConfigured:
-                Boolean(
-                    process.env.OPENAI_API_KEY
-                ),
+                    model:
+                        PROVIDERS.groq.model
+                },
+
+                gemini: {
+                    configured:
+                        Boolean(
+                            process.env.GEMINI_API_KEY
+                        ),
+
+                    model:
+                        PROVIDERS.gemini.model
+                },
+
+                openrouter: {
+                    configured:
+                        Boolean(
+                            process.env.OPENROUTER_API_KEY
+                        ),
+
+                    model:
+                        PROVIDERS.openrouter.model
+                }
+            },
 
             memory:
                 conversationMemory.length,
@@ -1439,6 +1430,7 @@ if (
     app.get(
         "/*splat",
         (req, res, next) => {
+
             if (
                 req.path.startsWith("/api/") ||
                 req.path === "/chat" ||
@@ -1492,6 +1484,7 @@ app.use(
 
         return res.status(500).json({
             success: false,
+
             error:
                 "Error interno del servidor."
         });
@@ -1506,6 +1499,7 @@ app.listen(
     PORT,
     "0.0.0.0",
     () => {
+
         console.log("");
 
         console.log(
@@ -1529,11 +1523,19 @@ app.listen(
         );
 
         console.log(
-            `Modelo: ${MODEL}`
+            "Proveedores: Groq / Gemini / OpenRouter"
         );
 
         console.log(
-            "Proveedor: OpenAI"
+            `Groq: ${Boolean(process.env.GROQ_API_KEY) ? "CONFIGURADO" : "NO CONFIGURADO"}`
+        );
+
+        console.log(
+            `Gemini: ${Boolean(process.env.GEMINI_API_KEY) ? "CONFIGURADO" : "NO CONFIGURADO"}`
+        );
+
+        console.log(
+            `OpenRouter: ${Boolean(process.env.OPENROUTER_API_KEY) ? "CONFIGURADO" : "NO CONFIGURADO"}`
         );
 
         console.log(
@@ -1542,18 +1544,6 @@ app.listen(
 
         console.log(
             "Entorno principal: DELTA / LUA"
-        );
-
-        console.log(
-            "Análisis avanzado de código: ACTIVADO"
-        );
-
-        console.log(
-            "Autocorrección lógica: ACTIVADA"
-        );
-
-        console.log(
-            "Validación de configuraciones: ACTIVADA"
         );
 
         console.log(
@@ -1571,3 +1561,23 @@ app.listen(
         console.log("");
     }
 );
+
+Ahora haz solo esto
+
+En Render → Environment Variables, asegúrate de tener:
+
+GROQ_API_KEY
+GEMINI_API_KEY
+OPENROUTER_API_KEY
+
+No tienes que instalar nada nuevo.
+
+El backend ya acepta:
+
+provider: "groq"
+provider: "gemini"
+provider: "openrouter"
+
+Groq usa actualmente "openai/gpt-oss-120b", mientras que OpenRouter tiene un router gratuito "openrouter/free"; ambos están documentados como compatibles con sus APIs respectivas.
+
+Después de subir este "server.js" a Render, el siguiente paso es modificar tu "ia.html" para que el botón de las estrellitas abra el selector con Groq / Gemini / OpenRouter, y que al tocar uno realmente mande "provider" al backend.
