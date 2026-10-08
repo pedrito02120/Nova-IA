@@ -1,107 +1,76 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOVA IA</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
+<title>NOVA IA</title><style>
 :root{
-    --yellow:#fff000;
-    --yellow2:#ffe600;
-    --cyan:#58dcff;
-    --cyan2:#22c8ff;
-    --black:#020202;
+    --yellow:#ffd000;
+    --yellow2:#ffb700;
+    --cyan:#00e5ff;
+    --bg:#030303;
     --panel:#080808;
     --panel2:#0d0d0d;
-    --border:rgba(255,240,0,.14);
-    --text:#f5f5f5;
-    --muted:#858585;
+    --border:rgba(255,255,255,.08);
+    --text:#fff;
+    --muted:#8b8b8b;
 }
 
-html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
     font-family:Arial,Helvetica,sans-serif;
-    background:#020202;
-    color:white;
+    overflow:hidden;
 }
 
 .background{
     position:fixed;
     inset:0;
     overflow:hidden;
-    z-index:0;
-    background:
-        radial-gradient(circle at 15% 20%,rgba(255,240,0,.09),transparent 27%),
-        radial-gradient(circle at 85% 75%,rgba(50,210,255,.08),transparent 28%),
-        #020202;
+    pointer-events:none;
+    z-index:-5;
+    background:#030303;
 }
 
 .grid{
     position:absolute;
-    width:170%;
-    height:100%;
-    left:-35%;
-    bottom:-45%;
+    inset:-50%;
     background-image:
-        linear-gradient(rgba(255,240,0,.10) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,240,0,.10) 1px,transparent 1px);
-    background-size:70px 70px;
-    transform:perspective(500px) rotateX(62deg);
-    opacity:.16;
-    animation:gridMove 9s linear infinite;
+        linear-gradient(rgba(255,208,0,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,208,0,.035) 1px,transparent 1px);
+    background-size:45px 45px;
+    transform:perspective(500px) rotateX(60deg);
+    animation:gridMove 15s linear infinite;
 }
 
 @keyframes gridMove{
-    from{
-        transform:perspective(500px) rotateX(62deg) translateY(0);
-    }
-    to{
-        transform:perspective(500px) rotateX(62deg) translateY(70px);
-    }
-}
-
-.orb{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(90px);
-    pointer-events:none;
+    from{transform:perspective(500px) rotateX(60deg) translateY(0)}
+    to{transform:perspective(500px) rotateX(60deg) translateY(45px)}
 }
 
 .orbYellow{
-    width:260px;
-    height:260px;
-    left:-100px;
-    top:10%;
-    background:rgba(255,240,0,.13);
-    animation:floatYellow 10s ease-in-out infinite;
+    position:absolute;
+    width:450px;
+    height:450px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(255,208,0,.12),transparent 70%);
+    top:-200px;
+    right:-100px;
 }
 
 .orbCyan{
-    width:280px;
-    height:280px;
-    right:-120px;
-    bottom:5%;
-    background:rgba(40,210,255,.11);
-    animation:floatCyan 11s ease-in-out infinite;
-}
-
-@keyframes floatYellow{
-    0%,100%{transform:translate(0,0);}
-    50%{transform:translate(40px,-25px);}
-}
-
-@keyframes floatCyan{
-    0%,100%{transform:translate(0,0);}
-    50%{transform:translate(-35px,25px);}
+    position:absolute;
+    width:400px;
+    height:400px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(0,229,255,.07),transparent 70%);
+    bottom:-200px;
+    left:-100px;
 }
 
 .particles{
@@ -113,386 +82,179 @@ html,body{
     position:absolute;
     width:2px;
     height:2px;
-    border-radius:50%;
     background:var(--yellow);
-    box-shadow:0 0 8px var(--yellow);
-    opacity:.35;
-    animation:particleMove linear infinite;
+    border-radius:50%;
+    opacity:.4;
+    animation:float 8s linear infinite;
 }
 
-.particle:nth-child(1){left:8%;top:80%;animation-duration:7s;}
-.particle:nth-child(2){left:18%;top:65%;animation-duration:9s;}
-.particle:nth-child(3){left:30%;top:90%;animation-duration:8s;}
-.particle:nth-child(4){left:44%;top:75%;animation-duration:10s;}
-.particle:nth-child(5){left:58%;top:88%;animation-duration:7s;}
-.particle:nth-child(6){left:69%;top:62%;animation-duration:11s;}
-.particle:nth-child(7){left:78%;top:82%;animation-duration:8s;}
-.particle:nth-child(8){left:88%;top:70%;animation-duration:9s;}
-.particle:nth-child(9){left:94%;top:92%;animation-duration:12s;}
-.particle:nth-child(10){left:52%;top:55%;animation-duration:8s;}
-
-@keyframes particleMove{
-    0%{
-        transform:translateY(30px);
+@keyframes float{
+    from{
+        transform:translateY(100vh);
         opacity:0;
     }
-    50%{
-        opacity:.65;
-    }
-    100%{
-        transform:translateY(-100px);
+    20%{opacity:.5}
+    80%{opacity:.5}
+    to{
+        transform:translateY(-20px);
         opacity:0;
     }
 }
 
 .app{
-    position:relative;
-    z-index:2;
-    width:100%;
-    height:100%;
     display:flex;
+    height:100vh;
+    width:100%;
 }
 
 .sidebar{
-    position:fixed;
-    z-index:50;
-    top:0;
-    left:0;
-    width:310px;
+    width:280px;
     height:100%;
-    padding:18px;
-    background:
-        linear-gradient(145deg,rgba(12,12,12,.98),rgba(3,3,3,.99));
-    border-right:1px solid rgba(255,240,0,.13);
-    box-shadow:
-        15px 0 50px rgba(0,0,0,.65),
-        1px 0 20px rgba(255,240,0,.03);
-    transform:translateX(-105%);
-    transition:transform .32s cubic-bezier(.2,.8,.2,1);
+    background:rgba(5,5,5,.96);
+    border-right:1px solid var(--border);
     display:flex;
     flex-direction:column;
-    overflow:hidden;
-}
-
-.sidebar.open{
-    transform:translateX(0);
-}
-
-.sidebar::before{
-    content:"";
-    position:absolute;
-    top:-180px;
-    left:-180px;
-    width:380px;
-    height:380px;
-    border-radius:50%;
-    background:rgba(255,240,0,.07);
-    filter:blur(80px);
-    pointer-events:none;
-}
-
-.sidebar::after{
-    content:"";
-    position:absolute;
-    bottom:-180px;
-    right:-180px;
-    width:380px;
-    height:380px;
-    border-radius:50%;
-    background:rgba(40,210,255,.055);
-    filter:blur(80px);
-    pointer-events:none;
+    position:relative;
+    z-index:20;
 }
 
 .sidebarTop{
-    position:relative;
-    z-index:2;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:4px 2px 20px;
+    padding:20px;
 }
 
 .brand{
     display:flex;
     align-items:center;
-    gap:11px;
+    gap:12px;
+    margin-bottom:20px;
 }
 
 .brandLogo{
-    width:38px;
-    height:38px;
+    width:42px;
+    height:42px;
     border-radius:12px;
     object-fit:cover;
-    border:1px solid rgba(255,240,0,.3);
-    box-shadow:0 0 18px rgba(255,240,0,.15);
+    border:1px solid rgba(255,208,0,.5);
 }
 
 .brandName{
-    font-size:17px;
+    font-size:20px;
     font-weight:800;
-    letter-spacing:.5px;
-}
-
-.brandName span{
-    color:var(--yellow);
-}
-
-.closeSidebar{
-    width:34px;
-    height:34px;
-    border-radius:10px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.025);
-    color:#aaa;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.closeSidebar:hover{
-    color:white;
-    border-color:rgba(255,240,0,.3);
-    background:rgba(255,240,0,.06);
-}
-
-.closeSidebar svg{
-    width:17px;
-    height:17px;
+    letter-spacing:1px;
 }
 
 .newChat{
-    position:relative;
-    z-index:2;
     width:100%;
-    height:47px;
-    border-radius:13px;
-    border:1px solid rgba(255,240,0,.22);
-    background:linear-gradient(
-        135deg,
-        rgba(255,240,0,.10),
-        rgba(255,240,0,.035)
-    );
-    color:white;
-    display:flex;
-    align-items:center;
-    gap:11px;
-    padding:0 15px;
+    padding:13px;
+    border:1px solid rgba(255,208,0,.3);
+    background:rgba(255,208,0,.06);
+    color:#fff;
+    border-radius:10px;
     cursor:pointer;
-    font-size:14px;
-    font-weight:600;
-    transition:.22s;
-}
-
-.newChat svg{
-    width:18px;
-    height:18px;
-    color:var(--yellow);
+    font-weight:700;
+    transition:.2s;
 }
 
 .newChat:hover{
-    background:rgba(255,240,0,.13);
-    border-color:rgba(255,240,0,.4);
-    transform:translateY(-1px);
+    background:rgba(255,208,0,.14);
+    border-color:var(--yellow);
 }
 
 .searchBox{
-    position:relative;
-    z-index:2;
     margin-top:14px;
-    height:43px;
-    border-radius:12px;
-    background:rgba(255,255,255,.025);
-    border:1px solid rgba(255,255,255,.07);
-    display:flex;
-    align-items:center;
-    padding:0 12px;
-    gap:9px;
-}
-
-.searchBox svg{
-    width:16px;
-    height:16px;
-    color:#777;
+    position:relative;
 }
 
 .searchBox input{
     width:100%;
-    border:0;
-    outline:none;
-    background:transparent;
+    background:#0c0c0c;
+    border:1px solid var(--border);
     color:white;
-    font-size:13px;
-}
-
-.searchBox input::placeholder{
-    color:#666;
-}
-
-.chatTitle{
-    position:relative;
-    z-index:2;
-    margin:22px 4px 9px;
-    color:#666;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
+    padding:11px 12px;
+    border-radius:9px;
+    outline:none;
 }
 
 .chatList{
-    position:relative;
-    z-index:2;
     flex:1;
     overflow-y:auto;
-    padding-right:2px;
+    padding:10px;
 }
 
-.chatList::-webkit-scrollbar{
-    width:3px;
-}
-
-.chatList::-webkit-scrollbar-thumb{
-    background:rgba(255,240,0,.22);
-    border-radius:20px;
+.chatTitle{
+    font-size:11px;
+    color:#666;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    padding:10px;
 }
 
 .chatItem{
-    width:100%;
-    min-height:45px;
-    padding:9px 10px;
-    border-radius:11px;
-    display:flex;
-    align-items:center;
-    gap:9px;
-    cursor:pointer;
+    padding:11px;
+    border-radius:9px;
     color:#aaa;
-    transition:.18s;
-    margin-bottom:3px;
-    border:1px solid transparent;
-}
-
-.chatItem svg{
-    width:16px;
-    height:16px;
-    flex-shrink:0;
-    color:#666;
-}
-
-.chatItem span{
+    cursor:pointer;
+    margin-bottom:4px;
+    white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
-    white-space:nowrap;
-    font-size:13px;
 }
 
-.chatItem:hover{
-    background:rgba(255,255,255,.035);
-    color:white;
-}
-
+.chatItem:hover,
 .chatItem.active{
-    background:linear-gradient(
-        90deg,
-        rgba(255,240,0,.10),
-        rgba(255,240,0,.025)
-    );
-    border-color:rgba(255,240,0,.12);
-    color:white;
-}
-
-.chatItem.active svg{
-    color:var(--yellow);
+    background:#111;
+    color:#fff;
 }
 
 .sidebarBottom{
-    position:relative;
-    z-index:2;
-    padding-top:14px;
-    border-top:1px solid rgba(255,255,255,.06);
+    border-top:1px solid var(--border);
+    padding:14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
 .creatorMini{
     display:flex;
     align-items:center;
     gap:10px;
-    padding:10px;
 }
 
 .creatorAvatar{
     width:35px;
     height:35px;
-    border-radius:11px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--yellow),#ff7300);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-weight:800;
-    color:#050505;
-    background:linear-gradient(135deg,var(--yellow),var(--cyan));
+    color:#000;
+    font-weight:900;
 }
 
-.creatorInfo{
-    flex:1;
-    min-width:0;
+.creatorInfo small{
+    display:block;
+    color:#666;
+    font-size:10px;
 }
 
 .creatorInfo strong{
-    display:block;
     font-size:12px;
-    color:white;
-}
-
-.creatorInfo span{
-    display:block;
-    font-size:10px;
-    color:#666;
-    margin-top:2px;
 }
 
 .settingsBtn{
     width:34px;
     height:34px;
-    border:0;
-    border-radius:9px;
-    background:transparent;
-    color:#666;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:#0c0c0c;
+    color:#aaa;
     cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.settingsBtn:hover{
-    color:var(--yellow);
-    background:rgba(255,240,0,.05);
-}
-
-.settingsBtn svg{
-    width:17px;
-    height:17px;
-}
-
-.overlay{
-    position:fixed;
-    z-index:40;
-    inset:0;
-    background:rgba(0,0,0,.62);
-    backdrop-filter:blur(3px);
-    opacity:0;
-    pointer-events:none;
-    transition:.28s;
-}
-
-.overlay.show{
-    opacity:1;
-    pointer-events:auto;
 }
 
 .main{
-    width:100%;
-    height:100%;
+    flex:1;
+    min-width:0;
     display:flex;
     flex-direction:column;
     position:relative;
@@ -500,282 +262,197 @@ html,body{
 
 .header{
     height:68px;
-    flex-shrink:0;
+    min-height:68px;
+    border-bottom:1px solid var(--border);
+    background:rgba(3,3,3,.82);
+    backdrop-filter:blur(15px);
     display:flex;
     align-items:center;
-    padding:0 20px;
-    border-bottom:1px solid rgba(255,255,255,.055);
-    background:rgba(2,2,2,.55);
-    backdrop-filter:blur(15px);
-    position:relative;
-    z-index:10;
+    padding:0 22px;
+    gap:14px;
 }
 
 .menuBtn{
-    width:39px;
-    height:39px;
-    border:1px solid rgba(255,255,255,.07);
-    border-radius:11px;
-    background:rgba(255,255,255,.025);
-    color:#aaa;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display:none;
+    background:none;
+    border:0;
+    color:white;
+    font-size:22px;
     cursor:pointer;
-    transition:.2s;
-}
-
-.menuBtn:hover{
-    color:var(--yellow);
-    border-color:rgba(255,240,0,.28);
-    background:rgba(255,240,0,.055);
-}
-
-.menuBtn svg{
-    width:19px;
-    height:19px;
 }
 
 .headerBrand{
     display:flex;
     align-items:center;
     gap:10px;
-    margin-left:13px;
 }
 
 .headerLogo{
-    width:34px;
-    height:34px;
-    border-radius:10px;
+    width:32px;
+    height:32px;
+    border-radius:9px;
     object-fit:cover;
-    box-shadow:0 0 15px rgba(255,240,0,.12);
 }
 
 .headerTitle{
-    font-size:16px;
     font-weight:800;
-    letter-spacing:.4px;
-}
-
-.headerTitle span{
-    color:var(--yellow);
+    letter-spacing:1px;
 }
 
 .status{
-    margin-left:auto;
     display:flex;
     align-items:center;
-    gap:7px;
-    color:#777;
+    gap:6px;
+    margin-left:auto;
     font-size:11px;
+    color:#777;
 }
 
 .statusDot{
     width:7px;
     height:7px;
     border-radius:50%;
-    background:#555;
-}
-
-.status.online .statusDot{
-    background:#68ff9c;
-    box-shadow:0 0 8px rgba(104,255,156,.65);
+    background:#00d26a;
+    box-shadow:0 0 8px #00d26a;
 }
 
 .chatArea{
     flex:1;
     overflow-y:auto;
-    padding:30px 18px 160px;
-    scroll-behavior:smooth;
-}
-
-.chatArea::-webkit-scrollbar{
-    width:5px;
-}
-
-.chatArea::-webkit-scrollbar-thumb{
-    background:rgba(255,240,0,.13);
-    border-radius:20px;
+    position:relative;
 }
 
 .chatContent{
-    width:min(900px,100%);
+    max-width:900px;
     margin:auto;
+    padding:35px 20px 150px;
 }
 
 .welcome{
-    min-height:55vh;
+    min-height:60vh;
     display:flex;
     flex-direction:column;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     text-align:center;
-    padding:30px 10px;
 }
 
 .welcomeLogo{
-    width:74px;
-    height:74px;
-    border-radius:22px;
+    width:95px;
+    height:95px;
+    border-radius:25px;
     object-fit:cover;
-    border:1px solid rgba(255,240,0,.25);
-    box-shadow:
-        0 0 35px rgba(255,240,0,.12),
-        0 0 70px rgba(40,210,255,.05);
-    animation:logoFloat 4s ease-in-out infinite;
-}
-
-@keyframes logoFloat{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-5px);}
+    box-shadow:0 0 50px rgba(255,208,0,.15);
+    margin-bottom:22px;
 }
 
 .welcome h1{
-    margin-top:22px;
-    font-size:32px;
-    letter-spacing:-1px;
-}
-
-.welcome h1 span{
-    color:var(--yellow);
+    font-size:36px;
+    margin-bottom:10px;
 }
 
 .welcome p{
-    margin-top:10px;
     color:#777;
-    max-width:510px;
+    max-width:550px;
     line-height:1.6;
-    font-size:14px;
 }
 
 .suggestions{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:8px;
-    margin-top:24px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    width:min(700px,100%);
+    margin-top:28px;
 }
 
 .suggestion{
-    padding:10px 13px;
-    border-radius:11px;
+    padding:14px;
+    border:1px solid var(--border);
     background:rgba(255,255,255,.025);
-    border:1px solid rgba(255,255,255,.07);
+    border-radius:12px;
     color:#aaa;
-    font-size:12px;
     cursor:pointer;
+    text-align:left;
     transition:.2s;
 }
 
 .suggestion:hover{
-    color:white;
-    border-color:rgba(255,240,0,.24);
-    background:rgba(255,240,0,.045);
+    border-color:rgba(255,208,0,.4);
+    color:#fff;
+    transform:translateY(-2px);
 }
 
 .message{
     display:flex;
-    gap:11px;
-    width:100%;
-    margin:18px 0;
-    animation:messageIn .25s ease;
-}
-
-@keyframes messageIn{
-    from{
-        opacity:0;
-        transform:translateY(5px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.message.user{
-    justify-content:flex-end;
-}
-
-.message.ai{
-    justify-content:flex-start;
+    gap:12px;
+    margin:22px 0;
 }
 
 .avatar{
-    width:31px;
-    height:31px;
+    width:34px;
+    height:34px;
+    min-width:34px;
     border-radius:10px;
-    flex-shrink:0;
-    object-fit:cover;
-}
-
-.userAvatar{
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:11px;
+    font-size:12px;
     font-weight:800;
-    color:#050505;
-    background:linear-gradient(135deg,var(--yellow),var(--cyan));
+}
+
+.userAvatar{
+    background:#222;
+}
+
+.aiAvatar{
+    background:linear-gradient(135deg,var(--yellow),#ff7800);
+    color:#000;
 }
 
 .bubble{
-    max-width:min(75%,720px);
-    padding:12px 14px;
-    border-radius:15px;
-    font-size:14px;
+    max-width:calc(100% - 50px);
     line-height:1.65;
+    color:#ddd;
     white-space:pre-wrap;
-    word-break:break-word;
+    word-wrap:break-word;
 }
 
 .message.user .bubble{
-    background:linear-gradient(
-        135deg,
-        rgba(255,240,0,.13),
-        rgba(255,240,0,.055)
-    );
-    border:1px solid rgba(255,240,0,.14);
-    border-bottom-right-radius:5px;
-}
-
-.message.ai .bubble{
-    background:rgba(255,255,255,.025);
-    border:1px solid rgba(255,255,255,.065);
-    border-bottom-left-radius:5px;
+    background:#101010;
+    padding:12px 15px;
+    border-radius:13px;
+    border:1px solid var(--border);
 }
 
 .codeBlock{
-    margin:12px 0;
-    border-radius:12px;
+    margin:14px 0;
+    border:1px solid rgba(255,208,0,.16);
+    border-radius:10px;
     overflow:hidden;
     background:#050505;
-    border:1px solid rgba(255,240,0,.12);
 }
 
 .codeHeader{
     height:36px;
-    padding:0 10px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    background:rgba(255,255,255,.025);
-    border-bottom:1px solid rgba(255,255,255,.055);
+    padding:0 10px;
+    background:#0c0c0c;
+    border-bottom:1px solid var(--border);
 }
 
 .codeLanguage{
     color:#777;
-    font-size:10px;
-    text-transform:uppercase;
-    letter-spacing:1px;
+    font-size:11px;
 }
 
 .copyBtn{
     border:0;
     background:transparent;
-    color:#777;
+    color:#aaa;
     cursor:pointer;
     font-size:11px;
-    padding:5px 7px;
 }
 
 .copyBtn:hover{
@@ -783,463 +460,254 @@ html,body{
 }
 
 .codeBlock pre{
-    padding:14px;
+    padding:15px;
     overflow-x:auto;
     color:#ddd;
-    font-family:monospace;
-    font-size:12px;
-    line-height:1.6;
-}
-
-.codeBlock pre::-webkit-scrollbar{
-    height:4px;
-}
-
-.codeBlock pre::-webkit-scrollbar-thumb{
-    background:rgba(255,240,0,.18);
+    font-family:Consolas,monospace;
+    font-size:13px;
+    line-height:1.55;
 }
 
 .thinking{
-    display:flex;
-    align-items:center;
-    gap:5px;
-}
-
-.thinking span{
-    width:5px;
-    height:5px;
-    border-radius:50%;
-    background:#777;
-    animation:thinking 1.2s infinite;
-}
-
-.thinking span:nth-child(2){
-    animation-delay:.15s;
-}
-
-.thinking span:nth-child(3){
-    animation-delay:.3s;
-}
-
-@keyframes thinking{
-    0%,60%,100%{
-        transform:translateY(0);
-        opacity:.35;
-    }
-    30%{
-        transform:translateY(-4px);
-        opacity:1;
-    }
+    color:#777;
+    font-size:13px;
 }
 
 .typing-cursor{
     display:inline-block;
-    width:2px;
+    width:6px;
     height:15px;
-    margin-left:2px;
     background:var(--yellow);
-    vertical-align:-2px;
-    animation:cursorBlink .7s infinite;
+    margin-left:3px;
+    animation:blink .7s infinite;
+    vertical-align:middle;
 }
 
-@keyframes cursorBlink{
-    50%{opacity:0;}
+@keyframes blink{
+    50%{opacity:0}
 }
 
 .inputArea{
     position:absolute;
-    z-index:15;
     bottom:0;
     left:0;
-    width:100%;
-    padding:16px 18px 20px;
-    background:linear-gradient(
-        to top,
-        rgba(2,2,2,1) 55%,
-        rgba(2,2,2,.82) 80%,
-        transparent
-    );
+    right:0;
+    padding:15px 20px 20px;
+    background:linear-gradient(transparent,rgba(3,3,3,.97) 35%);
 }
 
 .inputWrap{
-    width:min(900px,100%);
+    max-width:900px;
     margin:auto;
-    min-height:56px;
-    border-radius:17px;
-    border:1px solid rgba(255,255,255,.09);
-    background:rgba(10,10,10,.9);
-    backdrop-filter:blur(18px);
+    position:relative;
     display:flex;
     align-items:flex-end;
+    gap:8px;
+    background:#0b0b0b;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:16px;
     padding:8px;
-    box-shadow:
-        0 15px 50px rgba(0,0,0,.45),
-        0 0 0 1px rgba(0,0,0,.4);
-    transition:.2s;
-}
-
-.inputWrap:focus-within{
-    border-color:rgba(255,240,0,.22);
-    box-shadow:
-        0 15px 50px rgba(0,0,0,.45),
-        0 0 25px rgba(255,240,0,.035);
+    box-shadow:0 10px 40px rgba(0,0,0,.4);
 }
 
 #messageInput{
     flex:1;
-    min-width:0;
-    max-height:150px;
     resize:none;
     border:0;
     outline:none;
     background:transparent;
-    color:white;
+    color:#fff;
+    padding:10px;
+    max-height:140px;
+    min-height:42px;
     font-family:inherit;
     font-size:14px;
-    line-height:1.5;
-    padding:10px 9px;
-}
-
-#messageInput::placeholder{
-    color:#666;
 }
 
 .inputBtn{
-    width:40px;
-    height:40px;
-    border:0;
+    width:42px;
+    height:42px;
+    min-width:42px;
     border-radius:11px;
-    background:transparent;
-    color:#777;
+    border:1px solid var(--border);
+    background:#111;
+    color:#aaa;
+    cursor:pointer;
     display:flex;
     align-items:center;
     justify-content:center;
-    cursor:pointer;
-    flex-shrink:0;
     transition:.2s;
 }
 
-.inputBtn:hover{
-    color:white;
-    background:rgba(255,255,255,.05);
-}
-
-.inputBtn svg{
-    width:18px;
-    height:18px;
-}
-
-.aiSelector{
-    margin-right:3px;
-}
-
-.aiSelector:hover,
-.aiSelector.active{
+.inputBtn:hover,
+.inputBtn.active{
     color:var(--yellow);
-    background:rgba(255,240,0,.07);
-}
-
-.aiSelector.active svg{
-    filter:drop-shadow(0 0 6px rgba(255,240,0,.6));
+    border-color:rgba(255,208,0,.5);
+    background:rgba(255,208,0,.07);
 }
 
 .sendBtn{
     background:var(--yellow);
-    color:#050505;
+    color:#000;
+    border-color:var(--yellow);
+    font-weight:900;
 }
 
 .sendBtn:hover{
-    background:#ffff4a;
-    color:#050505;
-    transform:translateY(-1px);
+    background:#ffe05b;
+    color:#000;
 }
 
-.sendBtn:disabled{
-    opacity:.3;
-    cursor:not-allowed;
-    transform:none;
+.aiSelector{
+    font-size:17px;
 }
 
-/* =========================================================
-   SELECTOR DE IA
-========================================================= */
+/* MENU DE IA */
 
 .aiMenu{
     position:fixed;
-    z-index:200;
+    z-index:9999;
     width:340px;
+    max-width:calc(100vw - 20px);
+    background:#090909;
+    border:1px solid rgba(255,208,0,.2);
+    border-radius:15px;
+    box-shadow:0 20px 60px rgba(0,0,0,.65);
     padding:8px;
-    border-radius:18px;
-    background:
-        linear-gradient(
-            145deg,
-            rgba(16,16,16,.98),
-            rgba(5,5,5,.99)
-        );
-    border:1px solid rgba(255,255,255,.10);
-    box-shadow:
-        0 25px 80px rgba(0,0,0,.72),
-        0 0 45px rgba(255,240,0,.055),
-        inset 0 1px 0 rgba(255,255,255,.04);
-    backdrop-filter:blur(25px);
     opacity:0;
     visibility:hidden;
-    transform:translateY(8px) scale(.97);
-    transform-origin:bottom right;
-    transition:
-        opacity .18s ease,
-        transform .22s cubic-bezier(.2,.8,.2,1),
-        visibility .18s;
+    pointer-events:none;
+    transform:translateY(8px) scale(.98);
+    transition:.16s ease;
 }
 
 .aiMenu.show{
     opacity:1;
     visibility:visible;
+    pointer-events:auto;
     transform:translateY(0) scale(1);
 }
 
-.aiMenu::before{
-    content:"";
-    position:absolute;
-    width:150px;
-    height:100px;
-    right:0;
-    bottom:0;
-    background:rgba(255,240,0,.055);
-    filter:blur(45px);
-    border-radius:50%;
-    pointer-events:none;
-}
-
 .aiMenuHeader{
-    position:relative;
-    z-index:2;
-    padding:12px 12px 10px;
-    border-bottom:1px solid rgba(255,255,255,.06);
-    margin-bottom:5px;
+    padding:10px;
 }
 
 .aiMenuTitle{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.aiMenuTitle strong{
-    font-size:13px;
-    font-weight:700;
-    color:#f5f5f5;
-}
-
-.aiMenuTitle span{
-    font-size:9px;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    color:#666;
+    font-weight:800;
+    font-size:14px;
 }
 
 .aiMenuSubtitle{
-    margin-top:5px;
-    font-size:10px;
     color:#666;
+    font-size:10px;
+    margin-top:3px;
 }
 
 .aiOption{
-    position:relative;
-    z-index:2;
-    width:100%;
-    min-height:65px;
-    padding:9px;
-    border-radius:13px;
-    border:1px solid transparent;
-    background:transparent;
-    color:white;
     display:flex;
     align-items:center;
-    gap:11px;
+    gap:10px;
+    padding:11px;
+    border-radius:11px;
     cursor:pointer;
-    text-align:left;
-    transition:
-        background .18s,
-        border-color .18s,
-        transform .18s;
+    border:1px solid transparent;
 }
 
 .aiOption:hover{
-    background:rgba(255,255,255,.045);
-    border-color:rgba(255,255,255,.07);
+    background:#111;
 }
 
 .aiOption.selected{
-    background:
-        linear-gradient(
-            90deg,
-            rgba(255,240,0,.075),
-            rgba(255,240,0,.018)
-        );
-    border-color:rgba(255,240,0,.17);
+    background:rgba(255,208,0,.06);
+    border-color:rgba(255,208,0,.2);
 }
 
 .aiLogo{
-    width:40px;
-    height:40px;
-    border-radius:12px;
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#111;
-    border:1px solid rgba(255,255,255,.08);
-    overflow:hidden;
-    box-shadow:0 5px 18px rgba(0,0,0,.3);
-}
-
-.aiLogo img{
-    width:100%;
-    height:100%;
+    width:34px;
+    height:34px;
+    border-radius:9px;
     object-fit:cover;
+    background:#111;
 }
 
 .aiInfo{
-    min-width:0;
     flex:1;
 }
 
 .aiName{
-    display:flex;
-    align-items:center;
-    gap:7px;
-}
-
-.aiName strong{
     font-size:13px;
     font-weight:700;
 }
 
 .aiBadge{
-    padding:2px 5px;
-    border-radius:5px;
-    background:rgba(255,240,0,.09);
+    font-size:9px;
     color:var(--yellow);
-    font-size:8px;
-    font-weight:700;
-    letter-spacing:.5px;
-    text-transform:uppercase;
+    margin-left:5px;
 }
 
 .aiDescription{
-    display:block;
-    margin-top:3px;
     color:#666;
     font-size:10px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    margin-top:3px;
 }
 
 .aiCheck{
-    width:22px;
-    height:22px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:transparent;
-    border:1px solid rgba(255,255,255,.10);
-    transition:.2s;
-}
-
-.aiCheck svg{
-    width:12px;
-    height:12px;
+    color:var(--yellow);
+    font-size:15px;
+    opacity:0;
 }
 
 .aiOption.selected .aiCheck{
-    color:#050505;
-    background:var(--yellow);
-    border-color:var(--yellow);
-    box-shadow:0 0 13px rgba(255,240,0,.25);
+    opacity:1;
 }
 
 .aiMenuFooter{
-    position:relative;
-    z-index:2;
-    margin-top:4px;
-    padding:9px 10px 6px;
-    border-top:1px solid rgba(255,255,255,.05);
-    display:flex;
-    align-items:center;
-    gap:6px;
+    border-top:1px solid var(--border);
+    margin-top:5px;
+    padding:9px;
     color:#555;
     font-size:9px;
 }
 
-.aiMenuFooterDot{
-    width:5px;
-    height:5px;
-    border-radius:50%;
-    background:#68ff9c;
-    box-shadow:0 0 7px rgba(104,255,156,.6);
-}
-
-.aiCurrent{
-    margin-left:auto;
-    color:#777;
-}
-
-.aiCurrent b{
-    color:#aaa;
-    font-weight:600;
-}
-
-/* =========================================================
-   MODAL ELIMINAR
-========================================================= */
+/* MODAL */
 
 .modal{
     position:fixed;
-    z-index:100;
     inset:0;
+    background:rgba(0,0,0,.7);
+    backdrop-filter:blur(5px);
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:20px;
-    background:rgba(0,0,0,.7);
-    backdrop-filter:blur(7px);
+    z-index:10000;
     opacity:0;
+    visibility:hidden;
     pointer-events:none;
     transition:.2s;
 }
 
 .modal.show{
     opacity:1;
+    visibility:visible;
     pointer-events:auto;
 }
 
 .modalBox{
-    width:min(390px,100%);
-    border-radius:18px;
-    padding:23px;
-    background:#0a0a0a;
-    border:1px solid rgba(255,255,255,.09);
-    box-shadow:0 30px 90px rgba(0,0,0,.7);
-    transform:translateY(8px) scale(.98);
-    transition:.25s;
-}
-
-.modal.show .modalBox{
-    transform:translateY(0) scale(1);
+    width:min(400px,calc(100vw - 30px));
+    background:#0b0b0b;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px;
 }
 
 .modalBox h3{
-    font-size:17px;
+    margin-bottom:8px;
 }
 
 .modalBox p{
     color:#777;
     font-size:13px;
     line-height:1.5;
-    margin-top:8px;
 }
 
 .modalActions{
@@ -1250,205 +718,128 @@ html,body{
 }
 
 .modalBtn{
-    border:0;
-    border-radius:10px;
-    padding:9px 14px;
-    font-size:12px;
+    padding:10px 16px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:#111;
+    color:#fff;
     cursor:pointer;
 }
 
-.cancelBtn{
-    background:rgba(255,255,255,.05);
-    color:#aaa;
+.cancelBtn:hover{
+    background:#181818;
 }
 
 .deleteBtn{
-    background:rgba(255,55,55,.12);
-    color:#ff7777;
-    border:1px solid rgba(255,55,55,.15);
+    background:#b00020;
+    border-color:#b00020;
 }
+
+/* MOBILE */
 
 @media(max-width:700px){
 
     .sidebar{
-        width:min(310px,88vw);
+        position:fixed;
+        left:-290px;
+        top:0;
+        bottom:0;
+        transition:.25s;
+        z-index:100;
+    }
+
+    .sidebar.open{
+        left:0;
+    }
+
+    .menuBtn{
+        display:block;
     }
 
     .header{
-        height:62px;
-        padding:0 13px;
+        padding:0 14px;
     }
 
-    .headerTitle{
-        font-size:15px;
-    }
-
-    .status{
-        display:none;
-    }
-
-    .chatArea{
-        padding:20px 10px 145px;
-    }
-
-    .bubble{
-        max-width:82%;
-        font-size:13px;
-    }
-
-    .inputArea{
-        padding:10px 10px 13px;
-    }
-
-    .inputWrap{
-        min-height:53px;
-        border-radius:15px;
-    }
-
-    #messageInput{
-        font-size:13px;
+    .chatContent{
+        padding:20px 13px 145px;
     }
 
     .welcome h1{
-        font-size:27px;
+        font-size:29px;
     }
 
-    .welcome p{
-        font-size:13px;
+    .welcomeLogo{
+        width:78px;
+        height:78px;
     }
 
-    .suggestion{
-        font-size:11px;
+    .suggestions{
+        grid-template-columns:1fr;
+    }
+
+    .inputArea{
+        padding:10px;
     }
 
     .aiMenu{
         width:calc(100vw - 20px);
-        max-width:380px;
-        left:50% !important;
-        right:auto !important;
-        transform:translate(-50%,8px) scale(.97);
-        transform-origin:bottom center;
-    }
-
-    .aiMenu.show{
-        transform:translate(-50%,0) scale(1);
     }
 }
 
 @media(prefers-reduced-motion:reduce){
-    *,*::before,*::after{
-        animation:none!important;
-        transition:none!important;
-        scroll-behavior:auto!important;
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        transition-duration:.01ms!important;
     }
 }
-</style>
-</head>
-
-<body>
-
-<div class="background">
+</style></head><body><div class="background">
     <div class="grid"></div>
-    <div class="orb orbYellow"></div>
-    <div class="orb orbCyan"></div>
-
-    <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
-</div>
-
-<div class="app">
-
-<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
-
-<aside class="sidebar" id="sidebar">
+    <div class="orbYellow"></div>
+    <div class="orbCyan"></div>
+    <div class="particles" id="particles"></div>
+</div><div class="app"><aside class="sidebar" id="sidebar">
 
     <div class="sidebarTop">
 
         <div class="brand">
-
-            <img
-                class="brandLogo"
-                src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-                alt="Nova"
-            >
-
-            <div class="brandName">
-                NOVA <span>IA</span>
-            </div>
-
+            <img class="brandLogo" src="https://i.ibb.co/whKQvZsw/Nova.jpg">
+            <div class="brandName">NOVA IA</div>
         </div>
 
-        <button class="closeSidebar" onclick="closeSidebar()" aria-label="Cerrar">
-
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 6 6 18M6 6l12 12"/>
-            </svg>
-
+        <button class="newChat" onclick="newChat()">
+            ＋ Nuevo chat
         </button>
 
-    </div>
-
-    <button class="newChat" onclick="newChat()">
-
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 5v14M5 12h14"/>
-        </svg>
-
-        <span>Nuevo chat</span>
-
-    </button>
-
-    <div class="searchBox">
-
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="7"/>
-            <path d="m20 20-4-4"/>
-        </svg>
-
-        <input
-            id="searchInput"
-            type="text"
-            placeholder="Buscar chats..."
-            oninput="searchChats()"
-        >
+        <div class="searchBox">
+            <input
+                id="searchChats"
+                type="text"
+                placeholder="Buscar chats..."
+                oninput="searchChats(this.value)"
+            >
+        </div>
 
     </div>
-
-    <div class="chatTitle">Mis chats</div>
 
     <div class="chatList" id="chatList"></div>
 
     <div class="sidebarBottom">
 
         <div class="creatorMini">
-
             <div class="creatorAvatar">Y</div>
 
             <div class="creatorInfo">
+                <small>Creada por</small>
                 <strong>Yander</strong>
-                <span>Creador de NOVA IA</span>
             </div>
-
-            <button class="settingsBtn" aria-label="Configuración">
-
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/>
-                    <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.7 1.7-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.04 1.56V20h-2.4v-.2a1.7 1.7 0 0 0-1.04-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06-1.7-1.7.06-.06A1.7 1.7 0 0 0 8.46 15a1.7 1.7 0 0 0-1.56-1.04H6v-2.4h.9A1.7 1.7 0 0 0 8.46 10a1.7 1.7 0 0 0-.34-1.88l-.06-.06 1.7-1.7.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 12.74 5.2V5h2.4v.2a1.7 1.7 0 0 0 1.04 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 1.7 1.7-.06.06A1.7 1.7 0 0 0 19.42 10a1.7 1.7 0 0 0 1.56 1.04h.2v2.4h-.2A1.7 1.7 0 0 0 19.4 15Z"/>
-                </svg>
-
-            </button>
-
         </div>
+
+        <button class="settingsBtn" title="Configuración">
+            ⚙
+        </button>
 
     </div>
 
@@ -1456,313 +847,256 @@ html,body{
 
 <main class="main">
 
-<header class="header">
+    <header class="header">
 
-    <button class="menuBtn" onclick="openSidebar()" aria-label="Abrir menú">
-
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-
-    </button>
-
-    <div class="headerBrand">
-
-        <img
-            class="headerLogo"
-            src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-            alt="Nova"
+        <button
+            class="menuBtn"
+            id="menuBtn"
+            onclick="toggleSidebar()"
         >
+            ☰
+        </button>
 
-        <div class="headerTitle">
-            NOVA <span>IA</span>
-        </div>
-
-    </div>
-
-    <div class="status" id="status">
-
-        <span class="statusDot"></span>
-        <span id="statusText">Conectando...</span>
-
-    </div>
-
-</header>
-
-<section class="chatArea" id="chatArea">
-
-    <div class="chatContent" id="chatContent">
-
-        <div class="welcome" id="welcome">
-
+        <div class="headerBrand">
             <img
-                class="welcomeLogo"
+                class="headerLogo"
                 src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-                alt="NOVA IA"
             >
 
-            <h1>
-                Hola, soy <span>NOVA</span>
-            </h1>
+            <div class="headerTitle">
+                NOVA IA
+            </div>
+        </div>
 
-            <p>
-                Tu asistente inteligente para programación,
-                Roblox, Lua y creación de scripts.
-            </p>
+        <div class="status">
+            <span class="statusDot" id="statusDot"></span>
+            <span id="statusText">Conectando...</span>
+        </div>
 
-            <div class="suggestions">
+    </header>
 
-                <button
-                    class="suggestion"
-                    onclick="useSuggestion('Crea un script básico para Roblox')"
+    <section class="chatArea" id="chatArea">
+
+        <div class="chatContent" id="chatContent">
+
+            <div class="welcome" id="welcome">
+
+                <img
+                    class="welcomeLogo"
+                    src="https://i.ibb.co/whKQvZsw/Nova.jpg"
                 >
-                    Crear un script
-                </button>
 
-                <button
-                    class="suggestion"
-                    onclick="useSuggestion('Explícame cómo funciona Roblox Lua')"
-                >
-                    Aprender Lua
-                </button>
+                <h1>Bienvenido a NOVA IA</h1>
 
-                <button
-                    class="suggestion"
-                    onclick="useSuggestion('Ayúdame a crear una GUI para Roblox')"
-                >
-                    Crear una GUI
-                </button>
+                <p>
+                    Tu asistente de programación especializado en
+                    Roblox, Lua y desarrollo.
+                </p>
+
+                <div class="suggestions">
+
+                    <div
+                        class="suggestion"
+                        onclick="useSuggestion('Crea un sistema de leaderstats completo para Roblox')"
+                    >
+                        Crea un sistema de leaderstats para Roblox
+                    </div>
+
+                    <div
+                        class="suggestion"
+                        onclick="useSuggestion('Crea una GUI profesional para Roblox')"
+                    >
+                        Crea una GUI profesional
+                    </div>
+
+                    <div
+                        class="suggestion"
+                        onclick="useSuggestion('Explícame cómo crear un sistema de checkpoints')"
+                    >
+                        Sistema de checkpoints
+                    </div>
+
+                    <div
+                        class="suggestion"
+                        onclick="useSuggestion('Ayúdame a solucionar este error de Lua')"
+                    >
+                        Solucionar error de Lua
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+    </section>
 
-</section>
+    <div class="inputArea">
 
-<div class="inputArea">
+        <div class="inputWrap">
 
-    <div class="inputWrap">
+            <textarea
+                id="messageInput"
+                placeholder="Escribe tu mensaje..."
+                rows="1"
+                onkeydown="handleInputKey(event)"
+                oninput="autoResize(this)"
+            ></textarea>
 
-        <textarea
-            id="messageInput"
-            rows="1"
-            placeholder="Escribe un mensaje a NOVA..."
-            onkeydown="handleKey(event)"
-            oninput="autoResize(this)"
-        ></textarea>
+            <!-- ⭐ BOTÓN CORREGIDO -->
+            <button
+                class="inputBtn aiSelector"
+                id="aiSelectorBtn"
+                onclick="openAISelector(event)"
+                aria-label="Seleccionar IA"
+                title="Seleccionar IA"
+            >
+                ⭐
+            </button>
 
-        <button
-            class="inputBtn aiSelector"
-            id="aiSelectorBtn"
-            onclick="openAISelector()"
-            aria-label="Seleccionar IA"
-            title="Seleccionar IA"
-        >
+            <button
+                class="inputBtn sendBtn"
+                id="sendBtn"
+                onclick="sendMessage()"
+                title="Enviar"
+            >
+                ➤
+            </button>
 
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="m12 3 1.4 5.6L19 10l-5.6 1.4L12 17l-1.4-5.6L5 10l5.6-1.4L12 3Z"/>
-                <path d="m19 15 .7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7L19 15Z"/>
-            </svg>
-
-        </button>
-
-        <button
-            class="inputBtn sendBtn"
-            id="sendBtn"
-            onclick="sendMessage()"
-            aria-label="Enviar"
-        >
-
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h13"/>
-                <path d="m13 6 6 6-6 6"/>
-            </svg>
-
-        </button>
+        </div>
 
     </div>
-
-</div>
 
 </main>
+
+</div><!-- SELECTOR DE IA --><div class="aiMenu" id="aiMenu"><div class="aiMenuHeader">
+
+    <div class="aiMenuTitle">
+        Seleccionar IA
+    </div>
+
+    <div class="aiMenuSubtitle">
+        Elige el proveedor que quieres utilizar
+    </div>
+
 </div>
 
-<!-- =========================================================
-     SELECTOR DE IA
-========================================================= -->
+<div
+    class="aiOption"
+    id="provider-groq"
+    onclick="selectProvider('groq')"
+>
 
-<div class="aiMenu" id="aiMenu">
+    <img
+        class="aiLogo"
+        src="https://www.google.com/s2/favicons?domain=groq.com&sz=128"
+    >
 
-    <div class="aiMenuHeader">
+    <div class="aiInfo">
 
-        <div class="aiMenuTitle">
-
-            <strong>Elegir inteligencia</strong>
-
-            <span>NOVA</span>
-
+        <div class="aiName">
+            Groq
+            <span class="aiBadge">RÁPIDO</span>
         </div>
 
-        <div class="aiMenuSubtitle">
-            Selecciona qué proveedor quieres usar para responder.
+        <div class="aiDescription">
+            Respuestas rápidas para programación
         </div>
 
     </div>
 
-    <button class="aiOption" data-provider="groq" onclick="selectProvider('groq')">
+    <div class="aiCheck">✓</div>
 
-        <div class="aiLogo">
+</div>
 
-            <img
-                src="https://www.google.com/s2/favicons?domain=groq.com&sz=128"
-                alt="Groq"
-            >
+<div
+    class="aiOption"
+    id="provider-gemini"
+    onclick="selectProvider('gemini')"
+>
 
+    <img
+        class="aiLogo"
+        src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128"
+    >
+
+    <div class="aiInfo">
+
+        <div class="aiName">
+            Gemini
         </div>
 
-        <div class="aiInfo">
-
-            <div class="aiName">
-                <strong>Groq</strong>
-                <span class="aiBadge">Rápido</span>
-            </div>
-
-            <span class="aiDescription">
-                Respuestas rápidas para programación y código.
-            </span>
-
+        <div class="aiDescription">
+            IA de Google
         </div>
 
-        <div class="aiCheck">
+    </div>
 
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                <path d="m5 12 4 4L19 6"/>
-            </svg>
+    <div class="aiCheck">✓</div>
 
+</div>
+
+<div
+    class="aiOption"
+    id="provider-openrouter"
+    onclick="selectProvider('openrouter')"
+>
+
+    <img
+        class="aiLogo"
+        src="https://www.google.com/s2/favicons?domain=openrouter.ai&sz=128"
+    >
+
+    <div class="aiInfo">
+
+        <div class="aiName">
+            OpenRouter
         </div>
 
-    </button>
-
-    <button class="aiOption" data-provider="gemini" onclick="selectProvider('gemini')">
-
-        <div class="aiLogo">
-
-            <img
-                src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128"
-                alt="Gemini"
-            >
-
+        <div class="aiDescription">
+            Acceso a diferentes modelos
         </div>
 
-        <div class="aiInfo">
+    </div>
 
-            <div class="aiName">
-                <strong>Gemini</strong>
-                <span class="aiBadge">Google</span>
-            </div>
+    <div class="aiCheck">✓</div>
 
-            <span class="aiDescription">
-                Modelo de Google para respuestas y razonamiento.
-            </span>
+</div>
 
-        </div>
+<div class="aiMenuFooter">
+    NOVA IA • Creada por Yander
+</div>
 
-        <div class="aiCheck">
+</div><!-- MODAL --><div class="modal" id="deleteModal"><div class="modalBox">
 
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                <path d="m5 12 4 4L19 6"/>
-            </svg>
+    <h3>Eliminar chat</h3>
 
-        </div>
+    <p>
+        ¿Seguro que quieres eliminar esta conversación?
+        Esta acción no se puede deshacer.
+    </p>
 
-    </button>
+    <div class="modalActions">
 
-    <button class="aiOption" data-provider="openrouter" onclick="selectProvider('openrouter')">
+        <button
+            class="modalBtn cancelBtn"
+            onclick="closeDeleteModal()"
+        >
+            Cancelar
+        </button>
 
-        <div class="aiLogo">
-
-            <img
-                src="https://www.google.com/s2/favicons?domain=openrouter.ai&sz=128"
-                alt="OpenRouter"
-            >
-
-        </div>
-
-        <div class="aiInfo">
-
-            <div class="aiName">
-                <strong>OpenRouter</strong>
-                <span class="aiBadge">Multi</span>
-            </div>
-
-            <span class="aiDescription">
-                Acceso a diferentes modelos mediante un solo proveedor.
-            </span>
-
-        </div>
-
-        <div class="aiCheck">
-
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                <path d="m5 12 4 4L19 6"/>
-            </svg>
-
-        </div>
-
-    </button>
-
-    <div class="aiMenuFooter">
-
-        <span class="aiMenuFooterDot"></span>
-
-        <span>Proveedor conectado</span>
-
-        <span class="aiCurrent">
-            Actual: <b id="currentProviderText">Groq</b>
-        </span>
+        <button
+            class="modalBtn deleteBtn"
+            onclick="confirmDelete()"
+        >
+            Eliminar
+        </button>
 
     </div>
 
 </div>
 
-<!-- =========================================================
-     MODAL ELIMINAR
-========================================================= -->
-
-<div class="modal" id="deleteModal">
-
-    <div class="modalBox">
-
-        <h3>Eliminar chat</h3>
-
-        <p>
-            ¿Seguro que quieres eliminar esta conversación?
-            Esta acción no se puede deshacer.
-        </p>
-
-        <div class="modalActions">
-
-            <button class="modalBtn cancelBtn" onclick="closeDeleteModal()">
-                Cancelar
-            </button>
-
-            <button class="modalBtn deleteBtn" onclick="confirmDelete()">
-                Eliminar
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-<script>
-
-/* =========================================================
-   CONFIGURACIÓN
-========================================================= */
+</div><script>
 
 const RENDER_URL = "https://nova-ia-2oup.onrender.com";
 const CHAT_URL = RENDER_URL + "/chat";
@@ -1778,223 +1112,58 @@ let currentChatId = localStorage.getItem(CURRENT_KEY);
 let selectedProvider =
     localStorage.getItem(PROVIDER_KEY) || "groq";
 
-let deleteTarget = null;
-let isSending = false;
-
-/* =========================================================
-   PROVEEDORES
-========================================================= */
-
 const PROVIDERS = {
-
     groq:{
         name:"Groq"
     },
-
     gemini:{
         name:"Gemini"
     },
-
     openrouter:{
         name:"OpenRouter"
     }
-
 };
 
-/* =========================================================
-   ELEMENTOS
-========================================================= */
-
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("overlay");
 const chatContent = document.getElementById("chatContent");
 const chatArea = document.getElementById("chatArea");
 const messageInput = document.getElementById("messageInput");
 const sendBtn = document.getElementById("sendBtn");
-const chatList = document.getElementById("chatList");
-const welcome = document.getElementById("welcome");
 
 const aiMenu = document.getElementById("aiMenu");
 const aiSelectorBtn = document.getElementById("aiSelectorBtn");
-const currentProviderText =
-    document.getElementById("currentProviderText");
 
-/* =========================================================
-   SIDEBAR
-========================================================= */
+const sidebar = document.getElementById("sidebar");
 
-function openSidebar(){
+let deleteChatId = null;
+let sending = false;
 
-    sidebar.classList.add("open");
-    overlay.classList.add("show");
+/* PARTICULAS */
 
-}
+function createParticles(){
 
-function closeSidebar(){
+    const container =
+        document.getElementById("particles");
 
-    sidebar.classList.remove("open");
-    overlay.classList.remove("show");
+    for(let i=0;i<35;i++){
 
-}
+        const p = document.createElement("div");
 
-/* =========================================================
-   SELECTOR DE IA
-========================================================= */
+        p.className = "particle";
 
-function openAISelector(){
+        p.style.left =
+            Math.random()*100 + "%";
 
-    if(aiMenu.classList.contains("show")){
+        p.style.animationDelay =
+            Math.random()*8 + "s";
 
-        closeAISelector();
+        p.style.animationDuration =
+            (5 + Math.random()*8) + "s";
 
-        return;
+        container.appendChild(p);
     }
-
-    updateProviderUI();
-
-    positionAISelector();
-
-    aiMenu.classList.add("show");
-
-    aiSelectorBtn.classList.add("active");
-
 }
 
-function closeAISelector(){
-
-    aiMenu.classList.remove("show");
-
-    aiSelectorBtn.classList.remove("active");
-
-}
-
-function positionAISelector(){
-
-    const rect =
-        aiSelectorBtn.getBoundingClientRect();
-
-    const menuWidth =
-        Math.min(340,window.innerWidth - 20);
-
-    let left =
-        rect.right - menuWidth;
-
-    let top =
-        rect.top - 8;
-
-    aiMenu.style.width = menuWidth + "px";
-
-    if(window.innerWidth <= 700){
-
-        left = 10;
-
-        top =
-            Math.max(
-                10,
-                rect.top - aiMenu.offsetHeight - 10
-            );
-
-        aiMenu.style.left = "50%";
-
-        aiMenu.style.top = top + "px";
-
-    }else{
-
-        left =
-            Math.max(
-                10,
-                Math.min(
-                    left,
-                    window.innerWidth - menuWidth - 10
-                )
-            );
-
-        top =
-            Math.max(
-                10,
-                rect.top - aiMenu.offsetHeight - 10
-            );
-
-        aiMenu.style.left = left + "px";
-        aiMenu.style.top = top + "px";
-
-    }
-
-}
-
-function selectProvider(provider){
-
-    if(!PROVIDERS[provider]) return;
-
-    selectedProvider = provider;
-
-    localStorage.setItem(
-        PROVIDER_KEY,
-        selectedProvider
-    );
-
-    updateProviderUI();
-
-    closeAISelector();
-
-}
-
-function updateProviderUI(){
-
-    document.querySelectorAll(".aiOption").forEach(option=>{
-
-        const provider =
-            option.dataset.provider;
-
-        option.classList.toggle(
-            "selected",
-            provider === selectedProvider
-        );
-
-    });
-
-    currentProviderText.textContent =
-        PROVIDERS[selectedProvider]
-        ? PROVIDERS[selectedProvider].name
-        : "Groq";
-
-}
-
-/* =========================================================
-   CERRAR SELECTOR AL TOCAR FUERA
-========================================================= */
-
-document.addEventListener("click",function(event){
-
-    if(
-        aiMenu.classList.contains("show") &&
-        !aiMenu.contains(event.target) &&
-        !aiSelectorBtn.contains(event.target)
-    ){
-
-        closeAISelector();
-
-    }
-
-});
-
-/* =========================================================
-   RECALCULAR SELECTOR
-========================================================= */
-
-window.addEventListener("resize",()=>{
-
-    if(aiMenu.classList.contains("show")){
-
-        positionAISelector();
-
-    }
-
-});
-
-/* =========================================================
-   CHATS
-========================================================= */
+/* STORAGE */
 
 function saveChats(){
 
@@ -2003,359 +1172,260 @@ function saveChats(){
         JSON.stringify(chats)
     );
 
-    localStorage.setItem(
-        CURRENT_KEY,
-        currentChatId || ""
-    );
-
-}
-
-function createChat(){
-
-    const id = Date.now().toString();
-
-    const chat = {
-        id:id,
-        title:"Nuevo chat",
-        messages:[]
-    };
-
-    chats.unshift(chat);
-
-    currentChatId = id;
-
-    saveChats();
-
-    renderChatList();
-
-    return chat;
-
+    if(currentChatId){
+        localStorage.setItem(
+            CURRENT_KEY,
+            currentChatId
+        );
+    }
 }
 
 function getCurrentChat(){
 
     return chats.find(
-        chat => chat.id === currentChatId
+        c => c.id === currentChatId
     );
-
 }
+
+/* NUEVO CHAT */
 
 function newChat(){
 
-    createChat();
+    const chat = {
 
-    chatContent.innerHTML = `
-        <div class="welcome" id="welcome">
+        id:Date.now().toString(),
 
-            <img
-                class="welcomeLogo"
-                src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-                alt="NOVA IA"
-            >
+        title:"Nuevo chat",
 
-            <h1>
-                Hola, soy <span>NOVA</span>
-            </h1>
+        messages:[],
 
-            <p>
-                Tu asistente inteligente para programación,
-                Roblox, Lua y creación de scripts.
-            </p>
+        createdAt:Date.now()
 
-            <div class="suggestions">
+    };
 
-                <button class="suggestion"
-                    onclick="useSuggestion('Crea un script básico para Roblox')">
-                    Crear un script
-                </button>
+    chats.unshift(chat);
 
-                <button class="suggestion"
-                    onclick="useSuggestion('Explícame cómo funciona Roblox Lua')">
-                    Aprender Lua
-                </button>
+    currentChatId = chat.id;
 
-                <button class="suggestion"
-                    onclick="useSuggestion('Ayúdame a crear una GUI para Roblox')">
-                    Crear una GUI
-                </button>
+    saveChats();
 
-            </div>
+    renderChatList();
 
-        </div>
-    `;
-
-    messageInput.value = "";
-
-    autoResize(messageInput);
+    renderCurrentChat();
 
     closeSidebar();
-
-    scrollBottom();
-
 }
 
-function renderChatList(filter=""){
+/* CHAT LIST */
 
-    chatList.innerHTML = "";
+function renderChatList(){
 
-    const filtered =
-        chats.filter(chat =>
-            chat.title
-                .toLowerCase()
-                .includes(filter.toLowerCase())
-        );
+    const list =
+        document.getElementById("chatList");
 
-    if(filtered.length === 0){
+    list.innerHTML = "";
 
-        chatList.innerHTML = `
-            <div style="
-                color:#555;
-                font-size:12px;
-                padding:14px 8px;
-            ">
-                No hay chats
-            </div>
-        `;
+    if(!chats.length){
+
+        const empty =
+            document.createElement("div");
+
+        empty.className = "chatTitle";
+
+        empty.textContent =
+            "No hay conversaciones";
+
+        list.appendChild(empty);
 
         return;
     }
 
-    filtered.forEach(chat=>{
+    chats.forEach(chat => {
 
         const item =
             document.createElement("div");
 
         item.className =
-            "chatItem " +
-            (
-                chat.id === currentChatId
-                ? "active"
-                : ""
-            );
+            "chatItem" +
+            (chat.id === currentChatId
+                ? " active"
+                : "");
 
-        item.innerHTML = `
-            <svg viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.7">
+        item.textContent =
+            chat.title || "Nuevo chat";
 
-                <path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.2 8.2 0 0 1-3.4-.75L4 20l1.75-3.7A7.45 7.45 0 0 1 4.5 12
-                7.5 7.5 0 0 1 12 4.5
-                7.5 7.5 0 0 1 20 11.5Z"/>
+        item.onclick = () => {
 
-            </svg>
+            currentChatId = chat.id;
 
-            <span>
-                ${escapeHtml(chat.title)}
-            </span>
-        `;
+            saveChats();
 
-        item.onclick =
-            () => loadChat(chat.id);
+            renderChatList();
 
-        let pressTimer;
+            renderCurrentChat();
 
-        item.addEventListener(
-            "contextmenu",
-            e=>{
-                e.preventDefault();
+            closeSidebar();
+        };
 
-                openDeleteModal(chat.id);
-            }
-        );
+        item.oncontextmenu = e => {
 
-        item.addEventListener(
-            "touchstart",
-            ()=>{
-                pressTimer =
-                    setTimeout(()=>{
-                        openDeleteModal(chat.id);
-                    },700);
-            }
-        );
+            e.preventDefault();
 
-        item.addEventListener(
-            "touchend",
-            ()=>{
-                clearTimeout(pressTimer);
-            }
-        );
+            openDeleteModal(chat.id);
+        };
 
-        chatList.appendChild(item);
+        list.appendChild(item);
 
     });
-
 }
 
-function loadChat(id){
+/* BUSCAR CHATS */
+
+function searchChats(value){
+
+    value =
+        value.toLowerCase().trim();
+
+    document
+        .querySelectorAll(".chatItem")
+        .forEach(item => {
+
+            item.style.display =
+                item.textContent
+                    .toLowerCase()
+                    .includes(value)
+                    ? ""
+                    : "none";
+        });
+}
+
+/* RENDER CHAT */
+
+function renderCurrentChat(){
 
     const chat =
-        chats.find(c=>c.id===id);
-
-    if(!chat) return;
-
-    currentChatId = id;
-
-    saveChats();
-
-    renderChatList();
+        getCurrentChat();
 
     chatContent.innerHTML = "";
 
-    if(chat.messages.length === 0){
+    if(!chat || !chat.messages.length){
 
-        newChat();
+        showWelcome();
 
         return;
     }
 
-    chat.messages.forEach(message=>{
+    chat.messages.forEach(message => {
 
-        addMessage(
+        addMessageToUI(
             message.role,
             message.content,
             false
         );
-
     });
 
-    closeSidebar();
-
     scrollBottom();
-
 }
 
-/* =========================================================
-   BUSCAR
-========================================================= */
+/* WELCOME */
 
-function searchChats(){
+function showWelcome(){
 
-    const input =
-        document.getElementById("searchInput");
-
-    renderChatList(input.value);
-
-}
-
-/* =========================================================
-   ELIMINAR
-========================================================= */
-
-function openDeleteModal(id){
-
-    deleteTarget = id;
-
-    document
-        .getElementById("deleteModal")
-        .classList.add("show");
-
-}
-
-function closeDeleteModal(){
-
-    deleteTarget = null;
-
-    document
-        .getElementById("deleteModal")
-        .classList.remove("show");
-
-}
-
-function confirmDelete(){
-
-    if(!deleteTarget) return;
-
-    chats =
-        chats.filter(
-            chat=>chat.id!==deleteTarget
-        );
-
-    if(currentChatId===deleteTarget){
-
-        currentChatId = null;
-
-        if(chats.length>0){
-
-            currentChatId =
-                chats[0].id;
-
-        }
-
-    }
-
-    saveChats();
-
-    closeDeleteModal();
-
-    if(currentChatId){
-
-        loadChat(currentChatId);
-
-    }else{
-
-        newChat();
-
-    }
-
-    renderChatList();
-
-}
-
-/* =========================================================
-   MENSAJES
-========================================================= */
-
-function addMessage(
-    role,
-    content,
-    animate=true
-){
-
-    const existingWelcome =
-        document.getElementById("welcome");
-
-    if(existingWelcome){
-
-        existingWelcome.remove();
-
-    }
-
-    const row =
+    const welcome =
         document.createElement("div");
 
-    row.className =
+    welcome.className = "welcome";
+
+    welcome.id = "welcome";
+
+    welcome.innerHTML = `
+
+        <img
+            class="welcomeLogo"
+            src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+        >
+
+        <h1>Bienvenido a NOVA IA</h1>
+
+        <p>
+            Tu asistente de programación especializado en
+            Roblox, Lua y desarrollo.
+        </p>
+
+        <div class="suggestions">
+
+            <div
+                class="suggestion"
+                onclick="useSuggestion('Crea un sistema de leaderstats completo para Roblox')"
+            >
+                Crea un sistema de leaderstats para Roblox
+            </div>
+
+            <div
+                class="suggestion"
+                onclick="useSuggestion('Crea una GUI profesional para Roblox')"
+            >
+                Crea una GUI profesional
+            </div>
+
+            <div
+                class="suggestion"
+                onclick="useSuggestion('Explícame cómo crear un sistema de checkpoints')"
+            >
+                Sistema de checkpoints
+            </div>
+
+            <div
+                class="suggestion"
+                onclick="useSuggestion('Ayúdame a solucionar este error de Lua')"
+            >
+                Solucionar error de Lua
+            </div>
+
+        </div>
+    `;
+
+    chatContent.appendChild(welcome);
+}
+
+/* SUGERENCIAS */
+
+function useSuggestion(text){
+
+    messageInput.value = text;
+
+    autoResize(messageInput);
+
+    messageInput.focus();
+}
+
+/* AGREGAR MENSAJE */
+
+function addMessageToUI(
+    role,
+    content,
+    scroll = true
+){
+
+    const message =
+        document.createElement("div");
+
+    message.className =
         "message " + role;
 
     const avatar =
         document.createElement("div");
 
     avatar.className =
-        "avatar";
+        "avatar " +
+        (role === "user"
+            ? "userAvatar"
+            : "aiAvatar");
 
-    if(role==="user"){
-
-        avatar.classList.add("userAvatar");
-
-        avatar.textContent = "Y";
-
-    }else{
-
-        const img =
-            document.createElement("img");
-
-        img.src =
-            "https://i.ibb.co/whKQvZsw/Nova.jpg";
-
-        img.className =
-            "avatar";
-
-        img.alt =
-            "NOVA";
-
-        row.appendChild(img);
-
-    }
+    avatar.textContent =
+        role === "user"
+            ? "TÚ"
+            : "N";
 
     const bubble =
         document.createElement("div");
@@ -2363,544 +1433,33 @@ function addMessage(
     bubble.className =
         "bubble";
 
-    if(role==="user"){
+    if(role === "assistant"){
 
-        bubble.textContent =
-            content;
-
-        row.appendChild(bubble);
-
-        row.appendChild(avatar);
+        bubble.innerHTML =
+            formatAIResponse(content);
 
     }else{
 
-        row.appendChild(bubble);
-
+        bubble.textContent =
+            content;
     }
 
-    chatContent.appendChild(row);
+    message.appendChild(avatar);
 
-    if(role==="ai"){
+    message.appendChild(bubble);
 
-        renderFormattedContent(
-            bubble,
-            content
-        );
+    chatContent.appendChild(message);
 
+    if(scroll){
+        scrollBottom();
     }
 
     return bubble;
-
 }
 
-/* =========================================================
-   FORMATO
-========================================================= */
+/* FORMATEAR RESPUESTA */
 
-function renderFormattedContent(
-    element,
-    text
-){
-
-    element.innerHTML = "";
-
-    const parts =
-        text.split(
-            /```([\s\S]*?)```/g
-        );
-
-    parts.forEach(
-        (part,index)=>{
-
-            if(index%2===0){
-
-                if(part){
-
-                    const span =
-                        document.createElement("span");
-
-                    span.textContent =
-                        part;
-
-                    element.appendChild(span);
-
-                }
-
-            }else{
-
-                let code = part;
-
-                let language = "code";
-
-                const firstLine =
-                    code
-                        .split("\n")[0]
-                        .trim();
-
-                if(
-                    firstLine &&
-                    /^[a-zA-Z0-9+#_-]{1,20}$/
-                        .test(firstLine)
-                ){
-
-                    language =
-                        firstLine;
-
-                    code =
-                        code.substring(
-                            code.indexOf("\n")+1
-                        );
-
-                }
-
-                const block =
-                    document.createElement("div");
-
-                block.className =
-                    "codeBlock";
-
-                block.innerHTML = `
-                    <div class="codeHeader">
-
-                        <span class="codeLanguage">
-                            ${escapeHtml(language)}
-                        </span>
-
-                        <button class="copyBtn">
-                            Copiar
-                        </button>
-
-                    </div>
-
-                    <pre><code></code></pre>
-                `;
-
-                block
-                    .querySelector("code")
-                    .textContent =
-                    code.trim();
-
-                block
-                    .querySelector(".copyBtn")
-                    .onclick =
-                    async()=>{
-
-                        try{
-
-                            await navigator.clipboard
-                                .writeText(
-                                    code.trim()
-                                );
-
-                            block
-                                .querySelector(".copyBtn")
-                                .textContent =
-                                "Copiado";
-
-                            setTimeout(()=>{
-
-                                block
-                                    .querySelector(".copyBtn")
-                                    .textContent =
-                                    "Copiar";
-
-                            },1200);
-
-                        }catch(e){
-
-                            block
-                                .querySelector(".copyBtn")
-                                .textContent =
-                                "Error";
-
-                        }
-
-                    };
-
-                element.appendChild(block);
-
-            }
-
-        }
-    );
-
-}
-
-/* =========================================================
-   ESCRITURA PROGRESIVA
-========================================================= */
-
-async function typeResponse(
-    bubble,
-    content
-){
-
-    const cursor =
-        document.createElement("span");
-
-    cursor.className =
-        "typing-cursor";
-
-    bubble.appendChild(cursor);
-
-    let text = "";
-
-    const speed = 7;
-
-    for(
-        let i=0;
-        i<content.length;
-        i++
-    ){
-
-        text += content[i];
-
-        cursor.remove();
-
-        bubble.textContent =
-            text;
-
-        bubble.appendChild(cursor);
-
-        scrollBottom();
-
-        await new Promise(
-            resolve =>
-                setTimeout(
-                    resolve,
-                    speed
-                )
-        );
-
-    }
-
-    cursor.remove();
-
-    bubble.innerHTML = "";
-
-    renderFormattedContent(
-        bubble,
-        content
-    );
-
-    scrollBottom();
-
-}
-
-/* =========================================================
-   ENVIAR
-========================================================= */
-
-async function sendMessage(){
-
-    if(isSending) return;
-
-    const message =
-        messageInput.value.trim();
-
-    if(!message) return;
-
-    isSending = true;
-
-    sendBtn.disabled = true;
-
-    if(!currentChatId){
-
-        createChat();
-
-    }
-
-    const chat =
-        getCurrentChat();
-
-    if(!chat){
-
-        isSending = false;
-
-        sendBtn.disabled = false;
-
-        return;
-
-    }
-
-    if(chat.messages.length===0){
-
-        chat.title =
-            message.length>34
-            ? message.substring(0,34)+"..."
-            : message;
-
-    }
-
-    chat.messages.push({
-
-        role:"user",
-
-        content:message
-
-    });
-
-    saveChats();
-
-    renderChatList();
-
-    addMessage(
-        "user",
-        message
-    );
-
-    messageInput.value = "";
-
-    autoResize(
-        messageInput
-    );
-
-    scrollBottom();
-
-    const aiBubble =
-        addMessage(
-            "ai",
-            ""
-        );
-
-    aiBubble.innerHTML = `
-        <div class="thinking">
-
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </div>
-    `;
-
-    scrollBottom();
-
-    try{
-
-        const history =
-            chat.messages.map(
-                item=>({
-                    role:item.role,
-                    content:item.content
-                })
-            );
-
-        const response =
-            await fetch(
-                CHAT_URL,
-                {
-
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:JSON.stringify({
-
-                        message:message,
-
-                        history:history,
-
-                        provider:
-                            selectedProvider
-
-                    })
-
-                }
-            );
-
-        const data =
-            await response.json();
-
-        if(!data.success){
-
-            throw new Error(
-                data.error ||
-                "El servidor devolvió un error."
-            );
-
-        }
-
-        aiBubble.innerHTML = "";
-
-        await typeResponse(
-            aiBubble,
-            data.response
-        );
-
-        chat.messages.push({
-
-            role:"ai",
-
-            content:data.response
-
-        });
-
-        saveChats();
-
-    }catch(error){
-
-        aiBubble.innerHTML = "";
-
-        const errorText =
-            "No pude obtener una respuesta de Nova IA.\n\nDetalle: " +
-            error.message;
-
-        aiBubble.textContent =
-            errorText;
-
-        chat.messages.push({
-
-            role:"ai",
-
-            content:errorText
-
-        });
-
-        saveChats();
-
-    }finally{
-
-        isSending = false;
-
-        sendBtn.disabled = false;
-
-        messageInput.focus();
-
-    }
-
-}
-
-/* =========================================================
-   SUGERENCIAS
-========================================================= */
-
-function useSuggestion(text){
-
-    messageInput.value =
-        text;
-
-    autoResize(
-        messageInput
-    );
-
-    messageInput.focus();
-
-}
-
-/* =========================================================
-   ENTER
-========================================================= */
-
-function handleKey(event){
-
-    if(
-        event.key==="Enter" &&
-        !event.shiftKey
-    ){
-
-        event.preventDefault();
-
-        sendMessage();
-
-    }
-
-}
-
-/* =========================================================
-   AUTO RESIZE
-========================================================= */
-
-function autoResize(element){
-
-    element.style.height =
-        "auto";
-
-    element.style.height =
-        Math.min(
-            element.scrollHeight,
-            150
-        ) + "px";
-
-}
-
-/* =========================================================
-   SCROLL
-========================================================= */
-
-function scrollBottom(){
-
-    requestAnimationFrame(()=>{
-
-        chatArea.scrollTop =
-            chatArea.scrollHeight;
-
-    });
-
-}
-
-/* =========================================================
-   ESTADO DEL SERVIDOR
-========================================================= */
-
-async function checkStatus(){
-
-    const status =
-        document.getElementById("status");
-
-    const statusText =
-        document.getElementById("statusText");
-
-    try{
-
-        const response =
-            await fetch(
-                STATUS_URL,
-                {
-                    cache:"no-store"
-                }
-            );
-
-        if(response.ok){
-
-            status.classList.add(
-                "online"
-            );
-
-            statusText.textContent =
-                "En línea";
-
-        }else{
-
-            status.classList.remove(
-                "online"
-            );
-
-            statusText.textContent =
-                "Sin conexión";
-
-        }
-
-    }catch(error){
-
-        status.classList.remove(
-            "online"
-        );
-
-        statusText.textContent =
-            "Sin conexión";
-
-    }
-
-}
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(text){
+function escapeHTML(text){
 
     return text
         .replace(/&/g,"&amp;")
@@ -2908,125 +1467,853 @@ function escapeHtml(text){
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
+}
+
+function formatAIResponse(text){
+
+    let escaped =
+        escapeHTML(text);
+
+    escaped =
+        escaped.replace(
+            /```(\w+)?\n?([\s\S]*?)```/g,
+            function(match,language,code){
+
+                const lang =
+                    language || "code";
+
+                return `
+                    <div class="codeBlock">
+
+                        <div class="codeHeader">
+
+                            <span class="codeLanguage">
+                                ${lang}
+                            </span>
+
+                            <button
+                                class="copyBtn"
+                                onclick="copyCode(this)"
+                            >
+                                Copiar
+                            </button>
+
+                        </div>
+
+                        <pre>${code.trim()}</pre>                </div>
+            `;
+        }
+    );
+
+escaped =
+    escaped.replace(
+        /\n/g,
+        "<br>"
+    );
+
+return escaped;
 
 }
 
-/* =========================================================
-   INICIO
-========================================================= */
+/* COPIAR */
 
-function init(){
+function copyCode(button){
 
-    updateProviderUI();
+const block =
+    button.closest(".codeBlock");
 
-    if(!currentChatId){
+const code =
+    block.querySelector("pre").innerText;
 
-        if(chats.length===0){
+navigator.clipboard
+    .writeText(code)
+    .then(() => {
 
-            createChat();
+        button.textContent =
+            "Copiado ✓";
+
+        setTimeout(() => {
+
+            button.textContent =
+                "Copiar";
+
+        },1500);
+
+    });
+
+}
+
+/* SCROLL */
+
+function scrollBottom(){
+
+requestAnimationFrame(() => {
+
+    chatArea.scrollTop =
+        chatArea.scrollHeight;
+
+});
+
+}
+
+/* AUTO RESIZE */
+
+function autoResize(el){
+
+el.style.height = "auto";
+
+el.style.height =
+    Math.min(
+        el.scrollHeight,
+        140
+    ) + "px";
+
+}
+
+/* ENTER */
+
+function handleInputKey(event){
+
+if(
+    event.key === "Enter" &&
+    !event.shiftKey
+){
+
+    event.preventDefault();
+
+    sendMessage();
+}
+
+}
+
+/* INDICADOR */
+
+function showThinking(){
+
+const message =
+    document.createElement("div");
+
+message.className =
+    "message assistant";
+
+message.id =
+    "thinkingMessage";
+
+message.innerHTML = `
+
+    <div class="avatar aiAvatar">
+        N
+    </div>
+
+    <div class="bubble thinking">
+        NOVA está pensando
+        <span class="typing-cursor"></span>
+    </div>
+`;
+
+chatContent.appendChild(message);
+
+scrollBottom();
+
+}
+
+function removeThinking(){
+
+const thinking =
+    document.getElementById(
+        "thinkingMessage"
+    );
+
+if(thinking){
+    thinking.remove();
+}
+
+}
+
+/* GUARDAR MENSAJE */
+
+function saveMessage(
+role,
+content
+){
+
+const chat =
+    getCurrentChat();
+
+if(!chat) return;
+
+chat.messages.push({
+    role,
+    content,
+    timestamp:Date.now()
+});
+
+if(
+    role === "user" &&
+    chat.title === "Nuevo chat"
+){
+
+    chat.title =
+        content.length > 35
+            ? content.substring(0,35) + "..."
+            : content;
+}
+
+saveChats();
+
+renderChatList();
+
+}
+
+/* PETICIÓN AL SERVIDOR */
+
+async function requestChat(
+message,
+history,
+provider
+){
+
+const response =
+    await fetch(
+        CHAT_URL,
+        {
+            method:"POST",
+
+            headers:{
+                "Content-Type":
+                    "application/json"
+            },
+
+            body:JSON.stringify({
+
+                message:message,
+
+                history:history,
+
+                provider:provider
+            })
+        }
+    );
+
+let data = null;
+
+try{
+
+    data =
+        await response.json();
+
+}catch(error){
+
+    throw new Error(
+        "El servidor no devolvió JSON."
+    );
+}
+
+if(!response.ok){
+
+    throw new Error(
+        data?.error ||
+        data?.message ||
+        `HTTP ${response.status}`
+    );
+}
+
+if(!data.success){
+
+    throw new Error(
+        data.error ||
+        "El servidor no pudo generar una respuesta."
+    );
+}
+
+return data;
+
+}
+
+/* ENVIAR MENSAJE */
+
+async function sendMessage(){
+
+if(sending) return;
+
+const message =
+    messageInput.value.trim();
+
+if(!message) return;
+
+let chat =
+    getCurrentChat();
+
+if(!chat){
+
+    newChat();
+
+    chat =
+        getCurrentChat();
+}
+
+sending = true;
+
+sendBtn.disabled = true;
+
+const previousHistory =
+    chat.messages.map(m => ({
+        role:m.role,
+        content:m.content
+    }));
+
+addMessageToUI(
+    "user",
+    message
+);
+
+saveMessage(
+    "user",
+    message
+);
+
+messageInput.value = "";
+
+autoResize(messageInput);
+
+showThinking();
+
+try{
+
+    let providerToUse =
+        selectedProvider;
+
+    let data;
+
+    try{
+
+        data =
+            await requestChat(
+                message,
+                previousHistory,
+                providerToUse
+            );
+
+    }catch(error){
+
+        const errorText =
+            String(
+                error?.message || error
+            ).toLowerCase();
+
+        /*
+         * Si Gemini intenta usar un modelo
+         * que ya no está disponible, usamos
+         * Groq como respaldo para que NOVA
+         * siga respondiendo.
+         */
+
+        const geminiModelError =
+            providerToUse === "gemini" &&
+            (
+                errorText.includes("404") ||
+                errorText.includes(
+                    "no longer available"
+                ) ||
+                errorText.includes(
+                    "gemini-2.5-flash"
+                ) ||
+                errorText.includes(
+                    "models/gemini"
+                )
+            );
+
+        if(geminiModelError){
+
+            console.warn(
+                "Gemini presentó un error de modelo. Usando Groq como respaldo."
+            );
+
+            data =
+                await requestChat(
+                    message,
+                    previousHistory,
+                    "groq"
+                );
 
         }else{
 
-            currentChatId =
-                chats[0].id;
-
-            saveChats();
-
+            throw error;
         }
-
     }
 
-    renderChatList();
+    removeThinking();
 
-    const current =
-        getCurrentChat();
+    const answer =
+        data.reply ||
+        data.response ||
+        data.message ||
+        "";
 
-    if(
-        current &&
-        current.messages.length>0
-    ){
+    if(!answer){
 
-        chatContent.innerHTML = "";
+        throw new Error(
+            "NOVA no devolvió ningún texto."
+        );
+    }
 
-        current.messages.forEach(
-            message=>{
+    /*
+     * Primero mostramos la respuesta
+     * completa para evitar problemas
+     * con respuestas cortadas.
+     */
 
-                addMessage(
-                    message.role,
-                    message.content,
-                    false
-                );
+    addMessageToUI(
+        "assistant",
+        answer
+    );
 
-            }
+    saveMessage(
+        "assistant",
+        answer
+    );
+
+}catch(error){
+
+    removeThinking();
+
+    console.error(
+        "Error NOVA IA:",
+        error
+    );
+
+    const errorBubble =
+        addMessageToUI(
+            "assistant",
+            "No pude obtener una respuesta de Nova IA.\n\nDetalle: " +
+            error.message
         );
 
-        scrollBottom();
+    errorBubble.style.color =
+        "#ff7373";
+
+}finally{
+
+    sending = false;
+
+    sendBtn.disabled = false;
+
+    messageInput.focus();
+}
+
+}
+
+/* PROVEEDOR */
+
+function updateProviderUI(){
+
+document
+    .querySelectorAll(".aiOption")
+    .forEach(option => {
+
+        option.classList.remove(
+            "selected"
+        );
+    });
+
+const selected =
+    document.getElementById(
+        "provider-" +
+        selectedProvider
+    );
+
+if(selected){
+
+    selected.classList.add(
+        "selected"
+    );
+}
+
+}
+
+function selectProvider(provider){
+
+if(!PROVIDERS[provider]){
+    return;
+}
+
+selectedProvider =
+    provider;
+
+localStorage.setItem(
+    PROVIDER_KEY,
+    provider
+);
+
+updateProviderUI();
+
+closeAISelector();
+
+}
+
+/* ⭐ SELECTOR CORREGIDO */
+
+function openAISelector(event){
+
+if(event){
+
+    event.preventDefault();
+
+    event.stopPropagation();
+}
+
+if(
+    aiMenu.classList.contains("show")
+){
+
+    closeAISelector();
+
+    return;
+}
+
+updateProviderUI();
+
+/*
+ * Primero mostramos el menú para que
+ * offsetHeight tenga su valor real.
+ */
+
+aiMenu.classList.add("show");
+
+aiSelectorBtn.classList.add(
+    "active"
+);
+
+requestAnimationFrame(() => {
+
+    positionAISelector();
+
+});
+
+}
+
+function closeAISelector(){
+
+aiMenu.classList.remove(
+    "show"
+);
+
+aiSelectorBtn.classList.remove(
+    "active"
+);
+
+}
+
+function positionAISelector(){
+
+if(
+    !aiMenu.classList.contains("show")
+){
+    return;
+}
+
+const rect =
+    aiSelectorBtn.getBoundingClientRect();
+
+const menuWidth =
+    Math.min(
+        340,
+        window.innerWidth - 20
+    );
+
+aiMenu.style.width =
+    menuWidth + "px";
+
+if(window.innerWidth <= 700){
+
+    const left =
+        (window.innerWidth -
+            menuWidth) / 2;
+
+    const top =
+        Math.max(
+            10,
+            rect.top -
+            aiMenu.offsetHeight -
+            10
+        );
+
+    aiMenu.style.left =
+        left + "px";
+
+    aiMenu.style.top =
+        top + "px";
+
+}else{
+
+    let left =
+        rect.right -
+        menuWidth;
+
+    let top =
+        rect.top -
+        aiMenu.offsetHeight -
+        10;
+
+    left =
+        Math.max(
+            10,
+            Math.min(
+                left,
+                window.innerWidth -
+                menuWidth -
+                10
+            )
+        );
+
+    top =
+        Math.max(
+            10,
+            top
+        );
+
+    aiMenu.style.left =
+        left + "px";
+
+    aiMenu.style.top =
+        top + "px";
+}
+
+}
+
+/* CERRAR SELECTOR AL TOCAR FUERA */
+
+document.addEventListener(
+"click",
+function(event){
+
+    if(
+        aiMenu.classList.contains("show") &&
+        !aiMenu.contains(event.target) &&
+        !aiSelectorBtn.contains(event.target)
+    ){
+
+        closeAISelector();
+    }
+}
+
+);
+
+/* ESCAPE */
+
+document.addEventListener(
+"keydown",
+function(event){
+
+    if(event.key === "Escape"){
+
+        closeAISelector();
+    }
+}
+
+);
+
+/* REPOSICIONAR */
+
+window.addEventListener(
+"resize",
+function(){
+
+    if(
+        aiMenu.classList.contains("show")
+    ){
+
+        requestAnimationFrame(
+            positionAISelector
+        );
+    }
+}
+
+);
+
+/* SIDEBAR */
+
+function toggleSidebar(){
+
+sidebar.classList.toggle(
+    "open"
+);
+
+}
+
+function closeSidebar(){
+
+sidebar.classList.remove(
+    "open"
+);
+
+}
+
+/* BORRAR CHAT */
+
+function openDeleteModal(id){
+
+deleteChatId = id;
+
+document
+    .getElementById("deleteModal")
+    .classList.add("show");
+
+}
+
+function closeDeleteModal(){
+
+deleteChatId = null;
+
+document
+    .getElementById("deleteModal")
+    .classList.remove("show");
+
+}
+
+function confirmDelete(){
+
+if(!deleteChatId){
+
+    closeDeleteModal();
+
+    return;
+}
+
+chats =
+    chats.filter(
+        chat =>
+            chat.id !== deleteChatId
+    );
+
+if(
+    currentChatId === deleteChatId
+){
+
+    if(chats.length){
+
+        currentChatId =
+            chats[0].id;
 
     }else{
 
-        if(
-            current &&
-            current.messages.length===0
-        ){
+        currentChatId = null;
+    }
+}
 
-            chatContent.innerHTML = `
+saveChats();
 
-                <div class="welcome" id="welcome">
+if(!currentChatId){
 
-                    <img
-                        class="welcomeLogo"
-                        src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-                        alt="NOVA IA"
-                    >
+    newChat();
 
-                    <h1>
-                        Hola, soy <span>NOVA</span>
-                    </h1>
+}else{
 
-                    <p>
-                        Tu asistente inteligente para programación,
-                        Roblox, Lua y creación de scripts.
-                    </p>
+    renderChatList();
 
-                    <div class="suggestions">
+    renderCurrentChat();
+}
 
-                        <button class="suggestion"
-                            onclick="useSuggestion('Crea un script básico para Roblox')">
-                            Crear un script
-                        </button>
+closeDeleteModal();
 
-                        <button class="suggestion"
-                            onclick="useSuggestion('Explícame cómo funciona Roblox Lua')">
-                            Aprender Lua
-                        </button>
+}
 
-                        <button class="suggestion"
-                            onclick="useSuggestion('Ayúdame a crear una GUI para Roblox')">
-                            Crear una GUI
-                        </button>
+/* STATUS */
 
-                    </div>
+async function checkServer(){
 
-                </div>
+const statusText =
+    document.getElementById(
+        "statusText"
+    );
 
-            `;
+const statusDot =
+    document.getElementById(
+        "statusDot"
+    );
 
-        }
+try{
 
+    const response =
+        await fetch(
+            STATUS_URL,
+            {
+                method:"GET",
+                cache:"no-store"
+            }
+        );
+
+    if(response.ok){
+
+        statusText.textContent =
+            "Online";
+
+        statusDot.style.background =
+            "#00d26a";
+
+        statusDot.style.boxShadow =
+            "0 0 8px #00d26a";
+
+    }else{
+
+        throw new Error();
     }
 
-    checkStatus();
+}catch(error){
 
-    setInterval(
-        checkStatus,
-        30000
-    );
+    statusText.textContent =
+        "Servidor";
+
+    statusDot.style.background =
+        "#ffb000";
+
+    statusDot.style.boxShadow =
+        "0 0 8px #ffb000";
+}
+
+}
+
+/* INICIALIZAR */
+
+function init(){
+
+createParticles();
+
+updateProviderUI();
+
+renderChatList();
+
+if(!currentChatId){
+
+    newChat();
+
+}else{
+
+    const exists =
+        getCurrentChat();
+
+    if(exists){
+
+        renderCurrentChat();
+
+    }else{
+
+        newChat();
+    }
+}
+
+checkServer();
+
+setInterval(
+    checkServer,
+    30000
+);
+
+messageInput.focus();
 
 }
 
 init();
 
-</script>
-
-</body>
+</script></body>
 </html>
