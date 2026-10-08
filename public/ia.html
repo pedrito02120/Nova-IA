@@ -1,8 +1,11 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOVA IA</title><style>
+<title>NOVA IA</title>
+
+<style>
 *{
     margin:0;
     padding:0;
@@ -30,10 +33,6 @@ html,body{
     background:#020202;
     color:white;
 }
-
-/* =========================================================
-   FONDO
-========================================================= */
 
 .background{
     position:fixed;
@@ -146,10 +145,6 @@ html,body{
     }
 }
 
-/* =========================================================
-   APP
-========================================================= */
-
 .app{
     position:relative;
     z-index:2;
@@ -157,10 +152,6 @@ html,body{
     height:100%;
     display:flex;
 }
-
-/* =========================================================
-   SIDEBAR PREMIUM
-========================================================= */
 
 .sidebar{
     position:fixed;
@@ -272,8 +263,6 @@ html,body{
     height:17px;
 }
 
-/* NUEVO CHAT */
-
 .newChat{
     position:relative;
     z-index:2;
@@ -309,8 +298,6 @@ html,body{
     transform:translateY(-1px);
 }
 
-/* BUSCADOR */
-
 .searchBox{
     position:relative;
     z-index:2;
@@ -344,8 +331,6 @@ html,body{
     color:#666;
 }
 
-/* TITULO */
-
 .chatTitle{
     position:relative;
     z-index:2;
@@ -356,8 +341,6 @@ html,body{
     letter-spacing:1.5px;
     text-transform:uppercase;
 }
-
-/* LISTA */
 
 .chatList{
     position:relative;
@@ -423,8 +406,6 @@ html,body{
 .chatItem.active svg{
     color:var(--yellow);
 }
-
-/* PARTE INFERIOR */
 
 .sidebarBottom{
     position:relative;
@@ -493,10 +474,6 @@ html,body{
     height:17px;
 }
 
-/* =========================================================
-   OVERLAY SIDEBAR
-========================================================= */
-
 .overlay{
     position:fixed;
     z-index:40;
@@ -513,10 +490,6 @@ html,body{
     pointer-events:auto;
 }
 
-/* =========================================================
-   MAIN
-========================================================= */
-
 .main{
     width:100%;
     height:100%;
@@ -524,8 +497,6 @@ html,body{
     flex-direction:column;
     position:relative;
 }
-
-/* HEADER */
 
 .header{
     height:68px;
@@ -611,10 +582,6 @@ html,body{
     box-shadow:0 0 8px rgba(104,255,156,.65);
 }
 
-/* =========================================================
-   CHAT AREA
-========================================================= */
-
 .chatArea{
     flex:1;
     overflow-y:auto;
@@ -635,8 +602,6 @@ html,body{
     width:min(900px,100%);
     margin:auto;
 }
-
-/* WELCOME */
 
 .welcome{
     min-height:55vh;
@@ -707,10 +672,6 @@ html,body{
     border-color:rgba(255,240,0,.24);
     background:rgba(255,240,0,.045);
 }
-
-/* =========================================================
-   MENSAJES
-========================================================= */
 
 .message{
     display:flex;
@@ -783,10 +744,6 @@ html,body{
     border-bottom-left-radius:5px;
 }
 
-/* =========================================================
-   CODE
-========================================================= */
-
 .codeBlock{
     margin:12px 0;
     border-radius:12px;
@@ -842,10 +799,6 @@ html,body{
     background:rgba(255,240,0,.18);
 }
 
-/* =========================================================
-   THINKING
-========================================================= */
-
 .thinking{
     display:flex;
     align-items:center;
@@ -879,8 +832,6 @@ html,body{
     }
 }
 
-/* CURSOR ESCRITURA */
-
 .typing-cursor{
     display:inline-block;
     width:2px;
@@ -894,10 +845,6 @@ html,body{
 @keyframes cursorBlink{
     50%{opacity:0;}
 }
-
-/* =========================================================
-   INPUT
-========================================================= */
 
 .inputArea{
     position:absolute;
@@ -957,8 +904,6 @@ html,body{
     color:#666;
 }
 
-/* BOTONES DEL INPUT */
-
 .inputBtn{
     width:40px;
     height:40px;
@@ -988,8 +933,14 @@ html,body{
     margin-right:3px;
 }
 
-.aiSelector:hover{
-    color:var(--cyan);
+.aiSelector:hover,
+.aiSelector.active{
+    color:var(--yellow);
+    background:rgba(255,240,0,.07);
+}
+
+.aiSelector.active svg{
+    filter:drop-shadow(0 0 6px rgba(255,240,0,.6));
 }
 
 .sendBtn{
@@ -1007,6 +958,238 @@ html,body{
     opacity:.3;
     cursor:not-allowed;
     transform:none;
+}
+
+/* =========================================================
+   SELECTOR DE IA
+========================================================= */
+
+.aiMenu{
+    position:fixed;
+    z-index:200;
+    width:340px;
+    padding:8px;
+    border-radius:18px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16,16,16,.98),
+            rgba(5,5,5,.99)
+        );
+    border:1px solid rgba(255,255,255,.10);
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.72),
+        0 0 45px rgba(255,240,0,.055),
+        inset 0 1px 0 rgba(255,255,255,.04);
+    backdrop-filter:blur(25px);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(8px) scale(.97);
+    transform-origin:bottom right;
+    transition:
+        opacity .18s ease,
+        transform .22s cubic-bezier(.2,.8,.2,1),
+        visibility .18s;
+}
+
+.aiMenu.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0) scale(1);
+}
+
+.aiMenu::before{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:100px;
+    right:0;
+    bottom:0;
+    background:rgba(255,240,0,.055);
+    filter:blur(45px);
+    border-radius:50%;
+    pointer-events:none;
+}
+
+.aiMenuHeader{
+    position:relative;
+    z-index:2;
+    padding:12px 12px 10px;
+    border-bottom:1px solid rgba(255,255,255,.06);
+    margin-bottom:5px;
+}
+
+.aiMenuTitle{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.aiMenuTitle strong{
+    font-size:13px;
+    font-weight:700;
+    color:#f5f5f5;
+}
+
+.aiMenuTitle span{
+    font-size:9px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:#666;
+}
+
+.aiMenuSubtitle{
+    margin-top:5px;
+    font-size:10px;
+    color:#666;
+}
+
+.aiOption{
+    position:relative;
+    z-index:2;
+    width:100%;
+    min-height:65px;
+    padding:9px;
+    border-radius:13px;
+    border:1px solid transparent;
+    background:transparent;
+    color:white;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    cursor:pointer;
+    text-align:left;
+    transition:
+        background .18s,
+        border-color .18s,
+        transform .18s;
+}
+
+.aiOption:hover{
+    background:rgba(255,255,255,.045);
+    border-color:rgba(255,255,255,.07);
+}
+
+.aiOption.selected{
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,240,0,.075),
+            rgba(255,240,0,.018)
+        );
+    border-color:rgba(255,240,0,.17);
+}
+
+.aiLogo{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#111;
+    border:1px solid rgba(255,255,255,.08);
+    overflow:hidden;
+    box-shadow:0 5px 18px rgba(0,0,0,.3);
+}
+
+.aiLogo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.aiInfo{
+    min-width:0;
+    flex:1;
+}
+
+.aiName{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.aiName strong{
+    font-size:13px;
+    font-weight:700;
+}
+
+.aiBadge{
+    padding:2px 5px;
+    border-radius:5px;
+    background:rgba(255,240,0,.09);
+    color:var(--yellow);
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+}
+
+.aiDescription{
+    display:block;
+    margin-top:3px;
+    color:#666;
+    font-size:10px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.aiCheck{
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:transparent;
+    border:1px solid rgba(255,255,255,.10);
+    transition:.2s;
+}
+
+.aiCheck svg{
+    width:12px;
+    height:12px;
+}
+
+.aiOption.selected .aiCheck{
+    color:#050505;
+    background:var(--yellow);
+    border-color:var(--yellow);
+    box-shadow:0 0 13px rgba(255,240,0,.25);
+}
+
+.aiMenuFooter{
+    position:relative;
+    z-index:2;
+    margin-top:4px;
+    padding:9px 10px 6px;
+    border-top:1px solid rgba(255,255,255,.05);
+    display:flex;
+    align-items:center;
+    gap:6px;
+    color:#555;
+    font-size:9px;
+}
+
+.aiMenuFooterDot{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:#68ff9c;
+    box-shadow:0 0 7px rgba(104,255,156,.6);
+}
+
+.aiCurrent{
+    margin-left:auto;
+    color:#777;
+}
+
+.aiCurrent b{
+    color:#aaa;
+    font-weight:600;
 }
 
 /* =========================================================
@@ -1085,10 +1268,6 @@ html,body{
     border:1px solid rgba(255,55,55,.15);
 }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
 @media(max-width:700px){
 
     .sidebar{
@@ -1141,6 +1320,19 @@ html,body{
     .suggestion{
         font-size:11px;
     }
+
+    .aiMenu{
+        width:calc(100vw - 20px);
+        max-width:380px;
+        left:50% !important;
+        right:auto !important;
+        transform:translate(-50%,8px) scale(.97);
+        transform-origin:bottom center;
+    }
+
+    .aiMenu.show{
+        transform:translate(-50%,0) scale(1);
+    }
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -1150,109 +1342,121 @@ html,body{
         scroll-behavior:auto!important;
     }
 }
-</style></head><body><!-- =========================================================
-     FONDO
-========================================================= --><div class="background">
+</style>
+</head>
+
+<body>
+
+<div class="background">
     <div class="grid"></div>
     <div class="orb orbYellow"></div>
-    <div class="orb orbCyan"></div><div class="particles">
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-</div>
+    <div class="orb orbCyan"></div>
 
-</div><div class="app"><!-- =========================================================
-     OVERLAY
-========================================================= --><div class="overlay" id="overlay" onclick="closeSidebar()"></div><!-- =========================================================
-     SIDEBAR
-========================================================= --><aside class="sidebar" id="sidebar"><div class="sidebarTop">
-
-    <div class="brand">
-        <img
-            class="brandLogo"
-            src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-            alt="Nova"
-        >
-
-        <div class="brandName">
-            NOVA <span>IA</span>
-        </div>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
     </div>
-
-    <button class="closeSidebar" onclick="closeSidebar()" aria-label="Cerrar">
-
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 6 6 18M6 6l12 12"/>
-        </svg>
-
-    </button>
-
 </div>
 
-<button class="newChat" onclick="newChat()">
+<div class="app">
 
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 5v14M5 12h14"/>
-    </svg>
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
-    <span>Nuevo chat</span>
+<aside class="sidebar" id="sidebar">
 
-</button>
+    <div class="sidebarTop">
 
-<div class="searchBox">
+        <div class="brand">
 
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="7"/>
-        <path d="m20 20-4-4"/>
-    </svg>
+            <img
+                class="brandLogo"
+                src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+                alt="Nova"
+            >
 
-    <input
-        id="searchInput"
-        type="text"
-        placeholder="Buscar chats..."
-        oninput="searchChats()"
-    >
+            <div class="brandName">
+                NOVA <span>IA</span>
+            </div>
 
-</div>
-
-<div class="chatTitle">Mis chats</div>
-
-<div class="chatList" id="chatList"></div>
-
-<div class="sidebarBottom">
-
-    <div class="creatorMini">
-
-        <div class="creatorAvatar">Y</div>
-
-        <div class="creatorInfo">
-            <strong>Yander</strong>
-            <span>Creador de NOVA IA</span>
         </div>
 
-        <button class="settingsBtn" aria-label="Configuración">
+        <button class="closeSidebar" onclick="closeSidebar()" aria-label="Cerrar">
 
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/>
-                <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.7 1.7-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.04 1.56V20h-2.4v-.2a1.7 1.7 0 0 0-1.04-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06-1.7-1.7.06-.06A1.7 1.7 0 0 0 8.46 15a1.7 1.7 0 0 0-1.56-1.04H6v-2.4h.9A1.7 1.7 0 0 0 8.46 10a1.7 1.7 0 0 0-.34-1.88l-.06-.06 1.7-1.7.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 12.74 5.2V5h2.4v.2a1.7 1.7 0 0 0 1.04 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 1.7 1.7-.06.06A1.7 1.7 0 0 0 19.42 10a1.7 1.7 0 0 0 1.56 1.04h.2v2.4h-.2A1.7 1.7 0 0 0 19.4 15Z"/>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6 6 18M6 6l12 12"/>
             </svg>
 
         </button>
 
     </div>
 
-</div>
+    <button class="newChat" onclick="newChat()">
 
-</aside><!-- =========================================================
-     MAIN
-========================================================= --><main class="main"><header class="header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M5 12h14"/>
+        </svg>
+
+        <span>Nuevo chat</span>
+
+    </button>
+
+    <div class="searchBox">
+
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="m20 20-4-4"/>
+        </svg>
+
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Buscar chats..."
+            oninput="searchChats()"
+        >
+
+    </div>
+
+    <div class="chatTitle">Mis chats</div>
+
+    <div class="chatList" id="chatList"></div>
+
+    <div class="sidebarBottom">
+
+        <div class="creatorMini">
+
+            <div class="creatorAvatar">Y</div>
+
+            <div class="creatorInfo">
+                <strong>Yander</strong>
+                <span>Creador de NOVA IA</span>
+            </div>
+
+            <button class="settingsBtn" aria-label="Configuración">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/>
+                    <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.7 1.7-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.04 1.56V20h-2.4v-.2a1.7 1.7 0 0 0-1.04-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06-1.7-1.7.06-.06A1.7 1.7 0 0 0 8.46 15a1.7 1.7 0 0 0-1.56-1.04H6v-2.4h.9A1.7 1.7 0 0 0 8.46 10a1.7 1.7 0 0 0-.34-1.88l-.06-.06 1.7-1.7.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 12.74 5.2V5h2.4v.2a1.7 1.7 0 0 0 1.04 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 1.7 1.7-.06.06A1.7 1.7 0 0 0 19.42 10a1.7 1.7 0 0 0 1.56 1.04h.2v2.4h-.2A1.7 1.7 0 0 0 19.4 15Z"/>
+                </svg>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</aside>
+
+<main class="main">
+
+<header class="header">
 
     <button class="menuBtn" onclick="openSidebar()" aria-label="Abrir menú">
 
@@ -1284,8 +1488,6 @@ html,body{
     </div>
 
 </header>
-
-<!-- CHAT -->
 
 <section class="chatArea" id="chatArea">
 
@@ -1339,8 +1541,6 @@ html,body{
 
 </section>
 
-<!-- INPUT -->
-
 <div class="inputArea">
 
     <div class="inputWrap">
@@ -1353,10 +1553,9 @@ html,body{
             oninput="autoResize(this)"
         ></textarea>
 
-        <!-- SELECTOR DE IA PREPARADO -->
-
         <button
             class="inputBtn aiSelector"
+            id="aiSelectorBtn"
             onclick="openAISelector()"
             aria-label="Seleccionar IA"
             title="Seleccionar IA"
@@ -1387,32 +1586,179 @@ html,body{
 
 </div>
 
-</main></div><!-- =========================================================
-     MODAL
-========================================================= --><div class="modal" id="deleteModal"><div class="modalBox">
+</main>
+</div>
 
-    <h3>Eliminar chat</h3>
+<!-- =========================================================
+     SELECTOR DE IA
+========================================================= -->
 
-    <p>
-        ¿Seguro que quieres eliminar esta conversación?
-        Esta acción no se puede deshacer.
-    </p>
+<div class="aiMenu" id="aiMenu">
 
-    <div class="modalActions">
+    <div class="aiMenuHeader">
 
-        <button class="modalBtn cancelBtn" onclick="closeDeleteModal()">
-            Cancelar
-        </button>
+        <div class="aiMenuTitle">
 
-        <button class="modalBtn deleteBtn" onclick="confirmDelete()">
-            Eliminar
-        </button>
+            <strong>Elegir inteligencia</strong>
+
+            <span>NOVA</span>
+
+        </div>
+
+        <div class="aiMenuSubtitle">
+            Selecciona qué proveedor quieres usar para responder.
+        </div>
+
+    </div>
+
+    <button class="aiOption" data-provider="groq" onclick="selectProvider('groq')">
+
+        <div class="aiLogo">
+
+            <img
+                src="https://www.google.com/s2/favicons?domain=groq.com&sz=128"
+                alt="Groq"
+            >
+
+        </div>
+
+        <div class="aiInfo">
+
+            <div class="aiName">
+                <strong>Groq</strong>
+                <span class="aiBadge">Rápido</span>
+            </div>
+
+            <span class="aiDescription">
+                Respuestas rápidas para programación y código.
+            </span>
+
+        </div>
+
+        <div class="aiCheck">
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <path d="m5 12 4 4L19 6"/>
+            </svg>
+
+        </div>
+
+    </button>
+
+    <button class="aiOption" data-provider="gemini" onclick="selectProvider('gemini')">
+
+        <div class="aiLogo">
+
+            <img
+                src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128"
+                alt="Gemini"
+            >
+
+        </div>
+
+        <div class="aiInfo">
+
+            <div class="aiName">
+                <strong>Gemini</strong>
+                <span class="aiBadge">Google</span>
+            </div>
+
+            <span class="aiDescription">
+                Modelo de Google para respuestas y razonamiento.
+            </span>
+
+        </div>
+
+        <div class="aiCheck">
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <path d="m5 12 4 4L19 6"/>
+            </svg>
+
+        </div>
+
+    </button>
+
+    <button class="aiOption" data-provider="openrouter" onclick="selectProvider('openrouter')">
+
+        <div class="aiLogo">
+
+            <img
+                src="https://www.google.com/s2/favicons?domain=openrouter.ai&sz=128"
+                alt="OpenRouter"
+            >
+
+        </div>
+
+        <div class="aiInfo">
+
+            <div class="aiName">
+                <strong>OpenRouter</strong>
+                <span class="aiBadge">Multi</span>
+            </div>
+
+            <span class="aiDescription">
+                Acceso a diferentes modelos mediante un solo proveedor.
+            </span>
+
+        </div>
+
+        <div class="aiCheck">
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <path d="m5 12 4 4L19 6"/>
+            </svg>
+
+        </div>
+
+    </button>
+
+    <div class="aiMenuFooter">
+
+        <span class="aiMenuFooterDot"></span>
+
+        <span>Proveedor conectado</span>
+
+        <span class="aiCurrent">
+            Actual: <b id="currentProviderText">Groq</b>
+        </span>
 
     </div>
 
 </div>
 
-</div><script>
+<!-- =========================================================
+     MODAL ELIMINAR
+========================================================= -->
+
+<div class="modal" id="deleteModal">
+
+    <div class="modalBox">
+
+        <h3>Eliminar chat</h3>
+
+        <p>
+            ¿Seguro que quieres eliminar esta conversación?
+            Esta acción no se puede deshacer.
+        </p>
+
+        <div class="modalActions">
+
+            <button class="modalBtn cancelBtn" onclick="closeDeleteModal()">
+                Cancelar
+            </button>
+
+            <button class="modalBtn deleteBtn" onclick="confirmDelete()">
+                Eliminar
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
 
 /* =========================================================
    CONFIGURACIÓN
@@ -1424,12 +1770,36 @@ const STATUS_URL = RENDER_URL + "/status";
 
 const CHATS_KEY = "nova_chats";
 const CURRENT_KEY = "nova_current";
+const PROVIDER_KEY = "nova_provider";
 
 let chats = JSON.parse(localStorage.getItem(CHATS_KEY) || "[]");
 let currentChatId = localStorage.getItem(CURRENT_KEY);
 
+let selectedProvider =
+    localStorage.getItem(PROVIDER_KEY) || "groq";
+
 let deleteTarget = null;
 let isSending = false;
+
+/* =========================================================
+   PROVEEDORES
+========================================================= */
+
+const PROVIDERS = {
+
+    groq:{
+        name:"Groq"
+    },
+
+    gemini:{
+        name:"Gemini"
+    },
+
+    openrouter:{
+        name:"OpenRouter"
+    }
+
+};
 
 /* =========================================================
    ELEMENTOS
@@ -1444,27 +1814,200 @@ const sendBtn = document.getElementById("sendBtn");
 const chatList = document.getElementById("chatList");
 const welcome = document.getElementById("welcome");
 
+const aiMenu = document.getElementById("aiMenu");
+const aiSelectorBtn = document.getElementById("aiSelectorBtn");
+const currentProviderText =
+    document.getElementById("currentProviderText");
+
 /* =========================================================
    SIDEBAR
 ========================================================= */
 
 function openSidebar(){
+
     sidebar.classList.add("open");
     overlay.classList.add("show");
+
 }
 
 function closeSidebar(){
+
     sidebar.classList.remove("open");
     overlay.classList.remove("show");
+
 }
+
+/* =========================================================
+   SELECTOR DE IA
+========================================================= */
+
+function openAISelector(){
+
+    if(aiMenu.classList.contains("show")){
+
+        closeAISelector();
+
+        return;
+    }
+
+    updateProviderUI();
+
+    positionAISelector();
+
+    aiMenu.classList.add("show");
+
+    aiSelectorBtn.classList.add("active");
+
+}
+
+function closeAISelector(){
+
+    aiMenu.classList.remove("show");
+
+    aiSelectorBtn.classList.remove("active");
+
+}
+
+function positionAISelector(){
+
+    const rect =
+        aiSelectorBtn.getBoundingClientRect();
+
+    const menuWidth =
+        Math.min(340,window.innerWidth - 20);
+
+    let left =
+        rect.right - menuWidth;
+
+    let top =
+        rect.top - 8;
+
+    aiMenu.style.width = menuWidth + "px";
+
+    if(window.innerWidth <= 700){
+
+        left = 10;
+
+        top =
+            Math.max(
+                10,
+                rect.top - aiMenu.offsetHeight - 10
+            );
+
+        aiMenu.style.left = "50%";
+
+        aiMenu.style.top = top + "px";
+
+    }else{
+
+        left =
+            Math.max(
+                10,
+                Math.min(
+                    left,
+                    window.innerWidth - menuWidth - 10
+                )
+            );
+
+        top =
+            Math.max(
+                10,
+                rect.top - aiMenu.offsetHeight - 10
+            );
+
+        aiMenu.style.left = left + "px";
+        aiMenu.style.top = top + "px";
+
+    }
+
+}
+
+function selectProvider(provider){
+
+    if(!PROVIDERS[provider]) return;
+
+    selectedProvider = provider;
+
+    localStorage.setItem(
+        PROVIDER_KEY,
+        selectedProvider
+    );
+
+    updateProviderUI();
+
+    closeAISelector();
+
+}
+
+function updateProviderUI(){
+
+    document.querySelectorAll(".aiOption").forEach(option=>{
+
+        const provider =
+            option.dataset.provider;
+
+        option.classList.toggle(
+            "selected",
+            provider === selectedProvider
+        );
+
+    });
+
+    currentProviderText.textContent =
+        PROVIDERS[selectedProvider]
+        ? PROVIDERS[selectedProvider].name
+        : "Groq";
+
+}
+
+/* =========================================================
+   CERRAR SELECTOR AL TOCAR FUERA
+========================================================= */
+
+document.addEventListener("click",function(event){
+
+    if(
+        aiMenu.classList.contains("show") &&
+        !aiMenu.contains(event.target) &&
+        !aiSelectorBtn.contains(event.target)
+    ){
+
+        closeAISelector();
+
+    }
+
+});
+
+/* =========================================================
+   RECALCULAR SELECTOR
+========================================================= */
+
+window.addEventListener("resize",()=>{
+
+    if(aiMenu.classList.contains("show")){
+
+        positionAISelector();
+
+    }
+
+});
 
 /* =========================================================
    CHATS
 ========================================================= */
 
 function saveChats(){
-    localStorage.setItem(CHATS_KEY,JSON.stringify(chats));
-    localStorage.setItem(CURRENT_KEY,currentChatId || "");
+
+    localStorage.setItem(
+        CHATS_KEY,
+        JSON.stringify(chats)
+    );
+
+    localStorage.setItem(
+        CURRENT_KEY,
+        currentChatId || ""
+    );
+
 }
 
 function createChat(){
@@ -1482,14 +2025,19 @@ function createChat(){
     currentChatId = id;
 
     saveChats();
+
     renderChatList();
 
     return chat;
+
 }
 
 function getCurrentChat(){
 
-    return chats.find(chat => chat.id === currentChatId);
+    return chats.find(
+        chat => chat.id === currentChatId
+    );
+
 }
 
 function newChat(){
@@ -1537,18 +2085,25 @@ function newChat(){
     `;
 
     messageInput.value = "";
+
     autoResize(messageInput);
+
     closeSidebar();
+
     scrollBottom();
+
 }
 
 function renderChatList(filter=""){
 
     chatList.innerHTML = "";
 
-    const filtered = chats.filter(chat =>
-        chat.title.toLowerCase().includes(filter.toLowerCase())
-    );
+    const filtered =
+        chats.filter(chat =>
+            chat.title
+                .toLowerCase()
+                .includes(filter.toLowerCase())
+        );
 
     if(filtered.length === 0){
 
@@ -1565,119 +2120,168 @@ function renderChatList(filter=""){
         return;
     }
 
-    filtered.forEach(chat => {
+    filtered.forEach(chat=>{
 
-        const item = document.createElement("div");
+        const item =
+            document.createElement("div");
 
         item.className =
             "chatItem " +
-            (chat.id === currentChatId ? "active" : "");
+            (
+                chat.id === currentChatId
+                ? "active"
+                : ""
+            );
 
         item.innerHTML = `
-            <svg viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="1.7">
+            <svg viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7">
+
                 <path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.2 8.2 0 0 1-3.4-.75L4 20l1.75-3.7A7.45 7.45 0 0 1 4.5 12
                 7.5 7.5 0 0 1 12 4.5
                 7.5 7.5 0 0 1 20 11.5Z"/>
+
             </svg>
 
-            <span>${escapeHtml(chat.title)}</span>
+            <span>
+                ${escapeHtml(chat.title)}
+            </span>
         `;
 
-        item.onclick = () => loadChat(chat.id);
+        item.onclick =
+            () => loadChat(chat.id);
 
         let pressTimer;
 
-        item.addEventListener("contextmenu",e=>{
-            e.preventDefault();
-            openDeleteModal(chat.id);
-        });
+        item.addEventListener(
+            "contextmenu",
+            e=>{
+                e.preventDefault();
 
-        item.addEventListener("touchstart",()=>{
-            pressTimer=setTimeout(()=>{
                 openDeleteModal(chat.id);
-            },700);
-        });
+            }
+        );
 
-        item.addEventListener("touchend",()=>{
-            clearTimeout(pressTimer);
-        });
+        item.addEventListener(
+            "touchstart",
+            ()=>{
+                pressTimer =
+                    setTimeout(()=>{
+                        openDeleteModal(chat.id);
+                    },700);
+            }
+        );
+
+        item.addEventListener(
+            "touchend",
+            ()=>{
+                clearTimeout(pressTimer);
+            }
+        );
 
         chatList.appendChild(item);
 
     });
+
 }
 
 function loadChat(id){
 
-    const chat = chats.find(c=>c.id===id);
+    const chat =
+        chats.find(c=>c.id===id);
 
     if(!chat) return;
 
     currentChatId = id;
 
     saveChats();
+
     renderChatList();
 
     chatContent.innerHTML = "";
 
     if(chat.messages.length === 0){
+
         newChat();
+
         return;
     }
 
     chat.messages.forEach(message=>{
-        addMessage(message.role,message.content,false);
+
+        addMessage(
+            message.role,
+            message.content,
+            false
+        );
+
     });
 
     closeSidebar();
+
     scrollBottom();
+
 }
 
 /* =========================================================
-   BUSCAR CHATS
+   BUSCAR
 ========================================================= */
 
 function searchChats(){
 
-    const input = document.getElementById("searchInput");
+    const input =
+        document.getElementById("searchInput");
 
     renderChatList(input.value);
+
 }
 
 /* =========================================================
-   ELIMINAR CHAT
+   ELIMINAR
 ========================================================= */
 
 function openDeleteModal(id){
 
     deleteTarget = id;
 
-    document.getElementById("deleteModal")
+    document
+        .getElementById("deleteModal")
         .classList.add("show");
+
 }
 
 function closeDeleteModal(){
 
     deleteTarget = null;
 
-    document.getElementById("deleteModal")
+    document
+        .getElementById("deleteModal")
         .classList.remove("show");
+
 }
 
 function confirmDelete(){
 
     if(!deleteTarget) return;
 
-    chats = chats.filter(chat=>chat.id!==deleteTarget);
+    chats =
+        chats.filter(
+            chat=>chat.id!==deleteTarget
+        );
 
     if(currentChatId===deleteTarget){
 
         currentChatId = null;
 
         if(chats.length>0){
-            currentChatId = chats[0].id;
+
+            currentChatId =
+                chats[0].id;
+
         }
+
     }
 
     saveChats();
@@ -1685,56 +2289,87 @@ function confirmDelete(){
     closeDeleteModal();
 
     if(currentChatId){
+
         loadChat(currentChatId);
+
     }else{
+
         newChat();
+
     }
 
     renderChatList();
+
 }
 
 /* =========================================================
    MENSAJES
 ========================================================= */
 
-function addMessage(role,content,animate=true){
+function addMessage(
+    role,
+    content,
+    animate=true
+){
 
-    if(welcome){
-        welcome.remove();
+    const existingWelcome =
+        document.getElementById("welcome");
+
+    if(existingWelcome){
+
+        existingWelcome.remove();
+
     }
 
-    const row = document.createElement("div");
+    const row =
+        document.createElement("div");
 
-    row.className = "message " + role;
+    row.className =
+        "message " + role;
 
-    const avatar = document.createElement("div");
-    avatar.className = "avatar";
+    const avatar =
+        document.createElement("div");
+
+    avatar.className =
+        "avatar";
 
     if(role==="user"){
 
         avatar.classList.add("userAvatar");
+
         avatar.textContent = "Y";
 
     }else{
 
-        const img = document.createElement("img");
+        const img =
+            document.createElement("img");
 
-        img.src = "https://i.ibb.co/whKQvZsw/Nova.jpg";
-        img.className = "avatar";
-        img.alt = "NOVA";
+        img.src =
+            "https://i.ibb.co/whKQvZsw/Nova.jpg";
+
+        img.className =
+            "avatar";
+
+        img.alt =
+            "NOVA";
 
         row.appendChild(img);
+
     }
 
-    const bubble = document.createElement("div");
+    const bubble =
+        document.createElement("div");
 
-    bubble.className = "bubble";
+    bubble.className =
+        "bubble";
 
     if(role==="user"){
 
-        bubble.textContent = content;
+        bubble.textContent =
+            content;
 
         row.appendChild(bubble);
+
         row.appendChild(avatar);
 
     }else{
@@ -1747,496 +2382,651 @@ function addMessage(role,content,animate=true){
 
     if(role==="ai"){
 
-        if(animate){
-            renderFormattedContent(bubble,content);
-        }else{
-            renderFormattedContent(bubble,content);
-        }
+        renderFormattedContent(
+            bubble,
+            content
+        );
+
     }
 
     return bubble;
+
 }
 
 /* =========================================================
    FORMATO
 ========================================================= */
 
-function renderFormattedContent(element,text){
+function renderFormattedContent(
+    element,
+    text
+){
 
     element.innerHTML = "";
 
-    const parts = text.split(/```([\s\S]*?)```/g);
+    const parts =
+        text.split(
+            /```([\s\S]*?)```/g
+        );
 
-    parts.forEach((part,index)=>{
+    parts.forEach(
+        (part,index)=>{
 
-        if(index%2===0){
+            if(index%2===0){
 
-            if(part){
-                const span = document.createElement("span");
-                span.textContent = part;
-                element.appendChild(span);
+                if(part){
+
+                    const span =
+                        document.createElement("span");
+
+                    span.textContent =
+                        part;
+
+                    element.appendChild(span);
+
+                }
+
+            }else{
+
+                let code = part;
+
+                let language = "code";
+
+                const firstLine =
+                    code
+                        .split("\n")[0]
+                        .trim();
+
+                if(
+                    firstLine &&
+                    /^[a-zA-Z0-9+#_-]{1,20}$/
+                        .test(firstLine)
+                ){
+
+                    language =
+                        firstLine;
+
+                    code =
+                        code.substring(
+                            code.indexOf("\n")+1
+                        );
+
+                }
+
+                const block =
+                    document.createElement("div");
+
+                block.className =
+                    "codeBlock";
+
+                block.innerHTML = `
+                    <div class="codeHeader">
+
+                        <span class="codeLanguage">
+                            ${escapeHtml(language)}
+                        </span>
+
+                        <button class="copyBtn">
+                            Copiar
+                        </button>
+
+                    </div>
+
+                    <pre><code></code></pre>
+                `;
+
+                block
+                    .querySelector("code")
+                    .textContent =
+                    code.trim();
+
+                block
+                    .querySelector(".copyBtn")
+                    .onclick =
+                    async()=>{
+
+                        try{
+
+                            await navigator.clipboard
+                                .writeText(
+                                    code.trim()
+                                );
+
+                            block
+                                .querySelector(".copyBtn")
+                                .textContent =
+                                "Copiado";
+
+                            setTimeout(()=>{
+
+                                block
+                                    .querySelector(".copyBtn")
+                                    .textContent =
+                                    "Copiar";
+
+                            },1200);
+
+                        }catch(e){
+
+                            block
+                                .querySelector(".copyBtn")
+                                .textContent =
+                                "Error";
+
+                        }
+
+                    };
+
+                element.appendChild(block);
+
             }
 
-        }else{
-
-            let code = part;
-
-            let language = "code";
-
-            const firstLine = code.split("\n")[0].trim();
-
-            if(
-                firstLine &&
-                /^[a-zA-Z0-9+#_-]{1,20}$/.test(firstLine)
-            ){
-
-                language = firstLine;
-                code = code.substring(code.indexOf("\n")+1);
-            }
-
-            const block = document.createElement("div");
-
-            block.className = "codeBlock";
-
-            block.innerHTML = `
-                <div class="codeHeader">
-
-                    <span class="codeLanguage">
-                        ${escapeHtml(language)}
-                    </span>
-
-                    <button class="copyBtn">
-                        Copiar
-                    </button>
-
-                </div>
-
-                <pre><code></code></pre>        `;
-
-        block.querySelector("code").textContent = code.trim();
-
-        block.querySelector(".copyBtn").onclick = async()=>{
-
-            try{
-
-                await navigator.clipboard.writeText(code.trim());
-
-                block.querySelector(".copyBtn").textContent = "Copiado";
-
-                setTimeout(()=>{
-                    block.querySelector(".copyBtn").textContent = "Copiar";
-                },1200);
-
-            }catch(e){
-
-                block.querySelector(".copyBtn").textContent = "Error";
-            }
-        };
-
-        element.appendChild(block);
-    }
-
-});
+        }
+    );
 
 }
 
 /* =========================================================
-ESCRITURA PROGRESIVA
+   ESCRITURA PROGRESIVA
 ========================================================= */
 
-async function typeResponse(bubble,content){
+async function typeResponse(
+    bubble,
+    content
+){
 
-const cursor = document.createElement("span");
+    const cursor =
+        document.createElement("span");
 
-cursor.className = "typing-cursor";
-
-bubble.appendChild(cursor);
-
-let text = "";
-
-const speed = 7;
-
-for(let i=0;i<content.length;i++){
-
-    text += content[i];
-
-    cursor.remove();
-
-    bubble.textContent = text;
+    cursor.className =
+        "typing-cursor";
 
     bubble.appendChild(cursor);
 
-    scrollBottom();
+    let text = "";
 
-    await new Promise(resolve =>
-        setTimeout(resolve,speed)
+    const speed = 7;
+
+    for(
+        let i=0;
+        i<content.length;
+        i++
+    ){
+
+        text += content[i];
+
+        cursor.remove();
+
+        bubble.textContent =
+            text;
+
+        bubble.appendChild(cursor);
+
+        scrollBottom();
+
+        await new Promise(
+            resolve =>
+                setTimeout(
+                    resolve,
+                    speed
+                )
+        );
+
+    }
+
+    cursor.remove();
+
+    bubble.innerHTML = "";
+
+    renderFormattedContent(
+        bubble,
+        content
     );
-}
 
-cursor.remove();
-
-bubble.innerHTML = "";
-
-renderFormattedContent(bubble,content);
-
-scrollBottom();
+    scrollBottom();
 
 }
 
 /* =========================================================
-ENVIAR
+   ENVIAR
 ========================================================= */
 
 async function sendMessage(){
 
-if(isSending) return;
+    if(isSending) return;
 
-const message = messageInput.value.trim();
+    const message =
+        messageInput.value.trim();
 
-if(!message) return;
+    if(!message) return;
 
-isSending = true;
+    isSending = true;
 
-sendBtn.disabled = true;
+    sendBtn.disabled = true;
 
-if(!currentChatId){
-    createChat();
-}
+    if(!currentChatId){
 
-const chat = getCurrentChat();
+        createChat();
 
-if(!chat) return;
-
-if(chat.messages.length===0){
-
-    chat.title =
-        message.length>34
-        ? message.substring(0,34)+"..."
-        : message;
-
-}
-
-chat.messages.push({
-    role:"user",
-    content:message
-});
-
-saveChats();
-renderChatList();
-
-addMessage("user",message);
-
-messageInput.value = "";
-
-autoResize(messageInput);
-
-scrollBottom();
-
-const aiBubble = addMessage("ai","");
-
-aiBubble.innerHTML = `
-    <div class="thinking">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-`;
-
-scrollBottom();
-
-try{
-
-    const history = chat.messages.map(item=>({
-        role:item.role,
-        content:item.content
-    }));
-
-    const response = await fetch(CHAT_URL,{
-
-        method:"POST",
-
-        headers:{
-            "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-            message:message,
-            history:history
-        })
-
-    });
-
-    const data = await response.json();
-
-    if(!data.success){
-
-        throw new Error(
-            data.error || "El servidor devolvió un error."
-        );
     }
 
-    aiBubble.innerHTML = "";
+    const chat =
+        getCurrentChat();
 
-    await typeResponse(
-        aiBubble,
-        data.response
+    if(!chat){
+
+        isSending = false;
+
+        sendBtn.disabled = false;
+
+        return;
+
+    }
+
+    if(chat.messages.length===0){
+
+        chat.title =
+            message.length>34
+            ? message.substring(0,34)+"..."
+            : message;
+
+    }
+
+    chat.messages.push({
+
+        role:"user",
+
+        content:message
+
+    });
+
+    saveChats();
+
+    renderChatList();
+
+    addMessage(
+        "user",
+        message
     );
 
-    chat.messages.push({
-        role:"ai",
-        content:data.response
-    });
+    messageInput.value = "";
 
-    saveChats();
+    autoResize(
+        messageInput
+    );
 
-}catch(error){
+    scrollBottom();
 
-    aiBubble.innerHTML = "";
+    const aiBubble =
+        addMessage(
+            "ai",
+            ""
+        );
 
-    const errorText =
-        "No pude obtener una respuesta de Nova IA.\n\nDetalle: " +
-        error.message;
+    aiBubble.innerHTML = `
+        <div class="thinking">
 
-    aiBubble.textContent = errorText;
+            <span></span>
+            <span></span>
+            <span></span>
 
-    chat.messages.push({
-        role:"ai",
-        content:errorText
-    });
+        </div>
+    `;
 
-    saveChats();
+    scrollBottom();
 
-}finally{
+    try{
 
-    isSending = false;
-    sendBtn.disabled = false;
+        const history =
+            chat.messages.map(
+                item=>({
+                    role:item.role,
+                    content:item.content
+                })
+            );
+
+        const response =
+            await fetch(
+                CHAT_URL,
+                {
+
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        message:message,
+
+                        history:history,
+
+                        provider:
+                            selectedProvider
+
+                    })
+
+                }
+            );
+
+        const data =
+            await response.json();
+
+        if(!data.success){
+
+            throw new Error(
+                data.error ||
+                "El servidor devolvió un error."
+            );
+
+        }
+
+        aiBubble.innerHTML = "";
+
+        await typeResponse(
+            aiBubble,
+            data.response
+        );
+
+        chat.messages.push({
+
+            role:"ai",
+
+            content:data.response
+
+        });
+
+        saveChats();
+
+    }catch(error){
+
+        aiBubble.innerHTML = "";
+
+        const errorText =
+            "No pude obtener una respuesta de Nova IA.\n\nDetalle: " +
+            error.message;
+
+        aiBubble.textContent =
+            errorText;
+
+        chat.messages.push({
+
+            role:"ai",
+
+            content:errorText
+
+        });
+
+        saveChats();
+
+    }finally{
+
+        isSending = false;
+
+        sendBtn.disabled = false;
+
+        messageInput.focus();
+
+    }
+
+}
+
+/* =========================================================
+   SUGERENCIAS
+========================================================= */
+
+function useSuggestion(text){
+
+    messageInput.value =
+        text;
+
+    autoResize(
+        messageInput
+    );
 
     messageInput.focus();
 
 }
 
-}
-
 /* =========================================================
-SUGERENCIAS
-========================================================= */
-
-function useSuggestion(text){
-
-messageInput.value = text;
-
-autoResize(messageInput);
-
-messageInput.focus();
-
-}
-
-/* =========================================================
-ENTER
+   ENTER
 ========================================================= */
 
 function handleKey(event){
 
-if(event.key==="Enter" && !event.shiftKey){
+    if(
+        event.key==="Enter" &&
+        !event.shiftKey
+    ){
 
-    event.preventDefault();
+        event.preventDefault();
 
-    sendMessage();
-}
+        sendMessage();
+
+    }
 
 }
 
 /* =========================================================
-AUTO RESIZE
+   AUTO RESIZE
 ========================================================= */
 
 function autoResize(element){
 
-element.style.height="auto";
+    element.style.height =
+        "auto";
 
-element.style.height =
-    Math.min(element.scrollHeight,150)+"px";
+    element.style.height =
+        Math.min(
+            element.scrollHeight,
+            150
+        ) + "px";
 
 }
 
 /* =========================================================
-SCROLL
+   SCROLL
 ========================================================= */
 
 function scrollBottom(){
 
-requestAnimationFrame(()=>{
-    chatArea.scrollTop = chatArea.scrollHeight;
-});
+    requestAnimationFrame(()=>{
+
+        chatArea.scrollTop =
+            chatArea.scrollHeight;
+
+    });
 
 }
 
 /* =========================================================
-SELECTOR DE IA
-PREPARADO PARA LA ÚLTIMA PARTE
-========================================================= */
-
-function openAISelector(){
-
-console.log("Selector de IA preparado.");
-
-/*
-   AQUÍ SE AÑADIRÁ POSTERIORMENTE:
-
-   - GPT
-   - Claude
-   - Gemini
-   - Groq
-   - Otros modelos
-
-   El botón ya está preparado.
-*/
-
-}
-
-/* =========================================================
-ESTADO DEL SERVIDOR
+   ESTADO DEL SERVIDOR
 ========================================================= */
 
 async function checkStatus(){
 
-const status = document.getElementById("status");
-const statusText = document.getElementById("statusText");
+    const status =
+        document.getElementById("status");
 
-try{
+    const statusText =
+        document.getElementById("statusText");
 
-    const response = await fetch(
-        STATUS_URL,
-        {cache:"no-store"}
-    );
+    try{
 
-    if(response.ok){
+        const response =
+            await fetch(
+                STATUS_URL,
+                {
+                    cache:"no-store"
+                }
+            );
 
-        status.classList.add("online");
+        if(response.ok){
 
-        statusText.textContent = "En línea";
+            status.classList.add(
+                "online"
+            );
 
-    }else{
+            statusText.textContent =
+                "En línea";
 
-        status.classList.remove("online");
+        }else{
 
-        statusText.textContent = "Sin conexión";
+            status.classList.remove(
+                "online"
+            );
+
+            statusText.textContent =
+                "Sin conexión";
+
+        }
+
+    }catch(error){
+
+        status.classList.remove(
+            "online"
+        );
+
+        statusText.textContent =
+            "Sin conexión";
+
     }
-
-}catch(error){
-
-    status.classList.remove("online");
-
-    statusText.textContent = "Sin conexión";
-}
 
 }
 
 /* =========================================================
-ESCAPE HTML
+   ESCAPE HTML
 ========================================================= */
 
 function escapeHtml(text){
 
-return text
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    return text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
 /* =========================================================
-INICIO
+   INICIO
 ========================================================= */
 
 function init(){
 
-if(!currentChatId){
+    updateProviderUI();
 
-    if(chats.length===0){
+    if(!currentChatId){
 
-        createChat();
+        if(chats.length===0){
+
+            createChat();
+
+        }else{
+
+            currentChatId =
+                chats[0].id;
+
+            saveChats();
+
+        }
+
+    }
+
+    renderChatList();
+
+    const current =
+        getCurrentChat();
+
+    if(
+        current &&
+        current.messages.length>0
+    ){
+
+        chatContent.innerHTML = "";
+
+        current.messages.forEach(
+            message=>{
+
+                addMessage(
+                    message.role,
+                    message.content,
+                    false
+                );
+
+            }
+        );
+
+        scrollBottom();
 
     }else{
 
-        currentChatId = chats[0].id;
-        saveChats();
-    }
-}
+        if(
+            current &&
+            current.messages.length===0
+        ){
 
-renderChatList();
+            chatContent.innerHTML = `
 
-const current = getCurrentChat();
+                <div class="welcome" id="welcome">
 
-if(current && current.messages.length>0){
+                    <img
+                        class="welcomeLogo"
+                        src="https://i.ibb.co/whKQvZsw/Nova.jpg"
+                        alt="NOVA IA"
+                    >
 
-    chatContent.innerHTML = "";
+                    <h1>
+                        Hola, soy <span>NOVA</span>
+                    </h1>
 
-    current.messages.forEach(message=>{
-        addMessage(
-            message.role,
-            message.content,
-            false
-        );
-    });
+                    <p>
+                        Tu asistente inteligente para programación,
+                        Roblox, Lua y creación de scripts.
+                    </p>
 
-    scrollBottom();
+                    <div class="suggestions">
 
-}else{
+                        <button class="suggestion"
+                            onclick="useSuggestion('Crea un script básico para Roblox')">
+                            Crear un script
+                        </button>
 
-    if(current && current.messages.length===0){
+                        <button class="suggestion"
+                            onclick="useSuggestion('Explícame cómo funciona Roblox Lua')">
+                            Aprender Lua
+                        </button>
 
-        chatContent.innerHTML = `
-            <div class="welcome" id="welcome">
+                        <button class="suggestion"
+                            onclick="useSuggestion('Ayúdame a crear una GUI para Roblox')">
+                            Crear una GUI
+                        </button>
 
-                <img
-                    class="welcomeLogo"
-                    src="https://i.ibb.co/whKQvZsw/Nova.jpg"
-                    alt="NOVA IA"
-                >
-
-                <h1>
-                    Hola, soy <span>NOVA</span>
-                </h1>
-
-                <p>
-                    Tu asistente inteligente para programación,
-                    Roblox, Lua y creación de scripts.
-                </p>
-
-                <div class="suggestions">
-
-                    <button class="suggestion"
-                        onclick="useSuggestion('Crea un script básico para Roblox')">
-                        Crear un script
-                    </button>
-
-                    <button class="suggestion"
-                        onclick="useSuggestion('Explícame cómo funciona Roblox Lua')">
-                        Aprender Lua
-                    </button>
-
-                    <button class="suggestion"
-                        onclick="useSuggestion('Ayúdame a crear una GUI para Roblox')">
-                        Crear una GUI
-                    </button>
+                    </div>
 
                 </div>
 
-            </div>
-        `;
+            `;
+
+        }
+
     }
-}
 
-checkStatus();
+    checkStatus();
 
-setInterval(checkStatus,30000);
+    setInterval(
+        checkStatus,
+        30000
+    );
 
 }
 
 init();
 
-</script></body>
+</script>
+
+</body>
 </html>
